@@ -38,49 +38,51 @@ class AccountOrderLineInheritance(models.Model):
 
         #Get Lot Name and Expiry Date from Stock Move
         #Loop in Lots inside Stock Move to Get Required Data
-        for mapped in mapped_lines.lot_id:
-            if mapped.expiration_date:
-                date = mapped.expiration_date.date()
-                str_date = date.strftime('%m/%Y')
-                name = mapped.name
-                product = mapped.product_id.name
+        if mapped_lines.lot_id:
+            for mapped in mapped_lines.lot_id:
+                if mapped.expiration_date:
+                    date = mapped.expiration_date.date()
+                    str_date = date.strftime('%m/%Y')
+                    name = mapped.name
+                    product = mapped.product_id.name
 
-                list_dates.append(str_date)
-                list_names.append(name)
-                list_product.append(product)
+                    list_dates.append(str_date)
+                    list_names.append(name)
+                    list_product.append(product)
 
-                list_dict['dates'] = list_dates
-                list_dict['names'] = list_names
-                list_dict['products'] = list_product
-                print('>>>>>>>>>>>>>>>>>>>', list_dict['dates'])
-            else:
-                for rec in self:
-                    rec.product_name = []
+                    list_dict['dates'] = list_dates
+                    list_dict['names'] = list_names
+                    list_dict['products'] = list_product
+                    print('>>>>>>>>>>>>>>>>>>>', list_dict['dates'])
+                else:
+                    for rec in self:
+                        rec.product_name = []
 
+            for rec in self:
 
-        for rec in self:
+                def list_duplicates_of(seq, item):
+                    start_at = -1
+                    locs = []
+                    while True:
+                        try:
+                            loc = seq.index(item, start_at + 1)
+                        except ValueError:
+                            break
+                        else:
+                            locs.append(loc)
+                            start_at = loc
+                    return locs
 
-            def list_duplicates_of(seq, item):
-                start_at = -1
-                locs = []
-                while True:
-                    try:
-                        loc = seq.index(item, start_at + 1)
-                    except ValueError:
-                        break
-                    else:
-                        locs.append(loc)
-                        start_at = loc
-                return locs
+                index_list = list_duplicates_of(list_product, rec.product_id.name)
 
-            index_list = list_duplicates_of(list_product, rec.product_id.name)
+                for indexes in index_list:
+                    # names = ' Lot No. : '+ list_dict['names'][indexes] + 'Product : ' + list_dict['products'][indexes] + '  Expiray: ' + list_dict['dates'][indexes]
+                    names = ' Lot : ' + list_dict['names'][indexes] + ' | Expiray: ' + list_dict['dates'][indexes]
+                    final.append(names)
+                    last_name = final[min(index_list):max(index_list) + 1]
+                    rec.product_name = last_name
 
-
-
-            for indexes in index_list:
-                # names = ' Lot No. : '+ list_dict['names'][indexes] + 'Product : ' + list_dict['products'][indexes] + '  Expiray: ' + list_dict['dates'][indexes]
-                names = ' Lot : '+ list_dict['names'][indexes] +  ' | Expiray: ' + list_dict['dates'][indexes]
-                final.append(names)
-                last_name = final[min(index_list):max(index_list)+1]
-                rec.product_name = last_name
-
+        else:
+            self.product_name = []        
+        
+        
