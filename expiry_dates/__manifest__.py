@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
-    'name': 'Expiray in Invoice',
+    'name': 'Expiry in Invoice',
     'sequence': 1,
     'author' : 'Mohamed Yaseen Dahab',
     'category': 'Accounting/Accounting',
-    'summary': 'Add Expiray Date in an Invoice Line',
+    'summary': 'Add Expiry Date in an Invoice Line',
     'description': """
             ### Add Expiration Date on Invoice Line / Inventory Adjustment
             
