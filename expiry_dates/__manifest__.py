@@ -26,5 +26,5 @@
     'images': ['images/main_screenshot.png''images/expiry_adjust.PNG','images/invoice_report.PNG'],
     'installable': True,
     'application': True,
-    'license': 'LGPL',
+    'license': 'LGPL-3',
 }
