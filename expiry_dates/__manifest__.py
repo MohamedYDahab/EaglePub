@@ -23,10 +23,8 @@
         'views/inherit_stock.xml',
         'report/inherit_invoice_report.xml'
     ],
-    'price': 59,
-    'currency' : 'USD',
     'images': ['images/main_screenshot.png''images/expiry_adjust.PNG','images/invoice_report.PNG'],
     'installable': True,
     'application': True,
-    'license': 'OPL-1',
+    'license': 'LGPL',
 }
