@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template inherit_id="account.report_invoice_document" id="inherited_invoice_report_template">
+        <xpath expr="//t/div[hasclass('mt-5')]/div[1]/table[1]/thead/tr/th[2]" position="after">
+            <th name="product_name" class="text-right">Expiray</th>
+        </xpath>
+
+        <xpath expr="//t/div[hasclass('mt-5')]/div[1]/table[1]/tbody/t[3]/tr[1]/t[1]/td[2]" position="after">
+<!--            <td name="td_quantity" class="text-right">-->
+<!--                <span t-field="line.qty_delivered"/>-->
+<!--                <span t-field="line.product_uom"/>-->
+<!--            </td>-->
+            <td name="product_name" class="text-right">
+                <span t-field="line.product_name"/>
+            </td>
+        </xpath>
+
+    </template>
+
+</odoo>
