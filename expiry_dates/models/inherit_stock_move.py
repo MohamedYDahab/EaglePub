@@ -79,7 +79,7 @@ class AccountOrderLineInheritance(models.Model):
 
             for indexes in index_list:
                 # names = ' Lot No. : '+ list_dict['names'][indexes] + 'Product : ' + list_dict['products'][indexes] + '  Expiray: ' + list_dict['dates'][indexes]
-                names = ' Lot : '+ list_dict['names'][indexes] +  '  Expiray: ' + list_dict['dates'][indexes]
+                names = ' Lot : '+ list_dict['names'][indexes] +  ' | Expiray: ' + list_dict['dates'][indexes]
                 final.append(names)
                 last_name = final[min(index_list):max(index_list)+1]
                 rec.product_name = last_name
