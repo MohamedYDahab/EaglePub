@@ -15,7 +15,7 @@
             </xpath>
 
             <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='quantity']" position="after" >
-                <field name="product_name" string="Expiray" optional="hide"/>
+                <field name="expiry_date" string="Expiry Date" optional="hide"/>
             </xpath>
         </field>
     </record>
