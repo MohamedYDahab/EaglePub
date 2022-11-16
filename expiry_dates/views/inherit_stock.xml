@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+
+
+
+
+    <record id="lot_form_view_inherited" model="ir.ui.view">
+        <field name="name">lot.view.form.inherited</field>
+        <field name="model">stock.lot</field>
+        <field name="inherit_id" ref="product_expiry.view_move_form_expiry"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='expiration_date']" position="replace">
+                <field name="expiration_date" string="Expiry"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="lot_tree_view_inherited" model="ir.ui.view">
+        <field name="name">lot.view.tree.inherited</field>
+        <field name="model">stock.lot</field>
+        <field name="inherit_id" ref="product_expiry.view_production_lot_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='expiration_date']" position="replace">
+                <field name="expiration_date" string="Expiry"/>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>
