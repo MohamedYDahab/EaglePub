@@ -2,16 +2,13 @@
 
 <odoo>
 
-
-
-
-    <record id="lot_form_view_inherited" model="ir.ui.view">
-        <field name="name">lot.view.form.inherited</field>
-        <field name="model">stock.lot</field>
-        <field name="inherit_id" ref="product_expiry.view_move_form_expiry"/>
+    <record id="inventory_adjustment_tree_inherited" model="ir.ui.view">
+        <field name="name">inventory.adjustment.tree.inherited</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree_inventory_editable"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='expiration_date']" position="replace">
-                <field name="expiration_date" string="Expiry"/>
+            <xpath expr="//field[@name='lot_id']" position="after">
+                <field name="lot_expiray" string="Lot Expiray"/>
             </xpath>
 
         </field>
@@ -25,6 +22,19 @@
             <xpath expr="//field[@name='expiration_date']" position="replace">
                 <field name="expiration_date" string="Expiry"/>
             </xpath>
+        </field>
+    </record>
+
+
+    <record id="lot_form_view_inherited" model="ir.ui.view">
+        <field name="name">lot.view.form.inherited</field>
+        <field name="model">stock.lot</field>
+        <field name="inherit_id" ref="product_expiry.view_move_form_expiry"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='expiration_date']" position="replace">
+                <field name="expiration_date" string="Expiray"/>
+            </xpath>
+
         </field>
     </record>
 
