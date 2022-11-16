@@ -24,7 +24,7 @@
         'views/inherit_stock.xml',
         'report/inherit_invoice_report.xml',
     ],
-    'images': ['images/main_screenshot.png''images/expiry_adjust.PNG', 'images/invoice_report.PNG', 'images/inventory_adjustment.PNG', 'images/invoice_line.PNG'],
+    'images': ['images/main_screenshhot.png','images/main_screenshot.png','images/expiry_adjust.PNG', 'images/invoice_report.PNG', 'images/inventory_adjustment.PNG', 'images/invoice_line.PNG'],
     'installable': True,
     'application': True,
     'license': 'LGPL-3',
