@@ -20,7 +20,7 @@ class AccountOrderLineInheritance(models.Model):
 
 
     so_name = fields.Many2one('sale.order',string='sale order line')
-    expiry_date = fields.Text(string="Product Name", compute="computed_expiry")
+    expiry_date = fields.Char(string="Product Name", compute="computed_expiry")
 
 
     def computed_expiry(self):
@@ -38,24 +38,27 @@ class AccountOrderLineInheritance(models.Model):
 
         #Get Lot Name and Expiry Date from Stock Move
         #Loop in Lots inside Stock Move to Get Required Data
-        for mapped in mapped_lines.lot_id:
-            if mapped.expiration_date:
-                date = mapped.expiration_date.date()
-                str_date = date.strftime('%m/%Y')
-                name = mapped.name
-                product = mapped.product_id.name
+        if mapped_lines:
+            for mapped in mapped_lines.lot_id:
+                if mapped.expiration_date:
+                    date = mapped.expiration_date.date()
+                    str_date = date.strftime('%m/%Y')
+                    name = mapped.name
+                    product = mapped.product_id.name
 
-                list_dates.append(str_date)
-                list_names.append(name)
-                list_product.append(product)
+                    list_dates.append(str_date)
+                    list_names.append(name)
+                    list_product.append(product)
 
-                list_dict['dates'] = list_dates
-                list_dict['names'] = list_names
-                list_dict['products'] = list_product
-                print('>>>>>>>>>>>>>>>>>>>', list_dict['dates'])
-            else:
-                for rec in self:
-                    rec.expiry_date = []
+                    list_dict['dates'] = list_dates
+                    list_dict['names'] = list_names
+                    list_dict['products'] = list_product
+                else:
+                    for rec in self:
+                        rec.expiry_date = []
+        else:
+            for rec in self:
+                rec.expiry_date = []
 
 
         for rec in self:
@@ -79,8 +82,13 @@ class AccountOrderLineInheritance(models.Model):
 
             for indexes in index_list:
                 # names = ' Lot No. : '+ list_dict['names'][indexes] + 'Product : ' + list_dict['products'][indexes] + '  Expiray: ' + list_dict['dates'][indexes]
-                names = ' Lot : '+ list_dict['names'][indexes] +  ' | Expiry: ' + list_dict['dates'][indexes]
+                # names = ' Lot : '+ list_dict['names'][indexes] +  ' | Expiry: ' + list_dict['dates'][indexes]
+                names = list_dict['names'][indexes] + '|Expiry:' + list_dict['dates'][indexes]
+
                 final.append(names)
                 last_name = final[min(index_list):max(index_list)+1]
-                rec.expiry_date = last_name
+                if last_name:
+                    rec.expiry_date = last_name
+                else:
+                    rec.expiry_date = []
 
