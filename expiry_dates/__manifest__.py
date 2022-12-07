@@ -19,7 +19,6 @@
         'views/inherit_stock.xml',
         'views/inherit_purchase_order_view.xml',
         'views/inherit_sale_order_view.xml',
-        'report/inherit_arabic_invoice_report.xml',
         'report/inherit_invoice_report.xml',
     ],
     'images': ['images/main_screenshhot.png','images/main_screenshot.png','images/expiry_adjust.PNG', 'images/invoice_report.PNG', 'images/inventory_adjustment.PNG', 'images/invoice_line.PNG'],
