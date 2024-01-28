@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+
+    <template id="report_invoice_document_inherited" inherit_id="account.report_invoice_document">
+        <xpath expr="//table" position="replace">
+            <table class="table table-sm o_main_table table-borderless" name="invoice_line_table">
+                <thead>
+                    <tr>
+                        <th name="th_description" class="text-start">
+                            <span>Description</span>
+                        </th>
+                        <th name="th_quantity" class="text-end">
+                            <span>Quantity</span>
+                        </th>
+                        <th name="th_priceunit"
+                            t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                            <span>Unit Price</span>
+                        </th>
+                        <th name="th_taxes"
+                            t-attf-class="text-start {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                            <span>Taxes</span>
+                        </th>
+                        <th name="th_subtotal" class="text-end">
+                            <span>Amount</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="invoice_tbody">
+                    <t t-set="current_subtotal" t-value="0"/>
+                    <t t-set="current_total" t-value="0"/>
+                    <t t-set="lines"
+                       t-value="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True)"/>
+                    <t t-set="combined" t-value="o.compute_combined_lines()"/>
+                    <t t-foreach="combined" t-as="comine">
+                        <tr>
+                            <td name="account_invoice_line_name">
+                                <span t-esc="comine['product_id']" t-options="{'widget': 'text'}">Bacon Burger</span>
+
+                            </td>
+                            <td name="td_quantity" class="text-end">
+                                <span t-esc="comine['quantity']">3.00</span>
+                            </td>
+                            <td name="td_price_unit"
+                                t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                <span class="text-nowrap" t-esc="comine['price_unit']">9.00</span>
+                            </td>
+
+
+                            <td name="td_taxes"
+                                t-attf-class="text-start {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                <span t-esc="comine['tax_ids']">Tax 15%</span>
+                            </td>
+
+                            <td name="td_subtotal" class="text-end o_price_total">
+                                <span class="text-nowrap" t-esc="comine['price_total']">27.00</span>
+                            </td>
+                        </tr>
+
+                    </t>
+
+                </tbody>
+            </table>
+
+        </xpath>
+
+    </template>
+
+</odoo>
