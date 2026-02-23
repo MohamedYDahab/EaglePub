@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_invoice_line_lot_expiry_inline" inherit_id="account.report_invoice_document">
+
+        <!-- Add lot/expiry details below line name/description -->
+        <xpath expr="//td[@name='account_invoice_line_name']" position="inside">
+            <t t-if="line.lot_names_display or line.expiry_dates_display">
+                <br/>
+                <small class="text-muted" style="font-size: 0.85em;">
+                    <t t-if="line.lot_names_display">
+                        <strong>Lot/Serial: </strong>
+                        <span t-out="line.lot_names_display"/>
+                    </t>
+                    <t t-if="line.lot_names_display and line.expiry_dates_display">
+                        <span> | </span>
+                    </t>
+                    <t t-if="line.expiry_dates_display">
+                        <strong>Expiry: </strong>
+                        <span t-out="line.expiry_dates_display"/>
+                    </t>
+                    <t t-if="line.ref">
+                        <strong>Lot Reference: </strong>
+                        <span t-out="line.ref"/>
+                    </t>
+                </small>
+            </t>
+        </xpath>
+
+    </template>
+
+</odoo>
