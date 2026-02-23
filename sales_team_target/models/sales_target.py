@@ -37,7 +37,6 @@ class SalesTarget(models.Model):
     )
     team_id = fields.Many2one(
         'crm.team', string='Sales Team',
-        compute='_compute_team_id', store=True, readonly=True,
     )
 
     # ── POS mode fields ──
@@ -148,10 +147,7 @@ class SalesTarget(models.Model):
                     _('Year must be between 2020 and 2099.'))
 
     @api.depends('user_id')
-    def _compute_team_id(self):
-        for rec in self:
-            rec.team_id = (rec.user_id.sale_team_id.id
-                           if rec.user_id else False)
+
 
     @api.depends('target_type', 'user_id', 'pos_config_id',
                  'month', 'year')

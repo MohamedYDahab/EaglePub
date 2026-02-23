@@ -47,8 +47,6 @@ class BulkTargetWizard(models.TransientModel):
 
         if self.target_type == 'salesperson':
             domain = [('share', '=', False)]
-            if self.team_id:
-                domain.append(('sale_team_id', '=', self.team_id.id))
             users = self.env['res.users'].search(domain)
             for user in users:
                 existing = self.env['sales.target'].search([

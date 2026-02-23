@@ -212,8 +212,6 @@ class SalesTargetReportWizard(models.TransientModel):
         if self.user_ids:
             return self.user_ids
         domain = [('share', '=', False)]
-        if self.team_id:
-            domain.append(('sale_team_id', '=', self.team_id.id))
         return self.env['res.users'].search(domain)
 
     def _get_pos_config_list(self):
