@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_copy_target_wizard_form" model="ir.ui.view">
+        <field name="name">copy.target.wizard.form</field>
+        <field name="model">copy.target.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Copy Targets to New Month">
+                <group>
+                    <group string="Copy From">
+                        <field name="source_month"/>
+                        <field name="source_year"/>
+                    </group>
+                    <group string="Copy To">
+                        <field name="dest_month"/>
+                        <field name="dest_year"/>
+                    </group>
+                </group>
+                <group>
+                    <group string="Options">
+                        <field name="target_type" widget="radio"/>
+                        <field name="company_id"
+                               options="{'no_create': True, 'no_open': True}"/>
+                        <field name="adjustment_percent"
+                               help="E.g. 10 = increase by 10%"/>
+                        <field name="skip_existing"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_copy_targets"
+                            string="Copy Targets" type="object"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_copy_target_wizard" model="ir.actions.act_window">
+        <field name="name">Copy Targets</field>
+        <field name="res_model">copy.target.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_copy_target_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

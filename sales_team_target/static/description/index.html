@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Team Target – User Manual</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+          rel="stylesheet">
+    <style>
+        :root {
+            --purple: #714B67;
+            --purple-light: #F3ECF0;
+            --purple-dark: #5B3D54;
+            --green: #00A09D;
+            --green-light: #E6F6F5;
+            --orange: #E67E22;
+            --orange-light: #FDF2E6;
+            --blue: #2980B9;
+            --blue-light: #EBF5FB;
+            --red: #E74C3C;
+            --red-light: #FDEDEC;
+            --dark: #2C3E50;
+            --gray-100: #F8F9FA;
+            --gray-200: #E9ECEF;
+            --gray-300: #DEE2E6;
+            --gray-500: #ADB5BD;
+            --gray-700: #495057;
+            --gray-900: #212529;
+            --radius: 10px;
+            --shadow: 0 2px 12px rgba(0,0,0,.06);
+            --shadow-lg: 0 8px 30px rgba(0,0,0,.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', system-ui, sans-serif;
+            color: var(--gray-900);
+            background: var(--gray-100);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        /* ── Hero Banner ── */
+        .hero {
+            background: linear-gradient(135deg, var(--purple) 0%, var(--purple-dark) 100%);
+            color: #fff;
+            padding: 60px 0 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -60%;
+            left: -10%;
+            width: 50%;
+            height: 200%;
+            background: rgba(255,255,255,.04);
+            transform: rotate(15deg);
+        }
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+        }
+        .hero .subtitle {
+            font-size: 1.15rem;
+            opacity: .85;
+            max-width: 620px;
+            margin: 0 auto 20px;
+        }
+        .hero .badge-row {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .hero .badge-row span {
+            background: rgba(255,255,255,.15);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            backdrop-filter: blur(4px);
+        }
+
+        /* ── TOC Sidebar ── */
+        .page-wrap {
+            display: flex;
+            max-width: 1260px;
+            margin: -30px auto 0;
+            padding: 0 20px 60px;
+            gap: 30px;
+            position: relative;
+            z-index: 2;
+        }
+        .toc {
+            width: 240px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+            background: #fff;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+        }
+        .toc h3 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray-500);
+            margin-bottom: 12px;
+        }
+        .toc a {
+            display: block;
+            padding: 6px 0;
+            color: var(--gray-700);
+            text-decoration: none;
+            font-size: 13.5px;
+            font-weight: 500;
+            border-left: 3px solid transparent;
+            padding-left: 10px;
+            transition: all .15s;
+        }
+        .toc a:hover, .toc a.active {
+            color: var(--purple);
+            border-left-color: var(--purple);
+            background: var(--purple-light);
+            border-radius: 0 6px 6px 0;
+        }
+
+        /* ── Main Content ── */
+        .content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .section {
+            background: #fff;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 32px 36px;
+            margin-bottom: 24px;
+        }
+
+        .section h2 {
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--purple);
+            padding-bottom: 10px;
+            margin-bottom: 18px;
+            border-bottom: 2px solid var(--purple-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section h2 .icon {
+            width: 32px;
+            height: 32px;
+            background: var(--purple-light);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .section h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin: 22px 0 10px;
+        }
+        .section h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin: 16px 0 8px;
+        }
+
+        p { margin-bottom: 12px; }
+
+        /* ── Feature List ── */
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        .feature-list li {
+            padding: 7px 0 7px 28px;
+            position: relative;
+        }
+        .feature-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--green);
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        /* ── Ordered Steps ── */
+        .steps {
+            counter-reset: step;
+            list-style: none;
+            padding: 0;
+        }
+        .steps li {
+            counter-increment: step;
+            padding: 12px 0 12px 48px;
+            position: relative;
+            border-left: 2px solid var(--gray-200);
+            margin-left: 16px;
+        }
+        .steps li:last-child { border-left-color: transparent; }
+        .steps li::before {
+            content: counter(step);
+            position: absolute;
+            left: -15px;
+            top: 10px;
+            width: 28px;
+            height: 28px;
+            background: var(--purple);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .steps li strong {
+            color: var(--purple-dark);
+        }
+
+        /* ── Screenshot / GIF Placeholder ── */
+        .screenshot-placeholder {
+            background: var(--gray-200);
+            border: 2px dashed var(--gray-300);
+            border-radius: var(--radius);
+            padding: 40px 20px;
+            text-align: center;
+            margin: 16px 0;
+            color: var(--gray-500);
+            font-size: 13px;
+            position: relative;
+        }
+        .screenshot-placeholder .ph-icon {
+            font-size: 32px;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .screenshot-placeholder .ph-label {
+            font-weight: 600;
+            color: var(--gray-700);
+            display: block;
+            margin-bottom: 4px;
+        }
+        .screenshot-placeholder.gif {
+            border-color: var(--orange);
+            background: var(--orange-light);
+        }
+        .screenshot-placeholder.gif .ph-icon { color: var(--orange); }
+
+        /* ── Actual screenshot image ── */
+        .screenshot-img {
+            width: 100%;
+            border-radius: var(--radius);
+            border: 1px solid var(--gray-300);
+            margin: 16px 0;
+            box-shadow: var(--shadow);
+        }
+
+
+        /* ── Info / Tip / Warning Boxes ── */
+        .callout {
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin: 14px 0;
+            font-size: 14px;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+        .callout .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+        .callout-info {
+            background: var(--blue-light);
+            border-left: 4px solid var(--blue);
+        }
+        .callout-info .callout-icon { color: var(--blue); }
+        .callout-tip {
+            background: var(--green-light);
+            border-left: 4px solid var(--green);
+        }
+        .callout-tip .callout-icon { color: var(--green); }
+        .callout-warning {
+            background: var(--orange-light);
+            border-left: 4px solid var(--orange);
+        }
+        .callout-warning .callout-icon { color: var(--orange); }
+        .callout-danger {
+            background: var(--red-light);
+            border-left: 4px solid var(--red);
+        }
+        .callout-danger .callout-icon { color: var(--red); }
+
+        /* ── Code Block ── */
+        .code-block {
+            background: var(--dark);
+            color: #ABB2BF;
+            padding: 18px 20px;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 14px 0;
+            overflow-x: auto;
+        }
+        .code-block .kw { color: #C678DD; }
+        .code-block .str { color: #98C379; }
+        .code-block .cm { color: #5C6370; font-style: italic; }
+
+        /* ── Menu Path ── */
+        .menu-path {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 600;
+            color: var(--purple);
+            background: var(--purple-light);
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 13.5px;
+        }
+        .menu-path .sep { color: var(--gray-500); margin: 0 2px; }
+
+        /* ── Table ── */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            font-size: 14px;
+        }
+        .info-table th {
+            background: var(--purple);
+            color: #fff;
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        .info-table th:first-child { border-radius: 8px 0 0 0; }
+        .info-table th:last-child { border-radius: 0 8px 0 0; }
+        .info-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        .info-table tr:hover td { background: var(--gray-100); }
+        .info-table code {
+            background: var(--gray-200);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12.5px;
+        }
+
+        /* ── Kbd ── */
+        kbd {
+            background: var(--gray-200);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            border: 1px solid var(--gray-300);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .page-wrap { flex-direction: column; }
+            .toc { width: 100%; position: static; max-height: none; }
+            .hero h1 { font-size: 1.8rem; }
+            .section { padding: 22px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<div class="hero">
+    <h1>🎯 Sales Team Target</h1>
+    <p class="subtitle">
+        Monthly sales target management for salespersons and Points of Sale with
+        real-time tracking, visual dashboard, and comprehensive reporting.
+    </p>
+    <div class="badge-row">
+        <span>Odoo 17.0</span>
+        <span>Sales &amp; POS</span>
+        <span>Dashboard</span>
+        <span>PDF &amp; Excel Reports</span>
+        <span>Arabic / RTL</span>
+    </div>
+</div>
+
+<!-- ══════════════════════ MAIN ══════════════════════ -->
+<div class="page-wrap">
+
+    <!-- ── Table of Contents ── -->
+    <nav class="toc">
+        <h3>Contents</h3>
+        <a href="#overview">Overview</a>
+        <a href="#features">Key Features</a>
+        <a href="#installation">Installation</a>
+        <a href="#menu-structure">Menu Structure</a>
+        <a href="#target-types">Target Types</a>
+        <a href="#creating-target">Creating a Target</a>
+        <a href="#bulk-create">Bulk Create Targets</a>
+        <a href="#copy-targets">Copy Targets</a>
+        <a href="#tracking">Tracking Achievement</a>
+        <a href="#workflow">Workflow &amp; States</a>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#reports">Reports (PDF &amp; Excel)</a>
+        <a href="#security">Security &amp; Access</a>
+        <a href="#technical">Technical Reference</a>
+        <a href="#faq">FAQ</a>
+        <a href="#support">Support</a>
+    </nav>
+
+    <!-- ── Content ── -->
+    <div class="content">
+
+        <!-- ═══ Overview ═══ -->
+        <div class="section" id="overview">
+            <h2><span class="icon">📋</span> Overview</h2>
+            <p>
+                <strong>Sales Team Target</strong> is a comprehensive Odoo 17 module that allows sales managers
+                to define monthly sales targets for individual <strong>Salespersons</strong> (tracked via invoices)
+                and <strong>Points of Sale</strong> (tracked via POS orders), then monitor real-time achievement
+                through a visual dashboard, detailed reports, and smart notifications.
+            </p>
+            <p>
+                Each target operates in one of two modes — ensuring clean separation between
+                invoice-based salesperson performance and POS-based shop performance.
+            </p>
+            <!--            <div class="screenshot-placeholder">-->
+            <!--                <span class="ph-icon">🖼️</span>-->
+            <!--                <span class="ph-label">static/description/screenshot_overview.png</span>-->
+            <!--                Overview of the module – All Targets tree view with achievement bars-->
+            <!--            </div>-->
+            <img src="static/description/screenshot_overview.png" class="screenshot-img" alt="Screenshot Overview"/>
+        </div>
+
+        <!-- ═══ Key Features ═══ -->
+        <div class="section" id="features">
+            <h2><span class="icon">⭐</span> Key Features</h2>
+            <ul class="feature-list">
+                <li><strong>Dual Target Types:</strong> Salesperson (invoices) or Point of Sale (POS orders)</li>
+                <li><strong>Monthly targets</strong> with amount, salesperson/POS assignment, and state tracking</li>
+                <li><strong>Real-time achievement</strong> computed from posted invoices &amp; credit notes or POS
+                    orders
+                </li>
+                <li><strong>Visual Dashboard:</strong> KPI cards, bar charts, trend lines, doughnut breakdown, ranking
+                    table
+                </li>
+                <li><strong>Bulk Target Creation:</strong> Set targets for all team members or POS shops at once</li>
+                <li><strong>Copy Targets:</strong> Clone last month's targets to a new month with % adjustment</li>
+                <li><strong>Performance Reports:</strong> PDF and Excel export with summary &amp; detail sheets</li>
+                <li><strong>Arabic / RTL support</strong> in PDF and Excel reports</li>
+                <li><strong>Role-based security:</strong> Managers see all, salespersons see only their own targets</li>
+                <li><strong>Color-coded progress bars</strong> in tree, kanban, and dashboard views</li>
+                <li><strong>Detail line breakdown</strong> showing each invoice/POS order contributing to the target
+                </li>
+                <li><strong>Kanban view</strong> with card-based layout grouped by month</li>
+                <li><strong>Graph &amp; Pivot views</strong> for analytical comparison</li>
+            </ul>
+        </div>
+
+        <!-- ═══ Installation ═══ -->
+        <div class="section" id="installation">
+            <h2><span class="icon">📦</span> Installation</h2>
+
+            <h3>Requirements</h3>
+            <table class="info-table">
+                <tr>
+                    <th>Requirement</th>
+                    <th>Details</th>
+                </tr>
+                <tr>
+                    <td>Odoo Version</td>
+                    <td><strong>17.0</strong></td>
+                </tr>
+                <tr>
+                    <td>Depends On</td>
+                    <td><code>sale</code>, <code>point_of_sale</code>, <code>account</code>, <code>sales_team</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Python Library</td>
+                    <td><code>xlsxwriter</code> (for Excel export)</td>
+                </tr>
+            </table>
+
+            <h3>Steps</h3>
+            <ol class="steps">
+                <li>
+                    <strong>Upload the module</strong><br>
+                    Unzip <kbd>sales_team_target.zip</kbd> into your Odoo addons directory
+                    (e.g. <code>/mnt/extra-addons/</code>).
+                </li>
+                <li>
+                    <strong>Install xlsxwriter</strong><br>
+                    Run: <code>pip3 install xlsxwriter</code>
+                </li>
+                <li>
+                    <strong>Update app list</strong><br>
+                    Go to <span class="menu-path">Apps <span class="sep">→</span> Update Apps List</span>
+                </li>
+                <li>
+                    <strong>Install the module</strong><br>
+                    Search for <strong>"Sales Team Target"</strong> and click <strong>Install</strong>.
+                </li>
+                <li>
+                    <strong>Clear browser cache</strong><br>
+                    Press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd> to load the dashboard assets.
+                </li>
+            </ol>
+
+            <!--            <div class="screenshot-placeholder">-->
+            <!--                <span class="ph-icon">🖼️</span>-->
+            <!--                <span class="ph-label">static/description/screenshot_install.png</span>-->
+            <!--                Apps list showing "Sales Team Target" module ready to install-->
+            <!--            </div>-->
+            <img src="static/description/app_list.png" class="screenshot-img" alt="Screenshot Install"/>
+        </div>
+
+        <!-- ═══ Menu Structure ═══ -->
+        <div class="section" id="menu-structure">
+            <h2><span class="icon">📂</span> Menu Structure</h2>
+            <p>
+                After installation, a new <strong>Sales Targets</strong> menu appears under the
+                <strong>Sales</strong> application:
+            </p>
+
+            <table class="info-table">
+                <tr>
+                    <th>Menu</th>
+                    <th>Path</th>
+                    <th>Access</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><strong>All Targets</strong></td>
+                    <td><span class="menu-path">Sales <span class="sep">→</span> Sales Targets <span
+                            class="sep">→</span> All Targets</span></td>
+                    <td>Manager</td>
+                    <td>View, create, and manage all targets (tree/kanban/form/graph/pivot)</td>
+                </tr>
+                <tr>
+                    <td><strong>My Targets</strong></td>
+                    <td><span class="menu-path">Sales <span class="sep">→</span> Sales Targets <span
+                            class="sep">→</span> My Targets</span></td>
+                    <td>All Users</td>
+                    <td>Salesperson sees only their own targets (auto-filtered)</td>
+                </tr>
+                <tr>
+                    <td><strong>Dashboard</strong></td>
+                    <td><span class="menu-path">Sales <span class="sep">→</span> Sales Targets <span
+                            class="sep">→</span> Dashboard</span></td>
+                    <td>Manager</td>
+                    <td>Visual dashboard with KPIs, charts, and ranking table</td>
+                </tr>
+                <tr>
+                    <td><strong>Bulk Create</strong></td>
+                    <td><span class="menu-path">Sales <span class="sep">→</span> Sales Targets <span
+                            class="sep">→</span> Tools <span class="sep">→</span> Bulk Create Targets</span></td>
+                    <td>Manager</td>
+                    <td>Create targets for multiple salespersons/POS at once</td>
+                </tr>
+                <tr>
+                    <td><strong>Copy Targets</strong></td>
+                    <td><span class="menu-path">Sales <span class="sep">→</span> Sales Targets <span
+                            class="sep">→</span> Tools <span class="sep">→</span> Copy Targets</span></td>
+                    <td>Manager</td>
+                    <td>Copy previous month targets to a new month</td>
+                </tr>
+                <tr>
+                    <td><strong>Performance Report</strong></td>
+                    <td><span class="menu-path">Sales <span class="sep">→</span> Sales Targets <span
+                            class="sep">→</span> Performance Report</span></td>
+                    <td>All Users</td>
+                    <td>Generate PDF or Excel reports for any date range</td>
+                </tr>
+            </table>
+
+            <!--            <div class="screenshot-placeholder">-->
+            <!--                <span class="ph-icon">🖼️</span>-->
+            <!--                <span class="ph-label">static/description/screenshot_menu.png</span>-->
+            <!--                Sales → Sales Targets menu expanded showing all sub-menus-->
+            <!--            </div>-->
+            <img src="static/description/sale_target_menus.png" class="screenshot-img" alt="Screenshot Menu"/>
+        </div>
+
+        <!-- ═══ Target Types ═══ -->
+        <div class="section" id="target-types">
+            <h2><span class="icon">🔀</span> Target Types</h2>
+            <p>
+                Each target operates in exactly <strong>one mode</strong>. The mode determines
+                which field is shown and how achievement is computed:
+            </p>
+
+            <table class="info-table">
+                <tr>
+                    <th>Type</th>
+                    <th>Assigned To</th>
+                    <th>Achievement Source</th>
+                    <th>How It's Calculated</th>
+                </tr>
+                <tr>
+                    <td><strong>Salesperson</strong></td>
+                    <td>A specific user (<code>user_id</code>)</td>
+                    <td>Posted Invoices &amp; Credit Notes</td>
+                    <td>
+                        Sum of <code>amount_untaxed_signed</code> from <code>account.move</code>
+                        where <code>invoice_user_id = salesperson</code>,
+                        <code>move_type in [out_invoice, out_refund]</code>,
+                        <code>state = posted</code>, within the target month
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Point of Sale</strong></td>
+                    <td>A POS shop (<code>pos.config</code>)</td>
+                    <td>POS Orders (paid/done/invoiced)</td>
+                    <td>
+                        Sum of <code>amount_total - amount_tax</code> from <code>pos.order</code>
+                        where <code>config_id = selected POS</code>,
+                        <code>state in [paid, done, invoiced]</code>, within the target month
+                    </td>
+                </tr>
+            </table>
+
+            <div class="callout callout-info">
+                <span class="callout-icon">ℹ️</span>
+                <div>
+                    <strong>No mixing:</strong> A salesperson target only counts invoices. A POS target only counts
+                    POS orders. This ensures clean, non-overlapping performance measurement.
+                </div>
+            </div>
+
+            <!--            <div class="screenshot-placeholder">-->
+            <!--                <span class="ph-icon">🖼️</span>-->
+            <!--                <span class="ph-label">static/description/screenshot_target_type_radio.png</span>-->
+            <!--                Target form showing the "Target Type" radio buttons – Salesperson vs Point of Sale-->
+            <!--            </div>-->
+            <img src="static/description/target_type.png" class="screenshot-img" alt="Screenshot Target Type Radio"/>
+        </div>
+
+        <!-- ═══ Creating a Target ═══ -->
+        <div class="section" id="creating-target">
+            <h2><span class="icon">➕</span> Creating a Target</h2>
+
+            <h3>Salesperson Target</h3>
+            <ol class="steps">
+                <li>
+                    Navigate to <span class="menu-path">Sales <span class="sep">→</span> Sales Targets <span
+                        class="sep">→</span> All Targets</span>
+                    and click <strong>New</strong>.
+                </li>
+                <li>
+                    Select <strong>Target Type</strong> = <strong>Salesperson</strong> (default).
+                </li>
+                <li>
+                    Choose the <strong>Salesperson</strong> from the dropdown.
+                    The <strong>Sales Team</strong> fills in automatically.
+                </li>
+                <li>
+                    Select the <strong>Month</strong> and <strong>Year</strong>.
+                </li>
+                <li>
+                    Enter the <strong>Target Amount</strong> (the sales goal for this month).
+                </li>
+                <li>
+                    Click <strong>Confirm</strong> to activate the target.
+                </li>
+            </ol>
+
+
+            <h3>POS Target</h3>
+            <ol class="steps">
+                <li>
+                    Click <strong>New</strong> and select <strong>Target Type</strong> = <strong>Point of Sale</strong>.
+                </li>
+                <li>
+                    Choose the <strong>Point of Sale</strong> shop (e.g. "Main Shop", "Branch 1").
+                </li>
+                <li>
+                    Select <strong>Month</strong>, <strong>Year</strong>, and enter the <strong>Target Amount</strong>.
+                </li>
+                <li>
+                    Click <strong>Confirm</strong>.
+                </li>
+            </ol>
+
+            <!--            <div class="screenshot-placeholder">-->
+            <!--                <span class="ph-icon">🖼️</span>-->
+            <!--                <span class="ph-label">static/description/screenshot_pos_target_form.png</span>-->
+            <!--                Target form with "Point of Sale" type selected, showing POS config dropdown-->
+            <!--            </div>-->
+            <img src="static/description/pos_type_config.png" class="screenshot-img" alt="Screenshot Pos Target Form"/>
+
+            <div class="callout callout-warning">
+                <span class="callout-icon">⚠️</span>
+                <div>
+                    <strong>Unique constraint:</strong> Only one target per salesperson (or POS) per month per company
+                    is allowed. You'll get a validation error if a duplicate exists.
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ Bulk Create ═══ -->
+        <div class="section" id="bulk-create">
+            <h2><span class="icon">📋</span> Bulk Create Targets</h2>
+            <p>
+                Instead of creating targets one by one, managers can create targets for all
+                team members or all POS shops at once.
+            </p>
+
+            <ol class="steps">
+                <li>
+                    Go to <span class="menu-path">Sales <span class="sep">→</span> Sales Targets <span
+                        class="sep">→</span> Tools <span class="sep">→</span> Bulk Create Targets</span>
+                </li>
+                <li>
+                    Select the <strong>Target Type</strong> (Salesperson or Point of Sale).
+                </li>
+                <li>
+                    Choose the <strong>Month</strong> and <strong>Year</strong>.
+                </li>
+                <li>
+                    <strong>(Optional)</strong> Filter by <strong>Sales Team</strong> — only salespersons
+                    in that team will appear. Leave empty for all.
+                </li>
+                <li>
+                    The wizard auto-populates a list of salespersons or POS shops
+                    (excluding those who already have a target for that month).
+                </li>
+                <li>
+                    Enter the <strong>Target Amount</strong> for each entry. Leave 0 to skip.
+                </li>
+                <li>
+                    Click <strong>Create Targets</strong>.
+                </li>
+            </ol>
+
+
+            <div class="callout callout-tip">
+                <span class="callout-icon">💡</span>
+                <div>
+                    <strong>Tip:</strong> If you switch the target type from "Salesperson" to "Point of Sale",
+                    the lines will re-populate automatically with POS shops instead of users.
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ Copy Targets ═══ -->
+        <div class="section" id="copy-targets">
+            <h2><span class="icon">📑</span> Copy Targets (Templates)</h2>
+            <p>
+                Quickly create next month's targets by copying the previous month's values,
+                with an optional percentage adjustment.
+            </p>
+
+            <ol class="steps">
+                <li>
+                    Go to <span class="menu-path">Sales <span class="sep">→</span> Sales Targets <span
+                        class="sep">→</span> Tools <span class="sep">→</span> Copy Targets</span>
+                </li>
+                <li>
+                    <strong>Copy From:</strong> Select the source month/year (defaults to previous month).
+                </li>
+                <li>
+                    <strong>Copy To:</strong> Select the destination month/year (defaults to current month).
+                </li>
+                <li>
+                    Choose the <strong>Target Type</strong> filter:
+                    <em>All Types</em>, <em>Salesperson Only</em>, or <em>POS Only</em>.
+                </li>
+                <li>
+                    <strong>(Optional)</strong> Set <strong>Adjustment %</strong>:
+                    e.g. <code>10</code> = increase all targets by 10%,
+                    <code>-5</code> = decrease by 5%.
+                </li>
+                <li>
+                    <strong>Skip Existing:</strong> If checked, salespersons/POS shops that already have
+                    a target for the destination month are skipped.
+                </li>
+                <li>
+                    Click <strong>Copy Targets</strong>.
+                </li>
+            </ol>
+
+            <!--            <div class="screenshot-placeholder">-->
+            <!--                <span class="ph-icon">🖼️</span>-->
+            <!--                <span class="ph-label">static/description/screenshot_copy_wizard.png</span>-->
+            <!--                Copy Targets wizard – From January to February with +10% adjustment-->
+            <!--            </div>-->
+            <img src="static/description/copy_target_wizard.png" class="screenshot-img" alt="Screenshot Copy Wizard"/>
+        </div>
+
+        <!-- ═══ Tracking Achievement ═══ -->
+        <div class="section" id="tracking">
+            <h2><span class="icon">📊</span> Tracking Achievement</h2>
+            <p>
+                Achievement is <strong>automatically computed</strong> from live Odoo data whenever
+                you open a target record. The following fields are calculated:
+            </p>
+
+            <table class="info-table">
+                <tr>
+                    <th>Field</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><strong>Invoice Amount</strong></td>
+                    <td>Net invoiced amount (invoices minus credit notes) — only for Salesperson targets</td>
+                </tr>
+                <tr>
+                    <td><strong>POS Amount</strong></td>
+                    <td>Total POS order amount (excl. tax) — only for POS targets</td>
+                </tr>
+                <tr>
+                    <td><strong>Achieved Amount</strong></td>
+                    <td>Total achieved (Invoice Amount or POS Amount depending on type)</td>
+                </tr>
+                <tr>
+                    <td><strong>Achievement %</strong></td>
+                    <td>Achieved / Target × 100</td>
+                </tr>
+                <tr>
+                    <td><strong>Remaining</strong></td>
+                    <td>Target Amount − Achieved Amount</td>
+                </tr>
+            </table>
+
+            <h3>Refresh Sales Data</h3>
+            <p>
+                Click the <strong>↻ Refresh Sales Data</strong> button on any target form to
+                force re-computation and populate the <strong>Sales Details</strong> tab with
+                every invoice / POS order that contributed to the achievement.
+            </p>
+
+
+            <h3>Detail Lines</h3>
+            <p>
+                After refreshing, the <strong>Sales Details</strong> tab shows each contributing document:
+            </p>
+            <ul class="feature-list">
+                <li><strong>Date</strong> of the invoice / POS order</li>
+                <li><strong>Source Type</strong> badge: Invoice, Credit Note, or POS Order</li>
+                <li><strong>Reference</strong> (invoice number or POS reference)</li>
+                <li><strong>Customer</strong> name</li>
+                <li><strong>Amount</strong> (negative for credit notes)</li>
+            </ul>
+
+            <!--            <div class="screenshot-placeholder">-->
+            <!--                <span class="ph-icon">🖼️</span>-->
+            <!--                <span class="ph-label">static/description/screenshot_detail_lines.png</span>-->
+            <!--                Sales Details tab with invoice and POS order lines, showing totals at the bottom-->
+            <!--            </div>-->
+            <img src="static/description/sales_details_both.png" class="screenshot-img" alt="Screenshot Detail Lines"/>
+        </div>
+
+        <!-- ═══ Workflow ═══ -->
+        <div class="section" id="workflow">
+            <h2><span class="icon">🔄</span> Workflow &amp; States</h2>
+            <p>Each target follows a 3-stage workflow:</p>
+
+            <table class="info-table">
+                <tr>
+                    <th>State</th>
+                    <th>Description</th>
+                    <th>Who Can Change</th>
+                </tr>
+                <tr>
+                    <td><strong>Draft</strong></td>
+                    <td>Target is being set up. All fields are editable.</td>
+                    <td>Manager</td>
+                </tr>
+                <tr>
+                    <td><strong>Confirmed</strong></td>
+                    <td>Target is active and being tracked. Target amount still editable.</td>
+                    <td>Manager (Confirm button)</td>
+                </tr>
+                <tr>
+                    <td><strong>Closed</strong></td>
+                    <td>Month is over. Target is locked (read-only).</td>
+                    <td>Manager (Close button)</td>
+                </tr>
+            </table>
+
+            <div class="callout callout-info">
+                <span class="callout-icon">ℹ️</span>
+                <div>
+                    <strong>Reset to Draft:</strong> Managers can reset any target back to Draft
+                    if corrections are needed, using the "Reset to Draft" button.
+                </div>
+            </div>
+
+            <!--            <div class="screenshot-placeholder">-->
+            <!--                <span class="ph-icon">🖼️</span>-->
+            <!--                <span class="ph-label">static/description/screenshot_workflow_statusbar.png</span>-->
+            <!--                Target form header showing Confirm / Close / Reset buttons and the status bar-->
+            <!--            </div>-->
+            <img src="static/description/sales_target_form.png" class="screenshot-img"
+                 alt="Screenshot Workflow Statusbar"/>
+        </div>
+
+        <!-- ═══ Dashboard ═══ -->
+        <div class="section" id="dashboard">
+            <h2><span class="icon">📈</span> Dashboard</h2>
+            <p>
+                The <strong>Dashboard</strong> is a custom OWL-based visual interface designed for
+                marketing managers to get a bird's-eye view of team performance at a glance.
+            </p>
+
+            <h3>Accessing the Dashboard</h3>
+            <p>
+                Navigate to <span class="menu-path">Sales <span class="sep">→</span> Sales Targets <span
+                    class="sep">→</span> Dashboard</span>
+                <br>(Available to <strong>Sales Managers</strong> only)
+            </p>
+
+            <h3>Dashboard Components</h3>
+
+            <h4>1. Month/Year Selector</h4>
+            <p>
+                Use the dropdowns at the top-right to switch between months and years.
+                All KPIs and charts update instantly.
+            </p>
+
+            <h4>2. KPI Cards</h4>
+            <p>Four gradient-colored cards showing:</p>
+            <ul class="feature-list">
+                <li><strong>Total Target</strong> – Sum of all target amounts for the selected month</li>
+                <li><strong>Total Achieved</strong> – Sum of all achieved amounts with achievement % badge</li>
+                <li><strong>Invoice Sales</strong> – Total from salesperson-type targets</li>
+                <li><strong>POS Sales</strong> – Total from POS-type targets</li>
+            </ul>
+
+            <!--            <div class="screenshot-placeholder">-->
+            <!--                <span class="ph-icon">🖼️</span>-->
+            <!--                <span class="ph-label">static/description/screenshot_dashboard_kpi.png</span>-->
+            <!--                Dashboard KPI cards – Total Target, Achieved, Invoice Sales, POS Sales-->
+            <!--            </div>-->
+            <img src="static/description/screenshot_overview.png" class="screenshot-img"
+                 alt="Screenshot Dashboard Kpi"/>
+
+            <h4>3. Status Counters</h4>
+            <p>
+                Three cards showing how many targets are <strong>On Target (≥100%)</strong>,
+                <strong>Below Target</strong>, and the <strong>Overall Achievement %</strong>.
+            </p>
+
+            <h4>4. Bar Chart – Target vs Achieved</h4>
+            <p>
+                Side-by-side bar chart comparing target amount vs achieved amount
+                for each salesperson/POS (top 15). Dark bars = target, green bars = achieved.
+            </p>
+
+            <h4>5. Trend Chart – Yearly Overview</h4>
+            <p>
+                Line chart showing monthly target and achievement totals for the entire year.
+                Helps managers identify seasonal trends and growth patterns.
+            </p>
+
+            <h4>6. Doughnut Chart – Sales Breakdown</h4>
+            <p>
+                Shows the proportion of <strong>Invoice Sales</strong> vs <strong>POS Sales</strong>
+                in the selected month.
+            </p>
+
+
+            <h4>7. Performance Ranking Table</h4>
+            <p>
+                A sortable table ranking all targets by achievement percentage (highest first):
+            </p>
+            <ul class="feature-list">
+                <li>🥇🥈🥉 medals for top 3 performers</li>
+                <li>Color-coded progress bars (green ≥100%, yellow ≥50%, red &lt;50%)</li>
+                <li>Type badge (Salesperson / POS)</li>
+                <li>Click any row to open the target form</li>
+            </ul>
+        </div>
+
+        <!-- ═══ Reports ═══ -->
+        <div class="section" id="reports">
+            <h2><span class="icon">🖨️</span> Reports (PDF &amp; Excel)</h2>
+
+            <h3>Accessing the Report</h3>
+            <p>
+                Navigate to <span class="menu-path">Sales <span class="sep">→</span> Sales Targets <span
+                    class="sep">→</span> Performance Report</span>
+            </p>
+
+            <h3>Report Wizard</h3>
+            <ol class="steps">
+                <li>
+                    Select the <strong>Target Type</strong>: All Types, Salesperson Only, or POS Only.
+                </li>
+                <li>
+                    Set the <strong>Date From</strong> and <strong>Date To</strong> range.
+                </li>
+                <li>
+                    <strong>(Optional)</strong> Filter by specific <strong>Salespersons</strong>,
+                    <strong>Sales Team</strong>, or <strong>Points of Sale</strong>.
+                </li>
+                <li>
+                    Click <strong>Print PDF</strong> or <strong>Export Excel</strong>.
+                </li>
+            </ol>
+
+
+            <h3>PDF Report</h3>
+            <p>
+                The PDF report includes:
+            </p>
+            <ul class="feature-list">
+                <li><strong>Summary cards:</strong> Total Target, Achieved, Achievement %, Remaining</li>
+                <li><strong>Summary table:</strong> One row per salesperson/POS with color-coded performance</li>
+                <li><strong>Detail table:</strong> Every invoice and POS order in the date range</li>
+                <li><strong>RTL support:</strong> Automatically switches to right-to-left for Arabic users</li>
+            </ul>
+
+
+            <h3>Excel Report</h3>
+            <p>
+                The Excel file contains two sheets:
+            </p>
+            <ul class="feature-list">
+                <li><strong>Summary sheet:</strong> Name, Type, Target, Invoice Amount, POS Amount, Achieved, %,
+                    Remaining
+                </li>
+                <li><strong>Details sheet:</strong> Every source document (invoice/POS) with customer, date, amount</li>
+                <li>Professional formatting with color-coded cells and number formats</li>
+                <li>RTL layout for Arabic-language users</li>
+            </ul>
+        </div>
+
+        <!-- ═══ Security ═══ -->
+        <div class="section" id="security">
+            <h2><span class="icon">🔒</span> Security &amp; Access Rights</h2>
+
+            <table class="info-table">
+                <tr>
+                    <th>Role</th>
+                    <th>Group</th>
+                    <th>Can See</th>
+                    <th>Can Do</th>
+                </tr>
+                <tr>
+                    <td><strong>Salesperson</strong></td>
+                    <td><code>sales_team.group_sale_salesman</code></td>
+                    <td>Own targets only (where <code>user_id = current user</code>)</td>
+                    <td>Read-only access. Can view achievement and generate own reports.</td>
+                </tr>
+                <tr>
+                    <td><strong>Sales Manager</strong></td>
+                    <td><code>sales_team.group_sale_manager</code></td>
+                    <td>All targets (all salespersons and POS)</td>
+                    <td>Full CRUD. Create, confirm, close, bulk create, copy, dashboard, reports.</td>
+                </tr>
+            </table>
+
+            <div class="callout callout-danger">
+                <span class="callout-icon">🛡️</span>
+                <div>
+                    <strong>Record Rules:</strong> Salespersons cannot see other people's targets even if they
+                    guess the URL/ID. The record rule enforces <code>user_id = user.id</code> at the database level.
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ Views Guide ═══ -->
+        <div class="section" id="views-guide">
+            <h2><span class="icon">👁️</span> Available Views</h2>
+
+            <h3>Tree View</h3>
+            <p>
+                Color-coded rows: <strong style="color:#27ae60;">green</strong> (≥100%),
+                <strong style="color:#f39c12;">yellow</strong> (≥50%),
+                <strong style="color:#e74c3c;">red</strong> (&lt;50%).
+                Progress bar widget on the Achievement % column. Columns for type, user/POS, month, year,
+                target, invoices, POS, achieved, remaining, and state.
+            </p>
+
+
+            <h3>Kanban View</h3>
+            <p>
+                Card-based layout grouped by month. Each card shows the salesperson/POS name,
+                target vs achieved amounts, source breakdown, and a progress bar.
+                Border color indicates performance level.
+            </p>
+
+            <h3>Form View</h3>
+            <p>
+                Full detail view with status bar, stat button (achievement %), target definition fields,
+                achievement summary, and the Sales Details tab with contributing documents.
+            </p>
+
+            <h3>Graph View</h3>
+            <p>
+                Bar chart comparing target vs achieved amounts. Accessible from the
+                <strong>All Targets</strong> action by switching to graph mode.
+            </p>
+
+            <h3>Pivot View</h3>
+            <p>
+                Multi-dimensional analysis with rows (name) and columns (target type).
+                Measures: target amount, achieved, invoice amount, POS amount.
+            </p>
+
+        </div>
+
+        <!-- ═══ Technical ═══ -->
+        <div class="section" id="technical">
+            <h2><span class="icon">⚙️</span> Technical Reference</h2>
+
+            <h3>Models</h3>
+            <table class="info-table">
+                <tr>
+                    <th>Model</th>
+                    <th>Description</th>
+                    <th>Key Fields</th>
+                </tr>
+                <tr>
+                    <td><code>sales.target</code></td>
+                    <td>Main target model (inherits <code>mail.thread</code>)</td>
+                    <td>
+                        <code>target_type</code>, <code>user_id</code>, <code>pos_config_id</code>,
+                        <code>month</code>, <code>year</code>, <code>target_amount</code>,
+                        <code>achieved_amount</code>, <code>achievement_ratio</code>,
+                        <code>state</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>sales.target.line</code></td>
+                    <td>Detail line (read-only, auto-generated)</td>
+                    <td>
+                        <code>source_type</code>, <code>reference</code>,
+                        <code>partner_id</code>, <code>amount</code>,
+                        <code>move_id</code>, <code>pos_order_id</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>bulk.target.wizard</code></td>
+                    <td>Transient – Bulk target creation</td>
+                    <td><code>target_type</code>, <code>month</code>, <code>year</code>, <code>team_id</code></td>
+                </tr>
+                <tr>
+                    <td><code>copy.target.wizard</code></td>
+                    <td>Transient – Copy targets between months</td>
+                    <td><code>source_month</code>, <code>dest_month</code>, <code>adjustment_percent</code></td>
+                </tr>
+                <tr>
+                    <td><code>sales.target.report.wizard</code></td>
+                    <td>Transient – PDF/Excel report</td>
+                    <td><code>date_from</code>, <code>date_to</code>, <code>target_type</code></td>
+                </tr>
+            </table>
+
+            <h3>Key Methods</h3>
+            <table class="info-table">
+                <tr>
+                    <th>Method</th>
+                    <th>Model</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><code>_compute_achieved()</code></td>
+                    <td><code>sales.target</code></td>
+                    <td>Computes invoice_amount, pos_amount, achieved_amount, ratio, remaining</td>
+                </tr>
+                <tr>
+                    <td><code>action_refresh()</code></td>
+                    <td><code>sales.target</code></td>
+                    <td>Recomputes + regenerates detail lines from source documents</td>
+                </tr>
+                <tr>
+                    <td><code>get_dashboard_data()</code></td>
+                    <td><code>sales.target</code></td>
+                    <td>Returns KPIs, ranking, chart data, and trend data for OWL dashboard</td>
+                </tr>
+                <tr>
+                    <td><code>action_print_pdf()</code></td>
+                    <td><code>sales.target.report.wizard</code></td>
+                    <td>Generates QWeb PDF report</td>
+                </tr>
+                <tr>
+                    <td><code>action_export_excel()</code></td>
+                    <td><code>sales.target.report.wizard</code></td>
+                    <td>Generates xlsxwriter Excel report with 2 sheets</td>
+                </tr>
+            </table>
+
+            <h3>File Structure</h3>
+            <div class="code-block">
+                <span class="cm">sales_team_target/</span>
+                ├── __init__.py
+                ├── __manifest__.py
+                ├── <span class="kw">models/</span>
+                │ ├── __init__.py
+                │ ├── sales_target.py <span class="cm"># Main model + dashboard API</span>
+                │ └── sales_target_report_parser.py <span class="cm"># QWeb report parser</span>
+                ├── <span class="kw">wizard/</span>
+                │ ├── __init__.py
+                │ ├── bulk_target_wizard.py <span class="cm"># Bulk creation</span>
+                │ ├── bulk_target_wizard_views.xml
+                │ ├── copy_target_wizard.py <span class="cm"># Copy targets</span>
+                │ ├── copy_target_wizard_views.xml
+                │ ├── sales_target_report_wizard.py <span class="cm"># PDF &amp; Excel</span>
+                │ └── sales_target_report_wizard_views.xml
+                ├── <span class="kw">views/</span>
+                │ ├── sales_target_views.xml <span class="cm"># Tree, Form, Kanban, Graph, Pivot, Search</span>
+                │ ├── dashboard_action.xml <span class="cm"># OWL client action</span>
+                │ └── menu_views.xml <span class="cm"># Menu structure</span>
+                ├── <span class="kw">report/</span>
+                │ ├── sales_target_report.xml
+                │ └── sales_target_report_templates.xml <span class="cm"># QWeb PDF template</span>
+                ├── <span class="kw">security/</span>
+                │ ├── security.xml <span class="cm"># Record rules</span>
+                │ └── ir.model.access.csv <span class="cm"># ACL</span>
+                └── <span class="kw">static/src/</span>
+                ├── js/dashboard.js <span class="cm"># OWL component</span>
+                ├── xml/dashboard.xml <span class="cm"># OWL template</span>
+                └── css/dashboard.css <span class="cm"># Dashboard styles</span>
+            </div>
+        </div>
+
+        <!-- ═══ FAQ ═══ -->
+        <div class="section" id="faq">
+            <h2><span class="icon">❓</span> Frequently Asked Questions</h2>
+
+            <h3>Why is the achieved amount 0 even though I have invoices?</h3>
+            <p>
+                Make sure the invoices are <strong>posted</strong> (not draft), and that the
+                <strong>Salesperson (invoice_user_id)</strong> field on the invoice matches the
+                salesperson set on the target. Also check the invoice date falls within the target month.
+            </p>
+
+            <h3>Why are POS orders not counting?</h3>
+            <p>
+                POS orders must be in <code>paid</code>, <code>done</code>, or <code>invoiced</code> state.
+                Also verify the <strong>Point of Sale</strong> config on the target matches the POS session
+                where the orders were placed.
+            </p>
+
+            <h3>Can I have both a Salesperson target and a POS target for the same person?</h3>
+            <p>
+                Yes! They are independent. A salesperson target tracks invoices, and a POS target tracks
+                POS orders by shop — not by person. They never overlap.
+            </p>
+
+            <h3>How do credit notes affect the achievement?</h3>
+            <p>
+                Credit notes (<code>out_refund</code>) are subtracted from the invoice amount.
+                The field <code>amount_untaxed_signed</code> is already negative for credit notes,
+                so they automatically reduce the achievement.
+            </p>
+
+            <h3>The dashboard doesn't load or shows blank charts</h3>
+            <p>
+                Clear your browser cache (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd>)
+                after installing or upgrading the module. The Chart.js library is loaded from a CDN,
+                so internet access is required for the dashboard.
+            </p>
+
+            <h3>Can salespersons see each other's targets?</h3>
+            <p>
+                No. Record rules enforce that salespersons can only see targets where
+                <code>user_id = current user</code>. Only Sales Managers can see all targets.
+            </p>
+        </div>
+
+        <!-- ═══ Support ═══ -->
+        <div class="section" id="support">
+            <h2><span class="icon">🤝</span> Support</h2>
+            <p>
+                For questions, bug reports, or feature requests, please contact your
+                Odoo administrator or the module developer.
+            </p>
+
+            <div class="callout callout-tip">
+                <span class="callout-icon">💡</span>
+                <div>
+                    <strong>Upgrade command:</strong><br>
+                    <code>./odoo-bin -u sales_team_target -d your_database</code><br>
+                    Always clear browser cache after upgrading.
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /content -->
+</div><!-- /page-wrap -->
+
+</body>
+</html>

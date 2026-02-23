@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_sales_target">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-set="direction" t-value="'rtl' if is_rtl else 'ltr'"/>
+                <t t-set="text_align"
+                   t-value="'right' if is_rtl else 'left'"/>
+                <t t-set="text_align_opp"
+                   t-value="'left' if is_rtl else 'right'"/>
+
+                <div class="page" t-att-dir="direction"
+                     t-attf-style="direction: #{direction};">
+
+                    <!-- Header -->
+                    <div class="text-center mb-4">
+                        <h2 style="color: #2c3e50;">
+                            <strong t-esc="translations.get('report_title')"/>
+                        </h2>
+                        <p class="text-muted">
+                            <strong t-esc="translations.get('company')"/>:
+                            <span t-esc="company.name"/>
+                        </p>
+                        <p class="text-muted">
+                            <strong t-esc="translations.get('period')"/>:
+                            <span t-esc="report_data.get('date_from')"/>
+                            <span t-esc="translations.get('to')"/>
+                            <span t-esc="report_data.get('date_to')"/>
+                        </p>
+                    </div>
+
+                    <!-- Summary Cards -->
+                    <div class="row mb-4" t-att-dir="direction">
+                        <div class="col-3 text-center">
+                            <div style="background-color: #2c3e50; color: white;
+                                        padding: 10px; border-radius: 5px;">
+                                <h6 t-esc="translations.get('target')"/>
+                                <h4>
+                                    <span t-esc="report_data.get('currency_symbol')"/>
+                                    <span t-esc="'{:,.2f}'.format(
+                                        report_data['totals']['target'])"/>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="col-3 text-center">
+                            <div style="background-color: #27ae60; color: white;
+                                        padding: 10px; border-radius: 5px;">
+                                <h6 t-esc="translations.get('achieved')"/>
+                                <h4>
+                                    <span t-esc="report_data.get('currency_symbol')"/>
+                                    <span t-esc="'{:,.2f}'.format(
+                                        report_data['totals']['achieved'])"/>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="col-3 text-center">
+                            <div style="background-color: #3498db; color: white;
+                                        padding: 10px; border-radius: 5px;">
+                                <h6 t-esc="translations.get('ratio')"/>
+                                <h4>
+                                    <span t-esc="'{:.1f}%'.format(
+                                        report_data['totals']['ratio'])"/>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="col-3 text-center">
+                            <div style="background-color: #e74c3c; color: white;
+                                        padding: 10px; border-radius: 5px;">
+                                <h6 t-esc="translations.get('remaining')"/>
+                                <h4>
+                                    <span t-esc="report_data.get('currency_symbol')"/>
+                                    <span t-esc="'{:,.2f}'.format(
+                                        report_data['totals']['remaining'])"/>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Summary Table -->
+                    <table class="table table-sm table-bordered mt-4"
+                           t-attf-style="font-size: 9px;
+                                         direction: #{direction};">
+                        <thead style="background-color: #2c3e50;
+                                      color: white;">
+                            <tr>
+                                <th t-attf-style="text-align: #{text_align};
+                                    padding: 4px;"
+                                    t-esc="translations.get('name')"/>
+                                <th t-attf-style="text-align: #{text_align};
+                                    padding: 4px;"
+                                    t-esc="translations.get('type')"/>
+                                <th t-attf-style="text-align: #{text_align_opp};
+                                    padding: 4px;"
+                                    t-esc="translations.get('target')"/>
+                                <th t-attf-style="text-align: #{text_align_opp};
+                                    padding: 4px;"
+                                    t-esc="translations.get('invoice_amount')"/>
+                                <th t-attf-style="text-align: #{text_align_opp};
+                                    padding: 4px;"
+                                    t-esc="translations.get('pos_amount')"/>
+                                <th t-attf-style="text-align: #{text_align_opp};
+                                    padding: 4px;"
+                                    t-esc="translations.get('achieved')"/>
+                                <th style="text-align: center; padding: 4px;"
+                                    t-esc="translations.get('ratio')"/>
+                                <th t-attf-style="text-align: #{text_align_opp};
+                                    padding: 4px;"
+                                    t-esc="translations.get('remaining')"/>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="report_data.get('summary_lines', [])"
+                               t-as="line">
+                                <tr t-attf-style="#{
+                                    'background-color: #eafaf1;'
+                                    if line.get('ratio', 0) >= 100
+                                    else ('background-color: #fef9e7;'
+                                          if line.get('ratio', 0) >= 50
+                                          else 'background-color: #fdedec;')}">
+                                    <td t-attf-style="text-align: #{text_align};
+                                        padding: 3px;">
+                                        <strong t-esc="line.get('name')"/>
+                                    </td>
+                                    <td t-attf-style="text-align: #{text_align};
+                                        padding: 3px;"
+                                        t-esc="line.get('type', '')"/>
+                                    <td t-attf-style="text-align: #{text_align_opp};
+                                        padding: 3px;"
+                                        t-esc="'{:,.2f}'.format(
+                                            line.get('target', 0))"/>
+                                    <td t-attf-style="text-align: #{text_align_opp};
+                                        padding: 3px;"
+                                        t-esc="'{:,.2f}'.format(
+                                            line.get('invoice_amount', 0))"/>
+                                    <td t-attf-style="text-align: #{text_align_opp};
+                                        padding: 3px;"
+                                        t-esc="'{:,.2f}'.format(
+                                            line.get('pos_amount', 0))"/>
+                                    <td t-attf-style="text-align: #{text_align_opp};
+                                        padding: 3px; font-weight: bold;"
+                                        t-esc="'{:,.2f}'.format(
+                                            line.get('achieved', 0))"/>
+                                    <td style="text-align: center;
+                                               padding: 3px;
+                                               font-weight: bold;"
+                                        t-esc="'{:.1f}%'.format(
+                                            line.get('ratio', 0))"/>
+                                    <td t-attf-style="text-align: #{text_align_opp};
+                                        padding: 3px;"
+                                        t-esc="'{:,.2f}'.format(
+                                            line.get('remaining', 0))"/>
+                                </tr>
+                            </t>
+                        </tbody>
+                        <tfoot style="background-color: #ecf0f1;
+                                      font-weight: bold;">
+                            <tr>
+                                <td colspan="2"
+                                    t-attf-style="text-align: #{text_align_opp};
+                                    padding: 5px;">
+                                    <strong t-esc="translations.get('totals')"/>
+                                </td>
+                                <td t-attf-style="text-align: #{text_align_opp};
+                                    padding: 5px;"
+                                    t-esc="'{:,.2f}'.format(
+                                        report_data['totals']['target'])"/>
+                                <td t-attf-style="text-align: #{text_align_opp};
+                                    padding: 5px;"
+                                    t-esc="'{:,.2f}'.format(
+                                        report_data['totals']['invoice_amount'])"/>
+                                <td t-attf-style="text-align: #{text_align_opp};
+                                    padding: 5px;"
+                                    t-esc="'{:,.2f}'.format(
+                                        report_data['totals']['pos_amount'])"/>
+                                <td t-attf-style="text-align: #{text_align_opp};
+                                    padding: 5px;
+                                    background-color: #27ae60; color: white;"
+                                    t-esc="'{:,.2f}'.format(
+                                        report_data['totals']['achieved'])"/>
+                                <td style="text-align: center; padding: 5px;
+                                    background-color: #3498db; color: white;"
+                                    t-esc="'{:.1f}%'.format(
+                                        report_data['totals']['ratio'])"/>
+                                <td t-attf-style="text-align: #{text_align_opp};
+                                    padding: 5px;"
+                                    t-esc="'{:,.2f}'.format(
+                                        report_data['totals']['remaining'])"/>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <!-- Detail Table -->
+                    <t t-if="report_data.get('detail_lines')">
+                        <h4 class="mt-4"
+                            t-attf-style="text-align: #{text_align};">
+                            <span t-esc="translations.get('detail_sheet')"/>
+                        </h4>
+                        <table class="table table-sm table-bordered"
+                               t-attf-style="font-size: 8px;
+                                             direction: #{direction};">
+                            <thead style="background-color: #34495e;
+                                          color: white;">
+                                <tr>
+                                    <th t-attf-style="text-align: #{text_align};
+                                        padding: 4px;"
+                                        t-esc="translations.get('name')"/>
+                                    <th t-attf-style="text-align: #{text_align};
+                                        padding: 4px;"
+                                        t-esc="translations.get('source')"/>
+                                    <th t-attf-style="text-align: #{text_align};
+                                        padding: 4px;"
+                                        t-esc="translations.get('reference')"/>
+                                    <th t-attf-style="text-align: #{text_align};
+                                        padding: 4px;"
+                                        t-esc="translations.get('customer')"/>
+                                    <th style="text-align: center;
+                                               padding: 4px;"
+                                        t-esc="translations.get('date')"/>
+                                    <th t-attf-style="text-align: #{text_align_opp};
+                                        padding: 4px;"
+                                        t-esc="translations.get('amount')"/>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="report_data.get('detail_lines', [])"
+                                   t-as="dl">
+                                    <tr t-attf-style="#{
+                                        'color: #e74c3c;'
+                                        if dl.get('amount', 0) &lt; 0
+                                        else ''}">
+                                        <td t-attf-style="text-align: #{text_align};
+                                            padding: 3px;"
+                                            t-esc="dl.get('name', '')"/>
+                                        <td t-attf-style="text-align: #{text_align};
+                                            padding: 3px;"
+                                            t-esc="dl.get('source', '')"/>
+                                        <td t-attf-style="text-align: #{text_align};
+                                            padding: 3px;"
+                                            t-esc="dl.get('reference', '')"/>
+                                        <td t-attf-style="text-align: #{text_align};
+                                            padding: 3px;"
+                                            t-esc="dl.get('customer', '')"/>
+                                        <td style="text-align: center;
+                                                   padding: 3px;"
+                                            t-esc="dl.get('date', '')"/>
+                                        <td t-attf-style="text-align: #{text_align_opp};
+                                            padding: 3px;"
+                                            t-esc="'{:,.2f}'.format(
+                                                dl.get('amount', 0))"/>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </t>
+
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

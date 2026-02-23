@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_bulk_target_wizard_form" model="ir.ui.view">
+        <field name="name">bulk.target.wizard.form</field>
+        <field name="model">bulk.target.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Bulk Target Creation">
+                <group>
+                    <group string="Target Type">
+                        <field name="target_type" widget="radio"/>
+                    </group>
+                    <group string="Period">
+                        <field name="month"/>
+                        <field name="year"/>
+                    </group>
+                </group>
+                <group>
+                    <group string="Filters">
+                        <field name="company_id"
+                               options="{'no_create': True, 'no_open': True}"/>
+                        <field name="team_id"
+                               options="{'no_create': True}"
+                               placeholder="All Teams"
+                               invisible="target_type != 'salesperson'"/>
+                    </group>
+                </group>
+                <separator string="Set Target Amounts"/>
+                <field name="line_ids">
+                    <tree string="Targets" editable="bottom">
+                        <field name="user_id"
+                               options="{'no_create': True}"
+                               column_invisible="parent.target_type != 'salesperson'"/>
+                        <field name="pos_config_id"
+                               options="{'no_create': True}"
+                               column_invisible="parent.target_type != 'pos'"/>
+                        <field name="target_amount"/>
+                    </tree>
+                </field>
+                <footer>
+                    <button name="action_create_targets"
+                            string="Create Targets" type="object"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_bulk_target_wizard" model="ir.actions.act_window">
+        <field name="name">Bulk Target Creation</field>
+        <field name="res_model">bulk.target.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_bulk_target_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>
