@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Top-level menu under Sales -->
+    <menuitem id="menu_sales_target_root"
+              name="Sales Targets"
+              parent="sale.sale_menu_root"
+              sequence="25"/>
+
+    <!-- All Targets (Manager) -->
+    <menuitem id="menu_sales_target_all"
+              name="All Targets"
+              parent="menu_sales_target_root"
+              action="action_sales_target_all"
+              groups="sales_team.group_sale_manager"
+              sequence="10"/>
+
+    <!-- My Targets (Salesperson) -->
+    <menuitem id="menu_sales_target_my"
+              name="My Targets"
+              parent="menu_sales_target_root"
+              action="action_sales_target_my"
+              sequence="20"/>
+
+    <!-- Dashboard (OWL) -->
+    <menuitem id="menu_sales_target_dashboard"
+              name="Dashboard"
+              parent="menu_sales_target_root"
+              action="action_sales_target_dashboard_owl"
+              groups="sales_team.group_sale_manager"
+              sequence="30"/>
+
+    <!-- Tools submenu -->
+    <menuitem id="menu_sales_target_tools"
+              name="Tools"
+              parent="menu_sales_target_root"
+              groups="sales_team.group_sale_manager"
+              sequence="40"/>
+
+    <menuitem id="menu_bulk_target_wizard"
+              name="Bulk Create Targets"
+              parent="menu_sales_target_tools"
+              action="action_bulk_target_wizard"
+              sequence="10"/>
+
+    <menuitem id="menu_copy_target_wizard"
+              name="Copy Targets"
+              parent="menu_sales_target_tools"
+              action="action_copy_target_wizard"
+              sequence="20"/>
+
+    <!-- Report -->
+    <menuitem id="menu_sales_target_report"
+              name="Performance Report"
+              parent="menu_sales_target_root"
+              action="action_sales_target_report_wizard"
+              sequence="50"/>
+
+</odoo>

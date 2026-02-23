@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<t t-name="sales_team_target.Dashboard">
+    <div class="st_dashboard">
+
+        <!-- ══ Header ══ -->
+        <div class="st_header">
+            <div class="d-flex align-items-center gap-2">
+                <i class="fa fa-bullseye fa-lg"/>
+                <h2 class="mb-0 fw-bold">Sales Target Dashboard</h2>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <select class="form-select form-select-sm" style="width:145px;"
+                        t-on-change="onMonthChange">
+                    <t t-foreach="months" t-as="m" t-key="m.value">
+                        <option t-att-value="m.value"
+                                t-att-selected="m.value === state.month">
+                            <t t-esc="m.label"/>
+                        </option>
+                    </t>
+                </select>
+                <input type="number" class="form-control form-control-sm"
+                       style="width:90px;" t-att-value="state.year"
+                       t-on-change="onYearChange" min="2020" max="2099"/>
+                <button class="btn btn-sm btn-primary" t-on-click="onViewAll">
+                    <i class="fa fa-list me-1"/>All Targets
+                </button>
+            </div>
+        </div>
+
+        <!-- ══ Loading ══ -->
+        <t t-if="state.loading">
+            <div class="text-center py-5">
+                <i class="fa fa-spinner fa-spin fa-3x text-muted"/>
+            </div>
+        </t>
+
+        <t t-else="">
+        <div class="st_body">
+
+            <!-- ══ KPI Row ══ -->
+            <div class="row g-3 mb-4">
+                <div class="col-xl-3 col-md-6">
+                    <div class="st_kpi st_kpi_dark">
+                        <div class="st_kpi_icon"><i class="fa fa-bullseye"/></div>
+                        <div>
+                            <div class="st_kpi_label">Total Target</div>
+                            <div class="st_kpi_val">
+                                <t t-esc="state.data.currency_symbol"/>
+                                <t t-esc="fmt(state.data.total_target)"/>
+                            </div>
+                            <div class="st_kpi_sub"><t t-esc="state.data.target_count"/> targets</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="st_kpi st_kpi_green">
+                        <div class="st_kpi_icon"><i class="fa fa-trophy"/></div>
+                        <div>
+                            <div class="st_kpi_label">Total Achieved</div>
+                            <div class="st_kpi_val">
+                                <t t-esc="state.data.currency_symbol"/>
+                                <t t-esc="fmt(state.data.total_achieved)"/>
+                            </div>
+                            <div class="st_kpi_sub">
+                                <span t-attf-class="badge bg-#{ratioColor(state.data.overall_ratio)}">
+                                    <t t-esc="state.data.overall_ratio"/>%
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="st_kpi st_kpi_blue">
+                        <div class="st_kpi_icon"><i class="fa fa-file-text-o"/></div>
+                        <div>
+                            <div class="st_kpi_label">Invoice Sales</div>
+                            <div class="st_kpi_val">
+                                <t t-esc="state.data.currency_symbol"/>
+                                <t t-esc="fmt(state.data.total_invoice)"/>
+                            </div>
+                            <div class="st_kpi_sub">Salesperson targets</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="st_kpi st_kpi_orange">
+                        <div class="st_kpi_icon"><i class="fa fa-shopping-cart"/></div>
+                        <div>
+                            <div class="st_kpi_label">POS Sales</div>
+                            <div class="st_kpi_val">
+                                <t t-esc="state.data.currency_symbol"/>
+                                <t t-esc="fmt(state.data.total_pos)"/>
+                            </div>
+                            <div class="st_kpi_sub">Point of Sale targets</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══ Status Counters ══ -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-4">
+                    <div class="st_stat_card">
+                        <i class="fa fa-check-circle fa-2x text-success opacity-50"/>
+                        <div>
+                            <div class="text-muted small">On Target (≥100%)</div>
+                            <div class="fs-3 fw-bold text-success"><t t-esc="state.data.on_target_count"/></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="st_stat_card">
+                        <i class="fa fa-exclamation-triangle fa-2x text-danger opacity-50"/>
+                        <div>
+                            <div class="text-muted small">Below Target</div>
+                            <div class="fs-3 fw-bold text-danger"><t t-esc="state.data.below_target_count"/></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="st_stat_card">
+                        <i class="fa fa-line-chart fa-2x text-primary opacity-50"/>
+                        <div>
+                            <div class="text-muted small">Overall Achievement</div>
+                            <div t-attf-class="fs-3 fw-bold text-#{ratioColor(state.data.overall_ratio)}">
+                                <t t-esc="state.data.overall_ratio"/>%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══ Charts Row ══ -->
+            <div class="row g-3 mb-4">
+                <div class="col-lg-5">
+                    <div class="st_card">
+                        <div class="st_chart_wrap" style="height:340px;">
+                            <canvas t-ref="barChart"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="st_card">
+                        <div class="st_chart_wrap" style="height:340px;">
+                            <canvas t-ref="trendChart"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="st_card">
+                        <div class="st_chart_wrap" style="height:340px;">
+                            <canvas t-ref="doughnutChart"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══ Ranking Table ══ -->
+            <t t-if="state.data.ranking and state.data.ranking.length">
+                <div class="st_card">
+                    <div class="st_table_header">
+                        <i class="fa fa-trophy me-2 text-warning"/>
+                        <span class="fw-bold">Performance Ranking</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th style="width:50px">#</th>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th class="text-end">Target</th>
+                                    <th class="text-end">Achieved</th>
+                                    <th style="width:220px">Progress</th>
+                                    <th class="text-end">Remaining</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="state.data.ranking" t-as="row" t-key="row.id">
+                                    <tr class="st_clickable" t-on-click="() => this.onClickRow(row.id)">
+                                        <td>
+                                            <span t-if="row_index === 0" class="st_medal st_gold">🥇</span>
+                                            <span t-elif="row_index === 1" class="st_medal st_silver">🥈</span>
+                                            <span t-elif="row_index === 2" class="st_medal st_bronze">🥉</span>
+                                            <span t-else="" class="text-muted"><t t-esc="row_index + 1"/></span>
+                                        </td>
+                                        <td class="fw-semibold"><t t-esc="row.name"/></td>
+                                        <td>
+                                            <span t-if="row.target_type === 'salesperson'"
+                                                  class="badge text-bg-info">
+                                                <i class="fa fa-user me-1"/>Salesperson
+                                            </span>
+                                            <span t-else="" class="badge text-bg-success">
+                                                <i class="fa fa-shopping-cart me-1"/>POS
+                                            </span>
+                                        </td>
+                                        <td class="text-end">
+                                            <t t-esc="state.data.currency_symbol"/>
+                                            <t t-esc="fmt(row.target)"/>
+                                        </td>
+                                        <td class="text-end fw-bold">
+                                            <t t-esc="state.data.currency_symbol"/>
+                                            <t t-esc="fmt(row.achieved)"/>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <div class="progress flex-grow-1" style="height:18px;border-radius:9px;">
+                                                    <div t-attf-class="progress-bar bg-#{ratioColor(row.ratio)}"
+                                                         t-attf-style="width:#{barWidth(row.ratio)}%;"
+                                                         style="border-radius:9px;font-size:11px;">
+                                                        <t t-esc="row.ratio"/>%
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td t-attf-class="text-end fw-semibold #{row.remaining > 0 ? 'text-danger' : 'text-success'}">
+                                            <t t-esc="state.data.currency_symbol"/>
+                                            <t t-esc="fmt(row.remaining)"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </t>
+
+            <!-- ══ Empty ══ -->
+            <div t-if="!state.data.ranking || !state.data.ranking.length"
+                 class="text-center py-5 text-muted">
+                <i class="fa fa-bar-chart fa-4x mb-3 d-block opacity-25"/>
+                <h4>No targets found for the selected period</h4>
+                <p>Create targets to see the dashboard.</p>
+            </div>
+
+        </div>
+        </t>
+    </div>
+</t>
+
+</templates>
