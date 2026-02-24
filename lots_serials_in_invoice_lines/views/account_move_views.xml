@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Inherit Invoice Form: add lot/expiry columns to invoice lines -->
+    <record id="account_move_form_lots" model="ir.ui.view">
+        <field name="name">account.move.form.lots</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="priority">50</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_line_ids']//field[@name='quantity']" position="after">
+                <!-- Hidden helper -->
+                <field name="is_direct_invoice" column_invisible="1"/>
+                <!-- Manual lot selection for direct invoices -->
+                <field name="manual_lot_ids"
+                       string="Lots (Manual)"
+                       widget="many2many_tags"
+                       column_invisible="1"
+                       domain="[('product_id', '=', product_id)]"
+                       options="{'no_create': True}"/>
+                <!-- Computed display fields -->
+                <field name="lot_names_display"
+                       string="Lot/Serial"
+                       optional="show"
+                       readonly="1"/>
+                <field name="expiry_dates_display"
+                       string="Expiry Date"
+                       optional="show"
+                       readonly="1"/>
+                <field name="lot_ref"
+                       string="Lot Ref"
+                       optional="hide"
+                       readonly="1"/>
+                <!-- Popup button -->
+                <button name="action_view_lots" type="object" icon="fa-list"
+                        title="View Lots / Serials"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

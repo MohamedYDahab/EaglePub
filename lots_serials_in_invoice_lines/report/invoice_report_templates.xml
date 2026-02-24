@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Adds lot/serial and expiry info below the product description
+        in the invoice PDF report.  This is safer than replacing the
+        entire <tbody> because it won't conflict with other modules.
+    -->
+    <template id="report_invoice_lot_expiry"
+              inherit_id="account.report_invoice_document">
+
+        <xpath expr="//td[@name='account_invoice_line_name']" position="inside">
+            <t t-if="line.lot_names_display or line.expiry_dates_display">
+                <br/>
+                <small class="text-muted" style="font-size: 0.85em;">
+                    <t t-if="line.lot_names_display">
+                        <strong>Lot/Serial: </strong>
+                        <span t-out="line.lot_names_display"/>
+                    </t>
+                    <t t-if="line.lot_names_display and line.expiry_dates_display">
+                        <span> | </span>
+                    </t>
+                    <t t-if="line.expiry_dates_display">
+                        <strong>Expiry: </strong>
+                        <span t-out="line.expiry_dates_display"/>
+                    </t>
+                    <t t-if="line.lot_ref">
+                        <span> | </span>
+                        <strong>Ref: </strong>
+                        <span t-out="line.lot_ref"/>
+                    </t>
+                </small>
+            </t>
+        </xpath>
+
+    </template>
+
+</odoo>

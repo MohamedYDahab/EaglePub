@@ -1,206 +1,556 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lots &amp; Serials in Invoice Lines – User Manual</title>
+</head>
+<body style="font-family: Arial, Helvetica, sans-serif; color: #212529; background: #F8F9FA; line-height: 1.7; font-size: 15px; margin: 0; padding: 0;">
 
-
-<div style="background-color: #00438B; min-height: 600px; width: 100%; padding: 15px; position: relative;">
-    <!-- TITLE BAR -->
-    <div
-        style="border-bottom: 1px solid #3369a2; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
-
-    </div>
-    <!-- END OF TITLE BAR -->
-
-    <!-- APP HERO -->
-    <h1 style="color: #FFFFFF; font-weight: bolder; font-size: 50px; text-align: center; margin-top: 50px;">Lots and Serials in Invoice Lines</h1>
-    <p style="color:#FFFFFF; padding: 8px 15px; text-align: center; font-size: 24px;">Add Lots and Serials and Expirations Date in Invoice Line and Invoice PDF Report</p>
-    <!-- END OF APP HERO -->
-    <img src="assets/screenshots/hero.gif"
-        style="width: 75%; height: auto; position: absolute; margin-left: auto; margin-right: auto; top: 45%; left: 12%; right: auto;" />
-
-</div>
-
-<!-- NAVIGATION SECTION -->
-<!--<div class="d-flex align-items-center" style="border-bottom: 2px solid #00438B; padding: 15px 0px; margin-top: 300px;">-->
-<!--    <div class="d-flex justify-content-center align-items-center mr-2"-->
-<!--        style="background-color: #F5F5F5; border-radius: 0px; width: 40px; height: 40px;">-->
-<!--        <img src="assets/misc/compass.png" />-->
-<!--    </div>-->
-<!--    <h2 class="mt-2" style="font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: bold;">Explore This-->
-<!--        Module</h2>-->
-<!--</div>-->
-<div class="row my-4" style="font-family: 'Montserrat', sans-serif;">
-    <div class="col-sm-12 col-md-6 my-3">
-        <a href="#overview">
-            <div class="d-flex justify-content-between align-items-center"
-                style="background-color: #f5f5f5; padding: 30px; width: 100%;">
-                <div>
-                    <span style="color: #00438B; font-size: 24px; font-weight: 500; display: block;">Overview</span>
-                    <span
-                        style="color: #00438B; font-size: 16px; font-weight: 400; color:#282F33;  display: block;">Learn
-                        more about this
-                        module</span>
-                </div>
-                <img src="assets/misc/right-arrow.png" width="36" height="36" />
-            </div>
-        </a>
-    </div>
-    <div class="col-sm-12 col-md-6 my-3">
-        <a href="#features">
-            <div class="d-flex justify-content-between align-items-center"
-                style="background-color: #f5f5f5; padding: 30px; width: 100%;">
-                <div>
-                    <span style="color: #00438B; font-size: 24px; font-weight: 500; display: block;">Features</span>
-                    <span
-                        style="color: #00438B; font-size: 16px; font-weight: 400; color:#282F33;  display: block;">View
-                        features of this
-                        module</span>
-                </div>
-                <img src="assets/misc/right-arrow.png" width="36" height="36" />
-            </div>
-        </a>
-    </div>
-    <div class="col-sm-12 col-md-6 my-3">
-        <a href="#screenshots">
-            <div class="d-flex justify-content-between align-items-center"
-                style="background-color: #f5f5f5; padding: 30px; width: 100%;">
-                <div>
-                    <span style="color: #00438B; font-size: 24px; font-weight: 500; display: block;">Screenshots</span>
-                    <span
-                        style="color: #00438B; font-size: 16px; font-weight: 400; color:#282F33;  display: block;">View
-                        screenshots for this
-                        module</span>
-                </div>
-                <img src="assets/misc/right-arrow.png" width="36" height="36" />
-            </div>
-        </a>
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<div style="background: linear-gradient(135deg, #1B813E 0%, #14693A 100%); color: #fff; padding: 60px 20px 50px; text-align: center;">
+    <h1 style="font-size: 2.4rem; font-weight: 700; letter-spacing: -0.5px; margin: 0 0 12px;">🏷️ Lots &amp; Serials in
+        Invoice Lines</h1>
+    <p style="font-size: 1.1rem; opacity: 0.9; max-width: 660px; margin: 0 auto 20px; padding: 0;">
+        Track Lot/Serial Numbers and Expiry Dates across Sale Orders, Purchase Orders,
+        Invoices, and PDF Reports — with full traceability from order to invoice.
+    </p>
+    <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">Odoo 17.0</span>
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">Accounting</span>
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">Sales &amp; Purchase</span>
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">Lot Tracking</span>
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">Expiry Dates</span>
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">LGPL-3</span>
     </div>
 </div>
-<!-- END OF NAVIGATION SECTION -->
 
-<!-- OVERVIEW SECTION -->
-<div class="d-flex align-items-center" style="border-bottom: 2px solid #00438B; padding: 15px 0px;" id="overview">
-    <div class="d-flex justify-content-center align-items-center mr-2"
-        style="background-color: #F5F5F5; border-radius: 0px; width: 40px; height: 40px;">
-        <img src="assets/misc/pie-chart.png" />
-    </div>
-    <h2 class="mt-2" style="font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: bold;">Overview
-    </h2>
-</div>
-<div class="row" style="font-family: 'Montserrat', sans-serif; font-weight: 400; font-size: 14px; line-height: 200%;">
-    <div class="col-sm-12 py-4">
-        Module Add Lots and Serial and Expiration Date Information in SaleOrder / PurchaseOrder / and Invoice Lines
-        and Invoice PDF Report
-    </div>
-</div>
-<!-- END OF OVERVIEW SECTION -->
+<!-- ══════════════════════ MAIN CONTENT ══════════════════════ -->
+<div style="max-width: 960px; margin: 30px auto; padding: 0 20px 60px;">
 
-<!-- FEATURES SECTION -->
-<div class="d-flex align-items-center" style="border-bottom: 2px solid #00438B; padding: 15px 0px;" id="features">
-    <div class="d-flex justify-content-center align-items-center mr-2"
-        style="background-color: #F5F5F5; border-radius: 0px; width: 40px; height: 40px;">
-        <img src="assets/misc/features.png" />
+    <!-- ═══ Overview ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #1B813E; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #E6F4EA;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #E6F4EA; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">📋</span>
+            Overview
+        </h2>
+        <p style="margin-bottom: 12px;">
+            <b>Lots &amp; Serials in Invoice Lines</b> brings lot/serial number and expiry date
+            visibility to every stage of your sales and purchasing workflow. Lot information flows
+            automatically from <b>stock moves</b> to <b>Sale Order lines</b>, <b>Purchase Order lines</b>,
+            and <b>Invoice lines</b> — and is printed on the <b>Invoice PDF report</b>.
+        </p>
+        <p style="margin-bottom: 12px;">
+            The module also supports <b>manual lot selection</b> for direct invoices that are
+            not linked to any Sale Order or Purchase Order, ensuring complete lot traceability
+            even when orders are created directly.
+        </p>
+        <p style="margin-bottom: 0;">
+            Each order/invoice line includes a <b>popup button</b> that opens a detailed view of all
+            associated lots with their names, references, and expiry dates.
+        </p>
+
+        <img src="static/description/screenshot_overview.png"
+             style="width: 100%; border-radius: 10px; border: 1px solid #DEE2E6; margin: 16px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06);"
+             alt="Screenshot Overview"/>
     </div>
-    <h2 class="mt-2" style="font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: bold;">Features
-    </h2>
-</div>
-<div class="row" style="font-family: 'Montserrat', sans-serif; font-weight: 400; font-size: 14px; line-height: 200%;">
-    <div class="col-sm-12 col-md-6">
-        <div class="d-flex align-items-start" style="margin-top: 40px; margin-bottom: 40px">
-            <img src="assets/misc/check-box.png" class="mr-2" />
+
+    <!-- ═══ Key Features ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #1B813E; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #E6F4EA;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #E6F4EA; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">⭐</span>
+            Key Features
+        </h2>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Sale Order
+                Lines:</b> Lot/Serial tags computed from delivery stock moves, with popup browser
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Purchase Order
+                Lines:</b> Lot/Serial tags computed from receipt stock moves, with popup browser
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Invoice
+                Lines:</b> Lots, expiry dates, and lot references displayed as computed columns
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Manual Lot
+                Selection:</b> For direct invoices not linked to SO/PO, manually pick lots from available stock
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Invoice PDF
+                Report:</b> Lot/serial and expiry info printed below each product line on the PDF
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Lot
+                Reference:</b> Internal lot reference shown alongside lot name and expiry
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Popup
+                Browser:</b> Click the list icon on any line to open a detailed tree view of lots with expiry dates
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span>
+                <b>Cross-Channel:</b> Works with customer invoices (from sales) and vendor bills (from purchases)
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span>
+                <b>Non-Intrusive:</b> Products without lot tracking behave exactly as before — zero disruption
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Community &amp;
+                Enterprise:</b> Works on both Odoo 17 editions
+            </li>
+        </ul>
+    </div>
+
+    <!-- ═══ How It Works ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #1B813E; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #E6F4EA;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #E6F4EA; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">⚡</span>
+            How It Works
+        </h2>
+        <p style="margin-bottom: 16px;">
+            Lot information is <b>computed automatically</b> from stock moves — no manual data entry required
+            for orders linked to deliveries or receipts.
+        </p>
+
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <td style="text-align: center; padding: 16px 8px; background: #E6F4EA; border-radius: 8px; width: 18%;">
+                    <span style="font-size: 26px; display: block; margin-bottom: 6px;">📦</span>
+                    <b style="color: #1B813E; font-size: 13px;">Delivery / Receipt</b><br>
+                    <span style="color: #6c757d; font-size: 12px;">Lots assigned in stock moves</span>
+                </td>
+                <td style="text-align: center; padding: 0 4px; color: #1B813E; font-size: 22px;">→</td>
+                <td style="text-align: center; padding: 16px 8px; background: #E6F4EA; border-radius: 8px; width: 18%;">
+                    <span style="font-size: 26px; display: block; margin-bottom: 6px;">📝</span>
+                    <b style="color: #1B813E; font-size: 13px;">SO / PO Lines</b><br>
+                    <span style="color: #6c757d; font-size: 12px;">Lots appear as tags</span>
+                </td>
+                <td style="text-align: center; padding: 0 4px; color: #1B813E; font-size: 22px;">→</td>
+                <td style="text-align: center; padding: 16px 8px; background: #E6F4EA; border-radius: 8px; width: 18%;">
+                    <span style="font-size: 26px; display: block; margin-bottom: 6px;">🧾</span>
+                    <b style="color: #1B813E; font-size: 13px;">Invoice Lines</b><br>
+                    <span style="color: #6c757d; font-size: 12px;">Lots + expiry displayed</span>
+                </td>
+                <td style="text-align: center; padding: 0 4px; color: #1B813E; font-size: 22px;">→</td>
+                <td style="text-align: center; padding: 16px 8px; background: #E6F4EA; border-radius: 8px; width: 18%;">
+                    <span style="font-size: 26px; display: block; margin-bottom: 6px;">🖨️</span>
+                    <b style="color: #1B813E; font-size: 13px;">PDF Report</b><br>
+                    <span style="color: #6c757d; font-size: 12px;">Printed on invoice PDF</span>
+                </td>
+            </tr>
+        </table>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Where Lots Come From</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <th style="background: #1B813E; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
+                    Source
+                </th>
+                <th style="background: #1B813E; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
+                    Lot Lookup Path
+                </th>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Sale Order</b> → Invoice</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><code
+                        style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">sale.order.line</code>
+                    → <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">stock.move</code>
+                    → <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">stock.lot</code>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Purchase Order</b> → Bill</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><code
+                        style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">purchase.order.line</code>
+                    → <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">stock.move</code>
+                    → <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">stock.lot</code>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Direct Invoice</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Manual selection via <code
+                        style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">manual_lot_ids</code>
+                    field (domain-filtered to the product)
+                </td>
+            </tr>
+        </table>
+
+        <div style="padding: 14px 18px; border-radius: 8px; margin: 14px 0; font-size: 14px; background: #EBF5FB; border-left: 4px solid #2980B9; display: flex; gap: 10px; align-items: flex-start;">
+            <span style="font-size: 18px; color: #2980B9; flex-shrink: 0;">ℹ️</span>
             <div>
-                <span
-                    style="display: block; font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: bold;"> View Lots and Serial in Sale, Purchase and Invoices</span>
+                <b>Automatic + Manual:</b> For invoices generated from SO/PO, lots are computed automatically.
+                For direct invoices, you can manually select lots. Both sources are combined if present.
             </div>
         </div>
-        <div class="d-flex align-items-start" style="margin-top: 30px; margin-bottom: 30px">
-            <img src="assets/misc/check-box.png" class="mr-2" />
+    </div>
+
+    <!-- ═══ Installation ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #1B813E; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #E6F4EA;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #E6F4EA; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">📥</span>
+            Installation
+        </h2>
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Requirements</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <th style="background: #1B813E; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px; border-radius: 8px 0 0 0;">
+                    Requirement
+                </th>
+                <th style="background: #1B813E; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px; border-radius: 0 8px 0 0;">
+                    Details
+                </th>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Odoo Version</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>17.0</b> (Community &amp;
+                    Enterprise)
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Depends On</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">
+                    <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">account</code>,
+                    <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">sale_stock</code>,
+                    <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">purchase_stock</code>,
+                    <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">product_expiry</code>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Python Libraries</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">None</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">License</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">LGPL-3</td>
+            </tr>
+        </table>
+
+        <div style="padding: 14px 18px; border-radius: 8px; margin: 14px 0; font-size: 14px; background: #FDF2E6; border-left: 4px solid #E67E22; display: flex; gap: 10px; align-items: flex-start;">
+            <span style="font-size: 18px; color: #E67E22; flex-shrink: 0;">⚠️</span>
             <div>
-                <span
-                    style="display: block; font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: bold;"> View Detailed Lots and Expiration Data From Sale, Purchase and Invoices.</span>
+                <b>Important:</b> If you previously had <code
+                    style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">lots_serials_in_invoice_lines</code>
+                or
+                <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">lot_expiry_invoice</code>
+                installed, <b>uninstall both</b> before installing this combined module
+                to avoid XML ID conflicts.
             </div>
         </div>
-        <div class="d-flex align-items-start" style="margin-top: 30px; margin-bottom: 30px">
-            <img src="assets/misc/check-box.png" class="mr-2" />
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Steps</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top; width: 40px;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #1B813E; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">1</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;"><b style="color: #14693A;">Upload the
+                    module</b><br>Copy the <code
+                        style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">lots_serials_in_invoice_lines</code>
+                    folder into your addons directory.
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #1B813E; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">2</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;"><b style="color: #14693A;">Update app
+                    list</b><br>Go to <span
+                        style="font-weight: 600; color: #1B813E; background: #E6F4EA; padding: 3px 10px; border-radius: 6px; font-size: 13.5px;">Apps → Update Apps List</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #1B813E; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">3</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;"><b style="color: #14693A;">Install the
+                    module</b><br>Search for <b>"Lots &amp; Serials in Invoice Lines"</b> and click <b>Install</b>.
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- ═══ Usage: SO & PO ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #1B813E; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #E6F4EA;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #E6F4EA; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">📝</span>
+            Usage: Sale Orders &amp; Purchase Orders
+        </h2>
+        <p style="margin-bottom: 12px;">
+            After deliveries or receipts are processed with lots, the lot information appears
+            automatically on the order lines.
+        </p>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top; width: 40px;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #1B813E; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">1</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Create a <b>Sale Order</b> or <b>Purchase
+                    Order</b> with lot-tracked products.
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #1B813E; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">2</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Process the <b>delivery</b> (SO) or <b>receipt</b>
+                    (PO) and assign lot/serial numbers to the stock moves.
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #1B813E; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">3</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Return to the order — the <b>Lots /
+                    Serials</b> column now shows tags with the assigned lot numbers.
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #1B813E; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">4</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Click the <b>📋 list icon</b> on any line to
+                    open a popup showing lot names, references, and expiry dates.
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- ═══ Usage: Invoices ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #1B813E; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #E6F4EA;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #E6F4EA; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">🧾</span>
+            Usage: Invoices &amp; Vendor Bills
+        </h2>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Invoices from SO/PO
+            (Automatic)</h3>
+        <p style="margin-bottom: 12px;">
+            When you create an invoice from a Sale Order or a vendor bill from a Purchase Order,
+            the lot and expiry information is <b>computed automatically</b> — no action needed.
+        </p>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <th style="background: #1B813E; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
+                    Column
+                </th>
+                <th style="background: #1B813E; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
+                    Description
+                </th>
+                <th style="background: #1B813E; color: #fff; padding: 10px 14px; text-align: center; font-weight: 600; font-size: 13px;">
+                    Default
+                </th>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Lot/Serial</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Comma-separated lot/serial names</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF; text-align: center;">Shown</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Expiry Date</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Comma-separated expiry dates
+                    (YYYY-MM-DD)
+                </td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF; text-align: center;">Shown</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Lot Ref</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Internal lot references</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF; text-align: center;">Hidden
+                    (optional)
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>📋 Button</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Opens popup with full lot detail tree
+                    view
+                </td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF; text-align: center;">Always</td>
+            </tr>
+        </table>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Direct Invoices (Manual
+            Lots)</h3>
+        <p style="margin-bottom: 12px;">
+            For invoices created directly (not from an SO/PO), you can <b>manually select lots</b>
+            using the <b>Lots (Manual)</b> field. This field is domain-filtered to show only lots
+            belonging to the product on that line.
+        </p>
+        <div style="padding: 14px 18px; border-radius: 8px; margin: 14px 0; font-size: 14px; background: #E6F4EA; border-left: 4px solid #1B813E; display: flex; gap: 10px; align-items: flex-start;">
+            <span style="font-size: 18px; color: #1B813E; flex-shrink: 0;">💡</span>
             <div>
-                <span
-                    style="display: block; font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: bold;"> Print Lots and Serial and Expiration Date on Invoice PDF Report.</span>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- END OF FEATURES SECTION -->
-
-<!-- SCREENSHOTS SECTION -->
-<div class="d-flex align-items-center" style="border-bottom: 2px solid #00438B; padding: 15px 0px;" id="screenshots">
-    <div class="d-flex justify-content-center align-items-center mr-2"
-        style="background-color: #F5F5F5; border-radius: 0px; width: 40px; height: 40px;">
-        <img src="assets/misc/pictures.png" />
-    </div>
-    <h2 class="mt-2" style="font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: bold;">Screenshots
-    </h2>
-</div>
-<div class="row">
-    <div class="col-sm-12">
-
-        <div style="display: block; margin: 30px auto;">
-            <h3 style="font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: bold;">Sale Order</h3>
-            <p style="font-weight: 400; font-family: 'Montserrat', sans-serif; font-size: 14px;">Show Lots / Serial Names in Sales Order</p>
-            <img src="assets/screenshots/screenshot-1.png" class="img-thumbnail">
-        </div>
-
-        <div style="display: block; margin: 30px auto;">
-            <h3 style="font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: bold;">Sale Orders</h3>
-            <p style="font-weight: 400; font-family: 'Montserrat', sans-serif; font-size: 14px;"> Show Detailed Lots and Expiration Informations</p>
-            <img src="assets/screenshots/2.png" class="img-thumbnail">
-        </div>
-          <div style="display: block; margin: 30px auto;">
-            <h3 style="font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: bold;">Purchase Order</h3>
-            <p style="font-weight: 400; font-family: 'Montserrat', sans-serif; font-size: 14px;"> Show Lots / Serial Names in Purchase Orders.</p>
-            <img src="assets/screenshots/screenshot-3.png" class="img-thumbnail">
-        </div>
-          <div style="display: block; margin: 30px auto;">
-            <h3 style="font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: bold;">Purchase Orders</h3>
-            <p style="font-weight: 400; font-family: 'Montserrat', sans-serif; font-size: 14px;"> Show Detailed Lots and Expiration Informations.</p>
-            <img src="assets/screenshots/screenshot-4.png" class="img-thumbnail">
-        </div>
-        <div style="display: block; margin: 30px auto;">
-            <h3 style="font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: bold;">Invoices Orders</h3>
-            <p style="font-weight: 400; font-family: 'Montserrat', sans-serif; font-size: 14px;"> Show Lots and Serials in Invoices</p>
-            <img src="assets/screenshots/screenshot-5.png" class="img-thumbnail">
-        </div>
-    </div>
-</div>
-<!-- END OF SCREENSHOTS SECTION -->
-
-
-<!-- SUPPORT -->
-<div class="d-flex align-items-center" style="border-bottom: 2px solid #00438B; padding: 15px 0px;">
-    <h2 class="mt-2" style="font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: bold;">Support
-    </h2>
-</div>
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-sm-12 col-md-6">
-            <div style="background-color: #F6F8F9; padding: 30px; display: flex; align-items: center;">
-                <div>
-                    <h4>Need Help?</h4>
-                    <p style="line-height: 100%;">Got questions or need help? Get in touch.</p>
-                    <a href="mailto:mohamed.yaseen.dahab@gmail.com.com">
-                        <p style="font-weight: 400; font-size: 28px; line-height: 80%; color: #00438B;">
-                            mohamed.yaseen.dahab@gmail.com</p>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-6">
-            <div style="background-color: #F6F8F9; padding: 30px; display: flex; align-items: center;">
-                <div>
-                    <h4>WhatsApp</h4>
-                    <p style="line-height: 100%;">Say hi to us on WhatsApp!</p>
-                    <a href="https://api.whatsapp.com/send?phone=918606827707">
-                        <p style="font-weight: 400; font-size: 28px; line-height: 80%; color: #00438B;">+20 1007802335</p>
-                    </a>
-                </div>
+                <b>Tip:</b> Manual lots and automatic lots are <b>combined</b>. If an invoice line is linked
+                to a SO and you also add manual lots, both are displayed together.
             </div>
         </div>
     </div>
 
+    <!-- ═══ PDF Report ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #1B813E; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #E6F4EA;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #E6F4EA; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">🖨️</span>
+            Invoice PDF Report
+        </h2>
+        <p style="margin-bottom: 12px;">
+            The module extends the standard Odoo invoice PDF template to show lot and expiry information
+            <b>below each product line</b>. The information appears as small, muted text beneath the product
+            description, keeping the report clean and professional.
+        </p>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">What's Printed</h3>
+        <div style="background: #f8f9fa; border: 1px solid #E9ECEF; border-radius: 8px; padding: 20px; margin: 14px 0; font-size: 14px;">
+            <div style="margin-bottom: 6px;">
+                <b>Widget X</b>
+            </div>
+            <div style="color: #6c757d; font-size: 13px;">
+                <b>Lot/Serial:</b> LOT-001, LOT-002 | <b>Expiry:</b> 2025-12-31, 2026-03-15 | <b>Ref:</b> BATCH-A
+            </div>
+        </div>
+        <p style="margin-bottom: 12px; font-size: 14px; color: #6c757d;">
+            Each element only appears when data is present — no empty labels are printed for
+            products without lots or expiry dates.
+        </p>
+        <img src="static/description/screenshot_overview.png"
+             style="width: 100%; border-radius: 10px; border: 1px solid #DEE2E6; margin: 16px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06);"
+             alt="Screenshot Overview"/>
+
+
+    </div>
+
+
+    <!-- ═══ Bug Fixes Over Previous Versions ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #1B813E; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #E6F4EA;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #E6F4EA; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">🐛</span>
+            Bug Fixes &amp; Improvements
+        </h2>
+        <p style="margin-bottom: 12px;">
+            This combined module fixes several issues present in the original separate modules:
+        </p>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #dc3545; font-weight: 700;">✕</span> <b>Fixed:</b> <code
+                    style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">ref</code>
+                field no longer overrides the base payment reference field on invoice lines (renamed to <code
+                        style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">lot_ref</code>)
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #dc3545; font-weight: 700;">✕</span> <b>Fixed:</b>
+                Compute methods no longer return action dictionaries (separated into dedicated button methods)
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #dc3545; font-weight: 700;">✕</span> <b>Fixed:</b>
+                Variable scoping bug in popup actions (used <code
+                        style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">self.lot_ids</code>
+                instead of leaked loop variable)
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #dc3545; font-weight: 700;">✕</span> <b>Fixed:</b> PDF
+                report uses safe inline injection instead of full tbody replacement
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #28a745; font-weight: 700;">+</span> <b>Added:</b> Proper
+                <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">@api.depends</code>
+                declarations on all compute methods
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #28a745; font-weight: 700;">+</span> <b>Added:</b> <code
+                    style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">purchase_stock</code>
+                and <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">product_expiry</code>
+                to dependencies
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #28a745; font-weight: 700;">+</span> <b>Added:</b> Lot
+                reference display in PDF report
+            </li>
+        </ul>
+    </div>
+
+    <!-- ═══ FAQ ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #1B813E; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #E6F4EA;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #E6F4EA; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">❓</span>
+            Frequently Asked Questions
+        </h2>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Why are lots not appearing
+            on my invoice lines?</h3>
+        <p style="margin-bottom: 12px;">
+            Lots are computed from stock moves. Make sure the delivery (for sales) or receipt (for purchases)
+            has been <b>validated</b> with lots assigned. Draft transfers don't create lot links.
+        </p>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Can I manually add lots to
+            an invoice from a Sale Order?</h3>
+        <p style="margin-bottom: 12px;">
+            Yes. The <b>Lots (Manual)</b> field is available on all invoice lines. Manual lots
+            are combined with automatically computed lots from SO/PO deliveries.
+        </p>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">What if my product doesn't
+            have expiry dates?</h3>
+        <p style="margin-bottom: 12px;">
+            No problem. The expiry date column will simply be empty for lots without expiration.
+            The lot name is still displayed. Enable the <b>product_expiry</b> module and configure
+            expiry dates on your lots if needed.
+        </p>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Does this affect the
+            invoice PDF layout?</h3>
+        <p style="margin-bottom: 12px;">
+            The lot/expiry info is added as small text <b>below</b> the product description —
+            no extra columns are added to the PDF table. The layout stays clean and compatible
+            with other report customizations.
+        </p>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">I previously had two
+            separate modules installed. How do I migrate?</h3>
+        <p style="margin-bottom: 12px;">
+            <b>Uninstall</b> both <code
+                style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">lots_serials_in_invoice_lines</code>
+            and
+            <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">lot_expiry_invoice</code>,
+            then install this combined module.
+            Manual lot data stored in the old <code
+                style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">manual_lot_ids</code>
+            M2M table will need
+            to be re-entered since the relation table name has changed for safety.
+        </p>
+    </div>
+
+    <!-- ═══ Support ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #1B813E; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #E6F4EA;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #E6F4EA; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">🤝</span>
+            Support
+        </h2>
+        <p style="margin-bottom: 12px;">For questions, bug reports, or feature requests:</p>
+        <div style="margin-top: 10px; line-height: 1.6;">
+            <div style="display: flex; align-items: center; margin-bottom: 5px;">
+                <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"
+                     style="width: 18px; height: 18px; margin-right: 8px;">
+                <a href="https://wa.me/201007802335" target="_blank"
+                   style="text-decoration: none; color: #25D366; font-weight: bold;">+20 100 780 2335</a>
+            </div>
+            <div style="display: flex; align-items: center;">
+                <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email"
+                     style="width: 18px; height: 18px; margin-right: 8px;">
+                <a href="mailto:mohamed.yaseen.dahab@gmail.com" style="text-decoration: none; color: #007bff;">mohamed.yaseen.dahab@gmail.com</a>
+            </div>
+        </div>
+        <div style="padding: 14px 18px; border-radius: 8px; margin: 14px 0; font-size: 14px; background: #E6F4EA; border-left: 4px solid #1B813E; display: flex; gap: 10px; align-items: flex-start;">
+            <span style="font-size: 18px; color: #1B813E; flex-shrink: 0;">💡</span>
+            <div>
+                <b>Upgrade command:</b><br>
+                <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">./odoo-bin
+                    -u lots_serials_in_invoice_lines -d your_database</code>
+            </div>
+        </div>
+    </div>
+
 </div>
+</body>
+</html>

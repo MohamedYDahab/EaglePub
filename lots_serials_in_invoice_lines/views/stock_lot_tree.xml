@@ -1,14 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <record model="ir.ui.view" id="stock_lot_custom_tree">
-            <field name="name">stock.lot.inherit.tree</field>
-            <field name="model">stock.lot</field>
-            <field name="arch" type="xml">
-                <tree editable="bottom">
-                    <field name="name"/>
-                    <field name="expiration_date"/>
-                </tree>
-            </field>
-        </record>
-    </data>
+
+    <!-- Custom tree view used in lot popup (shows name + expiry) -->
+    <record model="ir.ui.view" id="stock_lot_custom_tree">
+        <field name="name">stock.lot.custom.tree</field>
+        <field name="model">stock.lot</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="company_id" column_invisible="1"/>
+                <field name="name"/>
+                <field name="ref" optional="show"/>
+                <field name="product_id"/>
+                <field name="expiration_date"/>
+            </tree>
+        </field>
+    </record>
+
 </odoo>
