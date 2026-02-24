@@ -28,23 +28,3 @@ class PosOrderLine(models.Model):
 
 class PosOrder(models.Model):
     _inherit = 'pos.order'
-
-    @api.model
-    def _order_fields(self, ui_order):
-        """Extend to include packaging fields from UI order"""
-        order_fields = super()._order_fields(ui_order)
-        return order_fields
-
-    def _prepare_order_line(self, order_line):
-        """Prepare order line values including packaging info"""
-        vals = super()._prepare_order_line(order_line)
-        vals.update({
-            'packaging_id': order_line[2].get('packaging_id', False),
-            'package_qty': order_line[2].get('package_qty', 0),
-        })
-        return vals
-
-    @api.model
-    def _process_order(self, order, draft, existing_order):
-        """Process order with packaging information"""
-        return super()._process_order(order, draft, existing_order)
