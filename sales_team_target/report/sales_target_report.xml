@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_report_sales_target" model="ir.actions.report">
+        <field name="name">Sales Target Report</field>
+        <field name="model">sales.target.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sales_team_target.report_sales_target</field>
+        <field name="report_file">sales_team_target.report_sales_target</field>
+        <field name="print_report_name">
+            'Sales Target Report - %s to %s' % (object.date_from, object.date_to)
+        </field>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>
