@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="last_price_update.ControlButtons" t-inherit="point_of_sale.ControlButtons" t-inherit-mode="extension">
+        <xpath expr="//button[hasclass('more-btn')]" position="before">
+            <button class="btn btn-lg flex-shrink-0"
+                    t-attf-class="{{ hasPartnerForLastPrice ? 'btn-warning' : 'btn-secondary' }}"
+                    t-if="!props.showRemainingButtons"
+                    t-on-click="() => this.clickLastPrice()">
+                <i class="fa fa-history me-1" role="img"
+                   aria-label="Last Price" title="Last Price"/>
+                آخر سعر
+            </button>
+        </xpath>
+        <xpath expr="//button[hasclass('o_fiscal_position_button')]" position="after">
+            <button t-att-class="buttonClass"
+                    t-on-click="() => this.clickLastPrice()">
+                <i class="fa fa-history me-1" role="img"
+                   aria-label="Last Price" title="Last Price"/>
+                آخر سعر / Last Price
+            </button>
+        </xpath>
+    </t>
+
+</templates>
