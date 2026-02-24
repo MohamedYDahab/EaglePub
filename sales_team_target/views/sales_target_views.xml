@@ -9,44 +9,42 @@
             <search>
                 <field name="user_id"/>
                 <field name="pos_config_id"/>
-                <filter string="My Targets" name="my_targets"
+                <filter name="my_targets" string="My Targets"
                         domain="[('user_id', '=', uid)]"/>
                 <separator/>
-                <filter string="Salesperson Targets" name="type_salesperson"
+                <filter name="type_salesperson" string="Salesperson Targets"
                         domain="[('target_type', '=', 'salesperson')]"/>
-                <filter string="POS Targets" name="type_pos"
+                <filter name="type_pos" string="POS Targets"
                         domain="[('target_type', '=', 'pos')]"/>
                 <separator/>
-                <filter string="Draft" name="draft"
+                <filter name="draft" string="Draft"
                         domain="[('state', '=', 'draft')]"/>
-                <filter string="Confirmed" name="confirmed"
+                <filter name="confirmed" string="Confirmed"
                         domain="[('state', '=', 'confirmed')]"/>
-                <filter string="Closed" name="closed"
+                <filter name="closed" string="Closed"
                         domain="[('state', '=', 'closed')]"/>
                 <separator/>
-                <filter string="On Target" name="on_target"
+                <filter name="on_target" string="On Target"
                         domain="[('achievement_ratio', '&gt;=', 100)]"/>
-                <filter string="Below Target" name="below_target"
+                <filter name="below_target" string="Below Target"
                         domain="[('achievement_ratio', '&lt;', 100)]"/>
-                <separator/>
-                <group expand="0" string="Group By">
-                    <filter string="Target Type" name="group_type"
+                <group>
+                    <filter name="group_type" string="Target Type"
                             context="{'group_by': 'target_type'}"/>
-                    <filter string="Salesperson" name="group_user"
+                    <filter name="group_user" string="Salesperson"
                             context="{'group_by': 'user_id'}"/>
-                    <filter string="Point of Sale" name="group_pos"
+                    <filter name="group_pos" string="Point of Sale"
                             context="{'group_by': 'pos_config_id'}"/>
-                    <filter string="Month" name="group_month"
+                    <filter name="group_month" string="Month"
                             context="{'group_by': 'month'}"/>
-                    <filter string="Year" name="group_year"
+                    <filter name="group_year" string="Year"
                             context="{'group_by': 'year'}"/>
-                    <filter string="Status" name="group_state"
+                    <filter name="group_state" string="Status"
                             context="{'group_by': 'state'}"/>
                 </group>
             </search>
         </field>
     </record>
-
     <!-- ═══════════ LIST VIEW ═══════════ -->
     <record id="view_sales_target_list" model="ir.ui.view">
         <field name="name">sales.target.list</field>
