@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_order_form_last_price" model="ir.ui.view">
+        <field name="name">sale.order.form.last.price</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_update_last_prices"
+                        string="آخر سعر / Last Price"
+                        type="object"
+                        class="btn-secondary"
+                        icon="fa-history"
+                        invisible="state not in ('draft', 'sent')"
+                        confirm="Update all line prices to the last price for this customer?"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

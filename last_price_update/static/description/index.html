@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Last Customer Price Update – User Manual</title>
+</head>
+<body style="font-family: Arial, Helvetica, sans-serif; color: #212529; background: #F8F9FA; line-height: 1.7; font-size: 15px; margin: 0; padding: 0;">
+
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<div style="background: linear-gradient(135deg, #E67E22 0%, #D35400 100%); color: #fff; padding: 60px 20px 50px; text-align: center;">
+    <h1 style="font-size: 2.4rem; font-weight: 700; letter-spacing: -0.5px; margin: 0 0 12px;">🔄 Last Customer Price
+        Update</h1>
+    <p style="font-size: 1.1rem; opacity: 0.9; max-width: 660px; margin: 0 auto 20px; padding: 0;">
+        One-click button to update Sale Order and POS line prices to the last price
+        charged to the same customer — searches both SO and POS history automatically.
+    </p>
+    <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">Odoo 17.0</span>
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">Sales &amp; POS</span>
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">Price History</span>
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">Arabic / English</span>
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">LGPL-3</span>
+    </div>
+</div>
+
+<!-- ══════════════════════ MAIN CONTENT ══════════════════════ -->
+<div style="max-width: 960px; margin: 30px auto; padding: 0 20px 60px;">
+
+    <!-- ═══ Overview ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;"
+         id="overview">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #D35400; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #FDF2E6;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #FDF2E6; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">📋</span>
+            Overview
+        </h2>
+        <p style="margin-bottom: 12px;">
+            <b>Last Customer Price Update</b> is an Odoo 17 module that adds a <b>"Last Price" button</b>
+            to both <b>Sale Orders</b> and the <b>Point of Sale</b> interface. With one click, it
+            looks up the most recent price charged to the same customer for each product on the order
+            and updates all line prices accordingly.
+        </p>
+        <p style="margin-bottom: 12px;">
+            The module searches across <b>both</b> confirmed Sale Orders and completed POS Orders to
+            find the latest price, ensuring accurate pricing regardless of which channel the customer
+            last purchased from. If no previous order is found for a product, the default Odoo price is kept.
+        </p>
+        <p style="margin-bottom: 12px;">
+            This is especially useful for businesses with <b>repeat customers</b> who negotiate special prices,
+            wholesale buyers, or any scenario where consistency in customer-specific pricing matters.
+        </p>
+
+
+        <img src="static/description/screenshot_overview.gif"
+             style="width: 100%; border-radius: 10px; border: 1px solid #DEE2E6; margin: 16px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06);"
+             alt="Screenshot Overview"/>
+    </div>
+
+    <!-- ═══ Key Features ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;"
+         id="features">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #D35400; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #FDF2E6;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #FDF2E6; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">⭐</span>
+            Key Features
+        </h2>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Sale Order
+                Button:</b> "آخر سعر / Last Price" header button updates all SO line prices in one click
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>POS Button:</b>
+                "Last Price" control button on the POS Product Screen updates current order lines
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Cross-Channel
+                Search:</b> Finds prices from both Sale Orders and POS Orders — picks the most recent
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Customer-Specific:</b>
+                Prices are matched per customer + product combination
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Safe
+                Fallback:</b> If no previous price is found for a product, the default price is kept unchanged
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Confirmation
+                Dialog:</b> SO button asks for confirmation before updating to prevent accidental changes
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Manual Price
+                Lock:</b> In POS, updated prices are marked as "manual" so pricelists don't override them
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Arabic /
+                English:</b> Bilingual labels and error messages (Arabic + English)
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Draft &amp; Sent
+                Only:</b> SO button is only visible on Draft and Sent quotations — not confirmed orders
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Smart
+                Exclusion:</b> When updating a SO, the current order is excluded from the price search
+            </li>
+        </ul>
+    </div>
+
+    <!-- ═══ How It Works ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;"
+         id="how-it-works">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #D35400; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #FDF2E6;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #FDF2E6; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">⚡</span>
+            How It Works
+        </h2>
+        <p style="margin-bottom: 16px;">
+            When the button is clicked, the module performs a <b>two-source search</b> for each product
+            on the order, picking the most recent price:
+        </p>
+
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <td style="text-align: center; padding: 16px 10px; background: #FDF2E6; border-radius: 8px; width: 22%;">
+                    <span style="font-size: 28px; display: block; margin-bottom: 6px;">👤</span>
+                    <b style="color: #D35400;">Customer Selected</b><br>
+                    <span style="color: #6c757d; font-size: 12px;">Partner is set on order</span>
+                </td>
+                <td style="text-align: center; padding: 0 4px; color: #D35400; font-size: 22px;">→</td>
+                <td style="text-align: center; padding: 16px 10px; background: #FDF2E6; border-radius: 8px; width: 22%;">
+                    <span style="font-size: 28px; display: block; margin-bottom: 6px;">🔍</span>
+                    <b style="color: #D35400;">Search SO + POS</b><br>
+                    <span style="color: #6c757d; font-size: 12px;">Find last price per product</span>
+                </td>
+                <td style="text-align: center; padding: 0 4px; color: #D35400; font-size: 22px;">→</td>
+                <td style="text-align: center; padding: 16px 10px; background: #FDF2E6; border-radius: 8px; width: 22%;">
+                    <span style="font-size: 28px; display: block; margin-bottom: 6px;">📅</span>
+                    <b style="color: #D35400;">Pick Most Recent</b><br>
+                    <span style="color: #6c757d; font-size: 12px;">Compare dates, pick latest</span>
+                </td>
+                <td style="text-align: center; padding: 0 4px; color: #D35400; font-size: 22px;">→</td>
+                <td style="text-align: center; padding: 16px 10px; background: #FDF2E6; border-radius: 8px; width: 22%;">
+                    <span style="font-size: 28px; display: block; margin-bottom: 6px;">✅</span>
+                    <b style="color: #D35400;">Update Prices</b><br>
+                    <span style="color: #6c757d; font-size: 12px;">All lines updated at once</span>
+                </td>
+            </tr>
+        </table>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Price Search Logic</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <th style="background: #D35400; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
+                    Source
+                </th>
+                <th style="background: #D35400; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
+                    Criteria
+                </th>
+                <th style="background: #D35400; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
+                    States Searched
+                </th>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Sale Orders</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Same partner + same product, ordered
+                    by <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">create_date
+                        desc</code></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><code
+                        style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">sale</code>,
+                    <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">done</code>
+                    (confirmed &amp; locked)
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>POS Orders</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Same partner + same product, ordered
+                    by <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">create_date
+                        desc</code></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><code
+                        style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">paid</code>,
+                    <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">done</code>,
+                    <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">invoiced</code>
+                </td>
+            </tr>
+        </table>
+
+        <div style="padding: 14px 18px; border-radius: 8px; margin: 14px 0; font-size: 14px; background: #EBF5FB; border-left: 4px solid #2980B9; display: flex; gap: 10px; align-items: flex-start;">
+            <span style="font-size: 18px; color: #2980B9; flex-shrink: 0;">ℹ️</span>
+            <div>
+                <b>Most recent wins:</b> If a customer bought "Widget" via POS on Jan 15 at $10 and via
+                a Sale Order on Jan 20 at $12, the price used will be <b>$12</b> (the more recent one).
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ Installation ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;"
+         id="installation">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #D35400; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #FDF2E6;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #FDF2E6; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">📥</span>
+            Installation
+        </h2>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Requirements</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <th style="background: #D35400; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px; border-radius: 8px 0 0 0;">
+                    Requirement
+                </th>
+                <th style="background: #D35400; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px; border-radius: 0 8px 0 0;">
+                    Details
+                </th>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Odoo Version</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>17.0</b> (Community &amp;
+                    Enterprise)
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Depends On</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">
+                    <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">sale_management</code>,
+                    <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">point_of_sale</code>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Python Libraries</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">None (standard Odoo only)</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">License</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">LGPL-3</td>
+            </tr>
+        </table>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Steps</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top; width: 40px;">
+                    <span style="display: inline-block; width: 28px; height: 28px; background: #D35400; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">1</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">
+                    <b style="color: #D35400;">Upload the module</b><br>
+                    Copy the <code
+                        style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">last_price_update</code>
+                    folder into your Odoo addons directory (e.g. <code
+                        style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">/mnt/extra-addons/</code>).
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;">
+                    <span style="display: inline-block; width: 28px; height: 28px; background: #D35400; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">2</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">
+                    <b style="color: #D35400;">Update app list</b><br>
+                    Go to <span
+                        style="font-weight: 600; color: #D35400; background: #FDF2E6; padding: 3px 10px; border-radius: 6px; font-size: 13.5px;">Apps → Update Apps List</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;">
+                    <span style="display: inline-block; width: 28px; height: 28px; background: #D35400; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">3</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">
+                    <b style="color: #D35400;">Install the module</b><br>
+                    Search for <b>"Last Customer Price Update"</b> and click <b>Install</b>.
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;">
+                    <span style="display: inline-block; width: 28px; height: 28px; background: #D35400; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">4</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">
+                    <b style="color: #D35400;">Clear browser cache</b><br>
+                    Press <code
+                        style="background: #E9ECEF; padding: 2px 8px; border-radius: 4px; font-size: 12px; border: 1px solid #DEE2E6;">Ctrl</code>+<code
+                        style="background: #E9ECEF; padding: 2px 8px; border-radius: 4px; font-size: 12px; border: 1px solid #DEE2E6;">Shift</code>+<code
+                        style="background: #E9ECEF; padding: 2px 8px; border-radius: 4px; font-size: 12px; border: 1px solid #DEE2E6;">R</code>
+                    to load the POS button assets.
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- ═══ Usage: Sale Orders ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;"
+         id="usage-so">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #D35400; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #FDF2E6;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #FDF2E6; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">📝</span>
+            Usage: Sale Orders
+        </h2>
+
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top; width: 40px;">
+                    <span style="display: inline-block; width: 28px; height: 28px; background: #D35400; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">1</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">
+                    Open or create a <b>Sale Order</b> (must be in <b>Draft</b> or <b>Sent</b> state).
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;">
+                    <span style="display: inline-block; width: 28px; height: 28px; background: #D35400; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">2</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">
+                    Make sure a <b>Customer</b> is selected on the order.
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;">
+                    <span style="display: inline-block; width: 28px; height: 28px; background: #D35400; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">3</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">
+                    Add <b>products</b> to the order lines as usual.
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;">
+                    <span style="display: inline-block; width: 28px; height: 28px; background: #D35400; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">4</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">
+                    Click the <b style="color: #D35400;">📜 آخر سعر / Last Price</b> button in the header bar.
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;">
+                    <span style="display: inline-block; width: 28px; height: 28px; background: #D35400; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">5</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">
+                    A <b>confirmation dialog</b> appears: <em>"Update all line prices to the last price for this
+                    customer?"</em>. Click <b>OK</b>.
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;">
+                    <span style="display: inline-block; width: 28px; height: 28px; background: #D35400; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">6</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">
+                    All order line prices are updated to the last price found. Lines with no history keep their original
+                    price.
+                </td>
+            </tr>
+        </table>
+
+        <div style="padding: 14px 18px; border-radius: 8px; margin: 14px 0; font-size: 14px; background: #FDF2E6; border-left: 4px solid #E67E22; display: flex; gap: 10px; align-items: flex-start;">
+            <span style="font-size: 18px; color: #E67E22; flex-shrink: 0;">⚠️</span>
+            <div>
+                <b>Button visibility:</b> The button only appears when the order is in <b>Draft</b> or <b>Sent</b>
+                state. Once confirmed, the button is hidden to prevent unintended changes.
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ Usage: POS ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;"
+         id="usage-pos">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #D35400; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #FDF2E6;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #FDF2E6; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">🛒</span>
+            Usage: Point of Sale
+        </h2>
+
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top; width: 40px;">
+                    <span style="display: inline-block; width: 28px; height: 28px; background: #D35400; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">1</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">
+                    Open <b>Point of Sale</b> and start or resume a session.
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;">
+                    <span style="display: inline-block; width: 28px; height: 28px; background: #D35400; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">2</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">
+                    Select a <b>Customer</b> on the current order.
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;">
+                    <span style="display: inline-block; width: 28px; height: 28px; background: #D35400; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">3</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">
+                    Add <b>products</b> to the order.
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;">
+                    <span style="display: inline-block; width: 28px; height: 28px; background: #D35400; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">4</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">
+                    Click the <b style="color: #D35400;">🕐 آخر سعر / Last Price</b> control button.
+                    <br><span style="color: #6c757d; font-size: 13px;">(Button turns <b>yellow/warning</b> when a customer is selected, grey otherwise)</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;">
+                    <span style="display: inline-block; width: 28px; height: 28px; background: #D35400; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">5</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">
+                    All order line prices are updated via an <b>RPC call</b> to the server. Prices are locked as <b>"manual"</b>
+                    so pricelists won't override them on quantity changes.
+                </td>
+            </tr>
+        </table>
+
+        <div style="padding: 14px 18px; border-radius: 8px; margin: 14px 0; font-size: 14px; background: #E6F6F5; border-left: 4px solid #00A09D; display: flex; gap: 10px; align-items: flex-start;">
+            <span style="font-size: 18px; color: #00A09D; flex-shrink: 0;">💡</span>
+            <div>
+                <b>Visual cue:</b> The POS button appears as <b>grey</b> when no customer is selected
+                and turns <b>yellow (warning)</b> once a customer is set — reminding the cashier
+                that last-price lookup is available.
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ Error Messages ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;"
+         id="errors">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #D35400; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #FDF2E6;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #FDF2E6; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">🚨</span>
+            Error Messages
+        </h2>
+        <p style="margin-bottom: 12px;">The module provides clear bilingual feedback in both contexts:</p>
+
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <th style="background: #D35400; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
+                    Scenario
+                </th>
+                <th style="background: #D35400; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
+                    Message
+                </th>
+                <th style="background: #D35400; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
+                    Where
+                </th>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">No customer selected</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">"Please select a customer first. /
+                    يرجى اختيار العميل أولاً"
+                </td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">SO &amp; POS</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">No price history found</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">"No previous prices found for this
+                    customer. / لم يتم العثور على أسعار سابقة لهذا العميل"
+                </td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">SO &amp; POS</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- ═══ Technical Reference ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;"
+         id="technical">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #D35400; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #FDF2E6;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #FDF2E6; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">🔧</span>
+            Technical Reference
+        </h2>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Models Extended</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <th style="background: #D35400; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
+                    Model
+                </th>
+                <th style="background: #D35400; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
+                    File
+                </th>
+                <th style="background: #D35400; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
+                    Methods Added
+                </th>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><code
+                        style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">sale.order</code>
+                </td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><code
+                        style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">sale_order.py</code>
+                </td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">
+                    <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">action_update_last_prices()</code>
+                    — button action, updates all SO lines<br>
+                    <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">_get_last_price(partner,
+                        product)</code> — core price lookup (SO + POS search)
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><code
+                        style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">pos.session</code>
+                </td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><code
+                        style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">pos_session.py</code>
+                </td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">
+                    <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">get_last_customer_prices(partner,
+                        product_ids)</code> — RPC endpoint for POS frontend, returns dict of prices
+                </td>
+            </tr>
+        </table>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">JavaScript Components</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <th style="background: #D35400; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
+                    Component
+                </th>
+                <th style="background: #D35400; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
+                    Description
+                </th>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>LastPriceButton</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">
+                    OWL component registered as a control button on <code
+                        style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">ProductScreen</code>.
+                    Collects unique product IDs from orderlines, calls <code
+                        style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">get_last_customer_prices</code>
+                    via ORM service,
+                    applies returned prices, and sets <code
+                        style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">price_type
+                    = "manual"</code> to prevent pricelist overrides.
+                </td>
+            </tr>
+        </table>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Views Modified</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <th style="background: #D35400; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
+                    View
+                </th>
+                <th style="background: #D35400; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
+                    Change
+                </th>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><code
+                        style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">sale.view_order_form</code>
+                </td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">
+                    Adds <b>"آخر سعر / Last Price"</b> button inside the header, visible only in <code
+                        style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">draft</code>
+                    / <code
+                        style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">sent</code>
+                    states, with confirm dialog
+                </td>
+            </tr>
+        </table>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">File Structure</h3>
+        <div style="background: #2C3E50; color: #ABB2BF; padding: 18px 20px; border-radius: 8px; font-family: monospace; font-size: 13px; line-height: 1.6; margin: 14px 0; overflow-x: auto;">
+            <span style="color: #5C6370; font-style: italic;">last_price_update/</span><br>
+            ├── __init__.py<br>
+            ├── __manifest__.py<br>
+            ├── <span style="color: #C678DD;">models/</span><br>
+            │&nbsp;&nbsp; ├── __init__.py<br>
+            │&nbsp;&nbsp; ├── sale_order.py <span style="color: #5C6370; font-style: italic;"># SO button action + price lookup logic</span><br>
+            │&nbsp;&nbsp; └── pos_session.py <span style="color: #5C6370; font-style: italic;"># RPC endpoint for POS frontend</span><br>
+            ├── <span style="color: #C678DD;">views/</span><br>
+            │&nbsp;&nbsp; └── sale_order_views.xml <span style="color: #5C6370; font-style: italic;"># Header button on SO form</span><br>
+            └── <span style="color: #C678DD;">static/src/</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;├── <span style="color: #C678DD;">js/</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp; └── last_price_button.js <span
+                style="color: #5C6370; font-style: italic;"># OWL control button component</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;└── <span style="color: #C678DD;">xml/</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── last_price_button.xml <span
+                style="color: #5C6370; font-style: italic;"># Button template</span>
+        </div>
+    </div>
+
+    <!-- ═══ FAQ ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;"
+         id="faq">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #D35400; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #FDF2E6;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #FDF2E6; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">❓</span>
+            Frequently Asked Questions
+        </h2>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Does it search POS orders,
+            Sale Orders, or both?</h3>
+        <p style="margin-bottom: 12px;">
+            <b>Both.</b> The module searches confirmed Sale Orders (<code
+                style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">sale</code>/<code
+                style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">done</code>) and
+            completed POS Orders
+            (<code
+                style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">paid</code>/<code
+                style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">done</code>/<code
+                style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">invoiced</code>),
+            then picks the one with the most recent date.
+        </p>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">What happens if a product
+            has no previous price for this customer?</h3>
+        <p style="margin-bottom: 12px;">
+            The product's line price is <b>left unchanged</b> — the default Odoo price (from pricelist or product)
+            stays.
+            Only lines with a match in history are updated.
+        </p>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Will the pricelist
+            override the updated price in POS?</h3>
+        <p style="margin-bottom: 12px;">
+            No. When the price is updated in POS, the line's <code
+                style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">price_type</code>
+            is set to <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">"manual"</code>,
+            which prevents Odoo from recalculating it when the quantity changes.
+        </p>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Does the current order's
+            price get included in the search?</h3>
+        <p style="margin-bottom: 12px;">
+            No. When updating a Sale Order, the current SO is <b>excluded</b> from the search
+            (via <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">exclude_so_id</code>)
+            to avoid self-referencing.
+        </p>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Why don't I see the button
+            on a confirmed Sale Order?</h3>
+        <p style="margin-bottom: 12px;">
+            By design, the button is only visible on <b>Draft</b> and <b>Sent</b> quotations.
+            Once confirmed, the order is locked and the button is hidden to prevent accidental price changes.
+        </p>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">The POS button is grey /
+            doesn't work</h3>
+        <p style="margin-bottom: 12px;">
+            The button requires a <b>customer to be selected</b> on the POS order. Once you set a customer,
+            the button turns yellow and becomes active. If still not working, clear browser cache
+            (<code
+                style="background: #E9ECEF; padding: 2px 8px; border-radius: 4px; font-size: 12px; border: 1px solid #DEE2E6;">Ctrl</code>+<code
+                style="background: #E9ECEF; padding: 2px 8px; border-radius: 4px; font-size: 12px; border: 1px solid #DEE2E6;">Shift</code>+<code
+                style="background: #E9ECEF; padding: 2px 8px; border-radius: 4px; font-size: 12px; border: 1px solid #DEE2E6;">R</code>)
+            and restart the POS session.
+        </p>
+    </div>
+
+    <!-- ═══ Support ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;"
+         id="support">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #D35400; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #FDF2E6;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #FDF2E6; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">🤝</span>
+            Support
+        </h2>
+        <p style="margin-bottom: 12px;">
+            For questions, bug reports, or feature requests, please contact the module developer:
+        </p>
+        <div style="margin-top: 10px; line-height: 1.6;">
+            <div style="display: flex; align-items: center; margin-bottom: 5px;">
+                <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"
+                     style="width: 18px; height: 18px; margin-right: 8px;">
+                <a href="https://wa.me/201007802335" target="_blank"
+                   style="text-decoration: none; color: #25D366; font-weight: bold;">+20 100 780 2335</a>
+            </div>
+            <div style="display: flex; align-items: center;">
+                <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email"
+                     style="width: 18px; height: 18px; margin-right: 8px;">
+                <a href="mailto:mohamed.yaseen.dahab@gmail.com" style="text-decoration: none; color: #007bff;">mohamed.yaseen.dahab@gmail.com</a>
+            </div>
+        </div>
+        <div style="padding: 14px 18px; border-radius: 8px; margin: 14px 0; font-size: 14px; background: #E6F6F5; border-left: 4px solid #00A09D; display: flex; gap: 10px; align-items: flex-start;">
+            <span style="font-size: 18px; color: #00A09D; flex-shrink: 0;">💡</span>
+            <div>
+                <b>Upgrade command:</b><br>
+                <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">./odoo-bin
+                    -u last_price_update -d your_database</code><br>
+                Always clear browser cache and restart POS sessions after upgrading.
+            </div>
+        </div>
+    </div>
+
+</div><!-- /main content -->
+
+</body>
+</html>

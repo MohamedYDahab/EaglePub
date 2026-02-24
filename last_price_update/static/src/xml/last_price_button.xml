@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="last_price_update.LastPriceButton">
+        <button class="control-button btn btn-light rounded-0 fw-bolder"
+                t-attf-class="{{ this.hasPartner ? 'btn-warning' : 'btn-light' }}"
+                t-on-click="click">
+            <i class="fa fa-history me-1" role="img"
+               aria-label="Last Price" title="Last Price"/>
+            آخر سعر / Last Price
+        </button>
+    </t>
+</templates>
