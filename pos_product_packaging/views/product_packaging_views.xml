@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Extend Product Packaging Form View -->
+    <record id="product_packaging_form_view_pos" model="ir.ui.view">
+        <field name="name">product.packaging.form.pos</field>
+        <field name="model">product.packaging</field>
+        <field name="inherit_id" ref="product.product_packaging_form_view"/>
+        <field name="arch" type="xml">
+            <field name="qty" position="after">
+                <field name="available_in_pos"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Extend Product Packaging List View -->
+    <record id="product_packaging_list_view_pos" model="ir.ui.view">
+        <field name="name">product.packaging.list.pos</field>
+        <field name="model">product.packaging</field>
+        <field name="inherit_id" ref="product.product_packaging_list_view"/>
+        <field name="arch" type="xml">
+            <field name="qty" position="after">
+                <field name="available_in_pos"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Extend Product Packaging List View 2 (used in product form) -->
+    <record id="product_packaging_list_view2_pos" model="ir.ui.view">
+        <field name="name">product.packaging.list2.pos</field>
+        <field name="model">product.packaging</field>
+        <field name="inherit_id" ref="product.product_packaging_list_view2"/>
+        <field name="arch" type="xml">
+            <field name="qty" position="after">
+                <field name="available_in_pos"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

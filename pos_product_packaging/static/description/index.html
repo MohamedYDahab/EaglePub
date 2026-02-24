@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS Product Packaging – User Manual</title>
+</head>
+<body style="font-family: Arial, Helvetica, sans-serif; color: #212529; background: #F8F9FA; line-height: 1.7; font-size: 15px; margin: 0; padding: 0;">
+
+<!-- HERO -->
+<div style="background: linear-gradient(135deg, #6f42c1 0%, #553299 100%); color: #fff; padding: 60px 20px 50px; text-align: center;">
+    <h1 style="font-size: 2.4rem; font-weight: 700; letter-spacing: -0.5px; margin: 0 0 12px;">📦 POS Product
+        Packaging</h1>
+    <p style="font-size: 1.1rem; opacity: 0.85; max-width: 640px; margin: 0 auto 20px; padding: 0;">
+        Add products by packaging quantity in Point of Sale — select a Box, Carton, or Pallet,
+        enter the package count, and let Odoo calculate total units &amp; price automatically.
+    </p>
+    <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">Odoo 17.0</span>
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">Point of Sale</span>
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">Packaging Popup</span>
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">Auto-Calculation</span>
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">LGPL-3</span>
+    </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div style="max-width: 960px; margin: 30px auto; padding: 0 20px 60px;">
+
+    <!-- Overview -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;"
+         id="overview">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #6f42c1; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #f0ebf8;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #f0ebf8; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">📋</span>
+            Overview
+        </h2>
+        <p style="margin-bottom: 12px;">
+            <b>POS Product Packaging</b> is an Odoo 17 module that lets Point of Sale users add products
+            using predefined packaging types — such as Box, Carton, Case, or Pallet — instead of
+            entering individual unit quantities.
+        </p>
+        <p style="margin-bottom: 12px;">
+            When a cashier clicks a product that has packaging configured, a smart popup appears
+            showing all available packaging options with their unit counts. The cashier simply selects
+            a packaging type and enters how many packages they want. Total units and price are
+            <b>calculated automatically</b> and added to the order in one click.
+        </p>
+        <p style="margin-bottom: 12px;">
+            Packaging information is carried through the entire flow — from the POS order line display
+            to the backend order form — giving full traceability of how products were sold.
+        </p>
+        <img src="static/description/screenshot_overview.png"
+             style="width: 100%; border-radius: 10px; border: 1px solid #DEE2E6; margin: 16px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06);"
+             alt="Screenshot Overview"/>
+
+    </div>
+
+    <!-- Key Features -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;"
+         id="features">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #6f42c1; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #f0ebf8;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #f0ebf8; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">⭐</span>
+            Key Features
+        </h2>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Packaging
+                Selection Popup:</b> Beautiful modal with all available packaging types for the clicked product
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span>
+                <b>Auto-Calculation:</b> Total units and total price computed instantly as you select packaging and
+                quantity
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Package Quantity
+                Controls:</b> Increment / decrement buttons and manual input for package count
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Order Line
+                Display:</b> Shows packaging name and package quantity alongside the product on the order
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Available in POS
+                Toggle:</b> Control which packaging types appear in POS from the product form
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Add Single Unit
+                Fallback:</b> Skip packaging and add one unit with the "Add Single Unit" button
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Backend
+                Visibility:</b> Packaging and package quantity columns on POS order lines in the backend
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Receipt &amp;
+                Print Support:</b> Packaging info included in receipt/print data for custom receipt templates
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>No Packaging? No
+                Popup:</b> Products without packaging behave normally — zero disruption
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Community &amp;
+                Enterprise:</b> Works on both Odoo 17 Community and Enterprise editions
+            </li>
+        </ul>
+    </div>
+
+    <!-- How It Works -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;"
+         id="how-it-works">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #6f42c1; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #f0ebf8;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #f0ebf8; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">⚡</span>
+            How It Works
+        </h2>
+        <p style="margin-bottom: 16px;">
+            The module intercepts the product click in POS. If the product has packaging with
+            <b>Available in POS</b> enabled, a popup appears. Otherwise, the product is added normally.
+        </p>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <td style="text-align: center; padding: 16px; background: #f0ebf8; border-radius: 8px; width: 30%;">
+                    <span style="font-size: 28px; display: block; margin-bottom: 6px;">👆</span>
+                    <b style="color: #6f42c1;">Click Product</b><br>
+                    <span style="color: #6c757d; font-size: 13px;">Cashier taps a product in POS</span>
+                </td>
+                <td style="text-align: center; padding: 0 8px; color: #6f42c1; font-size: 24px;">→</td>
+                <td style="text-align: center; padding: 16px; background: #f0ebf8; border-radius: 8px; width: 30%;">
+                    <span style="font-size: 28px; display: block; margin-bottom: 6px;">📦</span>
+                    <b style="color: #6f42c1;">Select Packaging</b><br>
+                    <span style="color: #6c757d; font-size: 13px;">Choose Box, Carton, Pallet &amp; quantity</span>
+                </td>
+                <td style="text-align: center; padding: 0 8px; color: #6f42c1; font-size: 24px;">→</td>
+                <td style="text-align: center; padding: 16px; background: #f0ebf8; border-radius: 8px; width: 30%;">
+                    <span style="font-size: 28px; display: block; margin-bottom: 6px;">✅</span>
+                    <b style="color: #6f42c1;">Auto-Added</b><br>
+                    <span style="color: #6c757d; font-size: 13px;">Units &amp; price calculated, line created</span>
+                </td>
+            </tr>
+        </table>
+        <div style="padding: 14px 18px; border-radius: 8px; margin: 14px 0; font-size: 14px; background: #EBF5FB; border-left: 4px solid #2980B9; display: flex; gap: 10px; align-items: flex-start;">
+            <span style="font-size: 18px; color: #2980B9; flex-shrink: 0;">ℹ️</span>
+            <div>
+                <b>Example:</b> Product "Widget" has a "Box" packaging of 12 units.
+                Cashier selects "Box" and enters quantity 3.
+                Result: <b>36 units</b> added to the order (3 × 12), with "3 x Box" shown on the order line.
+            </div>
+        </div>
+    </div>
+
+    <!-- Installation -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;"
+         id="installation">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #6f42c1; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #f0ebf8;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #f0ebf8; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">📥</span>
+            Installation
+        </h2>
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Requirements</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <th style="background: #6f42c1; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px; border-radius: 8px 0 0 0;">
+                    Requirement
+                </th>
+                <th style="background: #6f42c1; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px; border-radius: 0 8px 0 0;">
+                    Details
+                </th>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Odoo Version</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>17.0</b> (Community &amp;
+                    Enterprise)
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Depends On</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><code
+                        style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">point_of_sale</code>,
+                    <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">product</code>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Python Libraries</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">None (standard Odoo dependencies
+                    only)
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">License</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">LGPL-3</td>
+            </tr>
+        </table>
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Steps</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top; width: 40px;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #6f42c1; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">1</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;"><b style="color: #553299;">Upload the
+                    module</b><br>Copy the <code
+                        style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">pos_product_packaging</code>
+                    folder into your Odoo addons directory (e.g. <code
+                            style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">/mnt/extra-addons/</code>).
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #6f42c1; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">2</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;"><b style="color: #553299;">Update app
+                    list</b><br>Go to <span
+                        style="font-weight: 600; color: #6f42c1; background: #f0ebf8; padding: 3px 10px; border-radius: 6px; font-size: 13.5px;">Apps → Update Apps List</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #6f42c1; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">3</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;"><b style="color: #553299;">Install the
+                    module</b><br>Search for <b>"POS Product Packaging"</b> and click <b>Install</b>.
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #6f42c1; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">4</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;"><b style="color: #553299;">Clear browser
+                    cache</b><br>Press <code
+                        style="background: #E9ECEF; padding: 2px 8px; border-radius: 4px; font-size: 12px; border: 1px solid #DEE2E6;">Ctrl</code>+<code
+                        style="background: #E9ECEF; padding: 2px 8px; border-radius: 4px; font-size: 12px; border: 1px solid #DEE2E6;">Shift</code>+<code
+                        style="background: #E9ECEF; padding: 2px 8px; border-radius: 4px; font-size: 12px; border: 1px solid #DEE2E6;">R</code>
+                    to load the new POS assets.
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Configuration -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;"
+         id="configuration">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #6f42c1; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #f0ebf8;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #f0ebf8; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">⚙️</span>
+            Configuration
+        </h2>
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Setting Up Product
+            Packaging</h3>
+        <p style="margin-bottom: 12px;">Before using packaging in POS, define packaging types on your products and
+            enable them for POS.</p>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top; width: 40px;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #6f42c1; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">1</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Navigate to <span
+                        style="font-weight: 600; color: #6f42c1; background: #f0ebf8; padding: 3px 10px; border-radius: 6px; font-size: 13.5px;">Inventory → Products → Products</span>
+                    and select a product.
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #6f42c1; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">2</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Go to the <b>Inventory</b> tab and find the
+                    <b>Packaging</b> section.
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #6f42c1; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">3</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Add packaging types with a <b>Name</b>
+                    (e.g. "Box"), <b>Quantity</b> (units per package), and check <b>Available in POS</b>.
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #6f42c1; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">4</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Save the product. The packaging will now
+                    appear in POS when this product is clicked.
+                </td>
+            </tr>
+        </table>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Example Setup</h3>
+        <p style="margin-bottom: 12px;">For a product called <b>"Widget"</b>:</p>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <th style="background: #6f42c1; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
+                    Packaging Name
+                </th>
+                <th style="background: #6f42c1; color: #fff; padding: 10px 14px; text-align: center; font-weight: 600; font-size: 13px;">
+                    Units per Package
+                </th>
+                <th style="background: #6f42c1; color: #fff; padding: 10px 14px; text-align: center; font-weight: 600; font-size: 13px;">
+                    Available in POS
+                </th>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Box</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF; text-align: center;">12</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF; text-align: center;">✅</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Carton</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF; text-align: center;">48</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF; text-align: center;">✅</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Pallet</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF; text-align: center;">480</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF; text-align: center;">✅</td>
+            </tr>
+        </table>
+        <div style="padding: 14px 18px; border-radius: 8px; margin: 14px 0; font-size: 14px; background: #E6F6F5; border-left: 4px solid #00A09D; display: flex; gap: 10px; align-items: flex-start;">
+            <span style="font-size: 18px; color: #00A09D; flex-shrink: 0;">💡</span>
+            <div><b>Tip:</b> Packaging types with <b>Available in POS</b> unchecked will not appear in the POS popup,
+                but remain available in Inventory and Sales operations.
+            </div>
+        </div>
+    </div>
+
+    <!-- Usage in POS -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;"
+         id="usage">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #6f42c1; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #f0ebf8;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #f0ebf8; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">🛒</span>
+            Usage in Point of Sale
+        </h2>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Adding Products with
+            Packaging</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top; width: 40px;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #6f42c1; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">1</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Open <b>Point of Sale</b> and start a new
+                    session.
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #6f42c1; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">2</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Click on a <b>product</b> that has
+                    packaging configured. The <b>Packaging Popup</b> appears automatically.
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #6f42c1; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">3</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;"><b>Select a packaging type</b> — e.g. "Box
+                    (12 units)", "Carton (48 units)". The selected option highlights in blue.
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #6f42c1; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">4</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Enter the <b>package quantity</b> using the
+                    <b>+</b> / <b>−</b> buttons or type directly (e.g. 3 boxes).
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #6f42c1; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">5</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Review the <b>summary</b>: <b>Packages</b>
+                    (e.g. 3 × Box), <b>Total Units</b> (e.g. 36), <b>Total Price</b>.
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #6f42c1; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">6</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Click <b>Confirm</b>. The order line is
+                    created with the total unit quantity and packaging info displayed.
+                </td>
+            </tr>
+        </table>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Popup Sections</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <th style="background: #6f42c1; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
+                    Section
+                </th>
+                <th style="background: #6f42c1; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
+                    Description
+                </th>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Packaging Selection</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Clickable buttons for each packaging
+                    type, showing name and unit count
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Package Quantity</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">+/− buttons and number input to set
+                    how many packages to add
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Summary</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Live display of total packages, units,
+                    and price — updates as you change selection
+                </td>
+            </tr>
+        </table>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Popup Buttons</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <th style="background: #6f42c1; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
+                    Button
+                </th>
+                <th style="background: #6f42c1; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
+                    Action
+                </th>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b style="color: #28a745;">✓
+                    Confirm</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Adds the product with calculated
+                    quantity and packaging info
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b style="color: #6c757d;">Cancel</b>
+                </td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Closes popup without adding anything
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b style="color: #dc3545;">✕ Add
+                    Single Unit</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Skips packaging, adds product with
+                    quantity 1 (default POS behavior)
+                </td>
+            </tr>
+        </table>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Order Line Display</h3>
+        <p style="margin-bottom: 12px;">After adding a product with packaging, the order line shows:</p>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Product name</b>
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Total
+                quantity</b> (e.g. 36 units)
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Packaging
+                info</b> line: 📦 "3 x Box" (shown below the product name)
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Total price</b>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Backend Integration -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;"
+         id="backend">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #6f42c1; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #f0ebf8;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #f0ebf8; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">🖥️</span>
+            Backend Integration
+        </h2>
+        <p style="margin-bottom: 12px;">Packaging information is saved to the database and visible in the Odoo backend
+            for full traceability.</p>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">POS Order Form</h3>
+        <p style="margin-bottom: 12px;">When viewing a POS order in <span
+                style="font-weight: 600; color: #6f42c1; background: #f0ebf8; padding: 3px 10px; border-radius: 6px; font-size: 13.5px;">Point of Sale → Orders</span>,
+            order lines include two additional columns:</p>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <th style="background: #6f42c1; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
+                    Column
+                </th>
+                <th style="background: #6f42c1; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
+                    Description
+                </th>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Packaging</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">The packaging type used (e.g. "Box",
+                    "Carton") — linked to <code
+                            style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">product.packaging</code>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Package Qty</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Number of packages ordered (e.g. 3)
+                </td>
+            </tr>
+        </table>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Product Packaging
+            Views</h3>
+        <p style="margin-bottom: 12px;">The <b>Available in POS</b> checkbox is added to both the tree and form views of
+            Product Packaging, making it easy to manage which packaging types are available in POS.</p>
+    </div>
+
+
+    <!-- FAQ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;"
+         id="faq">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #6f42c1; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #f0ebf8;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #f0ebf8; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">❓</span>
+            Frequently Asked Questions
+        </h2>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Why doesn't the packaging
+            popup appear for my product?</h3>
+        <p style="margin-bottom: 12px;">The popup only appears if the product has at least one packaging with <b>Available
+            in POS</b> checked. Go to the product form → Inventory tab → Packaging section and ensure the checkbox is
+            enabled. Also restart the POS session after making changes.</p>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Can I add a product
+            without packaging even if packaging is configured?</h3>
+        <p style="margin-bottom: 12px;">Yes. In the packaging popup, click the <b>"Add Single Unit"</b> button (red
+            button at bottom-left). This skips packaging and adds the product with quantity 1.</p>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Does this affect products
+            without any packaging defined?</h3>
+        <p style="margin-bottom: 12px;">No. Products without POS-enabled packaging behave exactly as before — the
+            standard POS flow is unchanged. The popup only appears when relevant packaging exists.</p>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">How do credit notes /
+            refunds work with packaging?</h3>
+        <p style="margin-bottom: 12px;">Refunds follow the standard POS refund flow. The packaging info is preserved on
+            the original order line for reference, but refund lines are created as normal unit-based lines.</p>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Is packaging information
+            visible on receipts?</h3>
+        <p style="margin-bottom: 12px;">The packaging data is exported in print data (<code
+                style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">packaging_name</code>
+            and <code
+                    style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">package_qty</code>).
+            You can customize your receipt template to display it.</p>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">The POS is not loading
+            packaging data after install</h3>
+        <p style="margin-bottom: 12px;">Clear your browser cache (<code
+                style="background: #E9ECEF; padding: 2px 8px; border-radius: 4px; font-size: 12px; border: 1px solid #DEE2E6;">Ctrl</code>+<code
+                style="background: #E9ECEF; padding: 2px 8px; border-radius: 4px; font-size: 12px; border: 1px solid #DEE2E6;">Shift</code>+<code
+                style="background: #E9ECEF; padding: 2px 8px; border-radius: 4px; font-size: 12px; border: 1px solid #DEE2E6;">R</code>)
+            and restart the POS session. Packaging data is loaded when a new session starts.</p>
+    </div>
+
+    <!-- Support -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;"
+         id="support">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #6f42c1; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #f0ebf8;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #f0ebf8; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">🤝</span>
+            Support
+        </h2>
+        <p style="margin-bottom: 12px;">For questions, bug reports, or feature requests, please contact the module
+            developer:</p>
+        <div style="margin-top: 10px; line-height: 1.6;">
+            <div style="display: flex; align-items: center; margin-bottom: 5px;">
+                <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"
+                     style="width: 18px; height: 18px; margin-right: 8px;">
+                <a href="https://wa.me/201007802335" target="_blank"
+                   style="text-decoration: none; color: #25D366; font-weight: bold;">+20 100 780 2335</a>
+            </div>
+            <div style="display: flex; align-items: center;">
+                <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email"
+                     style="width: 18px; height: 18px; margin-right: 8px;">
+                <a href="mailto:mohamed.yaseen.dahab@gmail.com" style="text-decoration: none; color: #007bff;">mohamed.yaseen.dahab@gmail.com</a>
+            </div>
+        </div>
+        <div style="padding: 14px 18px; border-radius: 8px; margin: 14px 0; font-size: 14px; background: #E6F6F5; border-left: 4px solid #00A09D; display: flex; gap: 10px; align-items: flex-start;">
+            <span style="font-size: 18px; color: #00A09D; flex-shrink: 0;">💡</span>
+            <div>
+                <b>Upgrade command:</b><br>
+                <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">./odoo-bin
+                    -u pos_product_packaging -d your_database</code><br>
+                Always clear browser cache and restart POS sessions after upgrading.
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
