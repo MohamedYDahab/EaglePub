@@ -17,13 +17,14 @@
         - PDF & Excel performance reports with Arabic/RTL support
     """,
     'author': 'Mohamed Yaseen Dahab',
-    'license': 'LGPL-3',
+    'license': 'OPL-1',
+    'price': 30.00,
+    'currency': 'USD',
     'depends': [
         'sale',
         'point_of_sale',
         'account',
         'sales_team',
-        'sale_management',
     ],
     'data': [
         'security/security.xml',

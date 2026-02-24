@@ -6,7 +6,7 @@
         <field name="name">sales.target.search</field>
         <field name="model">sales.target</field>
         <field name="arch" type="xml">
-            <search string="Sales Targets">
+            <search>
                 <field name="user_id"/>
                 <field name="pos_config_id"/>
                 <filter string="My Targets" name="my_targets"
@@ -24,12 +24,12 @@
                 <filter string="Closed" name="closed"
                         domain="[('state', '=', 'closed')]"/>
                 <separator/>
-                <filter string="On Target (≥100%)" name="on_target"
+                <filter string="On Target" name="on_target"
                         domain="[('achievement_ratio', '&gt;=', 100)]"/>
-                <filter string="Below Target (&lt;100%)" name="below_target"
+                <filter string="Below Target" name="below_target"
                         domain="[('achievement_ratio', '&lt;', 100)]"/>
                 <separator/>
-                <group expand="1" string="Group By">
+                <group expand="0" string="Group By">
                     <filter string="Target Type" name="group_type"
                             context="{'group_by': 'target_type'}"/>
                     <filter string="Salesperson" name="group_user"
@@ -47,9 +47,9 @@
         </field>
     </record>
 
-    <!-- ═══════════ TREE VIEW ═══════════ -->
-    <record id="view_sales_target_tree" model="ir.ui.view">
-        <field name="name">sales.target.tree</field>
+    <!-- ═══════════ LIST VIEW ═══════════ -->
+    <record id="view_sales_target_list" model="ir.ui.view">
+        <field name="name">sales.target.list</field>
         <field name="model">sales.target</field>
         <field name="arch" type="xml">
             <list string="Sales Targets"
@@ -106,7 +106,7 @@
                             invisible="state == 'draft'"
                             groups="sales_team.group_sale_manager"/>
                     <button name="action_refresh"
-                            string="↻ Refresh Sales Data"
+                            string="Refresh Sales Data"
                             type="object" class="btn-secondary"/>
                     <field name="state" widget="statusbar"
                            statusbar_visible="draft,confirmed,closed"/>
@@ -229,12 +229,12 @@
                                             </t>
                                         </strong>
                                     </div>
-                                    <field name="state"
-                                           widget="label_selection"
-                                           options="{'classes': {
-                                               'draft': 'info',
-                                               'confirmed': 'success',
-                                               'closed': 'secondary'}}"/>
+                                    <span t-attf-class="badge rounded-pill
+                                        #{record.state.raw_value == 'draft' ? 'text-bg-info' :
+                                          record.state.raw_value == 'confirmed' ? 'text-bg-success' :
+                                          'text-bg-secondary'}">
+                                        <field name="state"/>
+                                    </span>
                                 </div>
 
                                 <div class="row mb-1">
