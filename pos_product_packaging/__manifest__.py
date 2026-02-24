@@ -7,6 +7,9 @@
     'description': """
         This module allows POS users to add products using packaging.
 
+        In Odoo 19, Units of Measure and Packagings are merged into one model (product.uom).
+        This module uses product.uom records to show a packaging popup in POS.
+
         Features:
         - Select product packaging (e.g., Box, Carton, Pallet)
         - Enter package quantity instead of unit quantity
@@ -18,7 +21,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/pos_order_views.xml',
-        'views/product_packaging_views.xml',
+        'views/product_uom_views.xml',
     ],
     'assets': {
         'point_of_sale._assets_pos': [

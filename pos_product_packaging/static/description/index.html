@@ -27,9 +27,7 @@
 <!-- MAIN CONTENT -->
 <div style="max-width: 960px; margin: 30px auto; padding: 0 20px 60px;">
 
-
-
-<!-- Video Demo -->
+    <!-- Video Demo -->
     <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;"
          id="video-demo">
         <h2 style="font-size: 1.45rem; font-weight: 700; color: #6f42c1; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #f0ebf8;">
@@ -47,8 +45,6 @@
             </a>
         </div>
     </div>
-
-
 
     <!-- Overview -->
     <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;"
@@ -191,7 +187,7 @@
             </tr>
             <tr>
                 <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Odoo Version</td>
-                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>19.0</b> (Community &amp;
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>17.0</b> (Community &amp;
                     Enterprise)
                 </td>
             </tr>
@@ -283,16 +279,17 @@
                 <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
                         style="display: inline-block; width: 28px; height: 28px; background: #6f42c1; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">2</span>
                 </td>
-                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Go to the <b>Inventory</b> tab and find the
-                    <b>Packaging</b> section.
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Go to the <b>Sales</b> tab and find the
+                    <b>Units of Measure &amp; Packagings</b> section (Upsell &amp; Cross-Sell area).
                 </td>
             </tr>
             <tr>
                 <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
                         style="display: inline-block; width: 28px; height: 28px; background: #6f42c1; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">3</span>
                 </td>
-                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Add packaging types with a <b>Name</b>
-                    (e.g. "Box"), <b>Quantity</b> (units per package), and check <b>Available in POS</b>.
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Add packaging UoMs (e.g. "Box of 12") with the quantity defined in the UoM factor. Then go to
+                    <span style="font-weight: 600; color: #6f42c1; background: #f0ebf8; padding: 3px 10px; border-radius: 6px; font-size: 13.5px;">Inventory → Configuration → Units &amp; Packagings</span>,
+                    open each packaging UoM and check <b>Available in POS</b>.
                 </td>
             </tr>
             <tr>
@@ -310,7 +307,7 @@
         <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
             <tr>
                 <th style="background: #6f42c1; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
-                    Packaging Name
+                    UoM / Packaging Name
                 </th>
                 <th style="background: #6f42c1; color: #fff; padding: 10px 14px; text-align: center; font-weight: 600; font-size: 13px;">
                     Units per Package
@@ -513,7 +510,7 @@
                 <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Packaging</b></td>
                 <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">The packaging type used (e.g. "Box",
                     "Carton") — linked to <code
-                            style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">product.packaging</code>
+                            style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">uom.uom</code>
                 </td>
             </tr>
             <tr>
@@ -523,10 +520,11 @@
             </tr>
         </table>
 
-        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Product Packaging
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Units &amp; Packagings
             Views</h3>
-        <p style="margin-bottom: 12px;">The <b>Available in POS</b> checkbox is added to both the tree and form views of
-            Product Packaging, making it easy to manage which packaging types are available in POS.</p>
+        <p style="margin-bottom: 12px;">The <b>Available in POS</b> checkbox is added to the form and list views of
+            Units &amp; Packagings (UoM), making it easy to manage which packaging types appear in POS. In Odoo 19,
+            packaging and Units of Measure are merged into a single model.</p>
     </div>
 
 

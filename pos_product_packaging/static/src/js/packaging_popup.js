@@ -1,7 +1,7 @@
 /** @odoo-module */
 
 import { Dialog } from "@web/core/dialog/dialog";
-import { usePos } from "@point_of_sale/app/store/pos_hook";
+import { usePos } from "@point_of_sale/app/hooks/pos_hook";
 import { Component, useState } from "@odoo/owl";
 
 export class PackagingPopup extends Component {
@@ -57,7 +57,7 @@ export class PackagingPopup extends Component {
         if (this.state.selectedPackaging && this.product) {
             const packagingQty = this.state.selectedPackaging.qty || 1;
             this.state.totalQty = this.state.packageQty * packagingQty;
-            this.state.totalPrice = this.state.totalQty * (this.product.lst_price || 0);
+            this.state.totalPrice = this.state.totalQty * (this.product.list_price || 0);
         } else {
             this.state.totalQty = 0;
             this.state.totalPrice = 0;
