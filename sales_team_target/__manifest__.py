@@ -18,7 +18,7 @@
     """,
     'author': 'Mohamed Yaseen Dahab',
     'license': 'OPL-1',
-    'price': 30.00,
+    'price': 29.99,
     'currency': 'USD',
     'depends': [
         'sale',
