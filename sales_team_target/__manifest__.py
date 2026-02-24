@@ -17,7 +17,8 @@
         - PDF & Excel performance reports with Arabic/RTL support
     """,
     'author': 'Mohamed Yaseen Dahab',
-    'license': 'LGPL-3',
+    'license': 'OPL-1',
+    'price': 19.99,
     'depends': [
         'sale',
         'point_of_sale',
