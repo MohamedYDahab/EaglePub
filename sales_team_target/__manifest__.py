@@ -25,7 +25,6 @@
         'point_of_sale',
         'account',
         'sales_team',
-        'sales_team',
         'sale_management',
     ],
     'data': [
