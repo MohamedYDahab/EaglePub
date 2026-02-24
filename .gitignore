@@ -1,8 +1,0 @@
-# Python bytecode
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-
-# Python 3 cache naming (explicit)
-*.cpython-*.pyc
