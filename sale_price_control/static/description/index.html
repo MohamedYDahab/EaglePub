@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sale Price Control – User Manual</title>
+</head>
+<body style="font-family: Arial, Helvetica, sans-serif; color: #212529; background: #F8F9FA; line-height: 1.7; font-size: 15px; margin: 0; padding: 0;">
+
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<div style="background: linear-gradient(135deg, #C0392B 0%, #96281B 100%); color: #fff; padding: 60px 20px 50px; text-align: center;">
+    <h1 style="font-size: 2.4rem; font-weight: 700; letter-spacing: -0.5px; margin: 0 0 12px;">🔒 Sale Price Control</h1>
+    <p style="font-size: 1.1rem; opacity: 0.9; max-width: 660px; margin: 0 auto 20px; padding: 0;">
+        Prevent sale orders from being confirmed when prices are below cost —
+        requires password authorization from authorized users before proceeding.
+    </p>
+    <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">Odoo 17.0</span>
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">Sales</span>
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">Below-Cost Protection</span>
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">Password Authorization</span>
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">LGPL-3</span>
+    </div>
+</div>
+
+<!-- ══════════════════════ MAIN CONTENT ══════════════════════ -->
+<div style="max-width: 960px; margin: 30px auto; padding: 0 20px 60px;">
+
+    <!-- ═══ Overview ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #C0392B; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #FADBD8;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #FADBD8; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">📋</span>
+            Overview
+        </h2>
+        <p style="margin-bottom: 12px;">
+            <b>Sale Price Control</b> adds a critical business safeguard to your Odoo sales workflow.
+            When a salesperson clicks <b>"Confirm"</b> on a sale order, the module checks every order
+            line to see if the <b>unit price is below the product's cost price</b>.
+        </p>
+        <p style="margin-bottom: 12px;">
+            If any below-cost lines are found, confirmation is <b>blocked</b> and a password authorization
+            wizard appears. Only users belonging to the <b>"Allow Below Cost Price"</b> security group —
+            who have configured their personal override password — can authorize the confirmation.
+        </p>
+        <img src="static/description/screenshot_overview.png"
+             style="width: 100%; border-radius: 10px; border: 1px solid #DEE2E6; margin: 16px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06);"
+             alt="Screenshot Overview"/>
+
+    </div>
+
+    <!-- ═══ Key Features ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #C0392B; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #FADBD8;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #FADBD8; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">⭐</span>
+            Key Features
+        </h2>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Below-Cost
+                Detection:</b> Automatically checks all order lines — compares unit price against product cost
+                (standard_price)
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Password
+                Authorization Wizard:</b> Blocks order confirmation and shows a wizard with detailed below-cost line
+                info
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Security
+                Group:</b> Dedicated "Allow Below Cost Price" group — only members can authorize overrides
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Per-User
+                Password:</b> Each authorized user has their own password set in their Preferences
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Approval
+                Tracking:</b> Each line gets a "Price Override Approved" flag — so approved lines are not rechecked
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Auto-Reset
+                Approval:</b> Approval is automatically cleared if the price, product is changed
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>100%
+                Server-Side:</b> No JavaScript or browser-side code — reliable, no cache issues
+            </li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Clear Error
+                Messages:</b> Specific validation messages for missing password, wrong password, or missing group
+            </li>
+        </ul>
+    </div>
+
+    <!-- ═══ How It Works ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #C0392B; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #FADBD8;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #FADBD8; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">⚡</span>
+            How It Works
+        </h2>
+
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <td style="text-align: center; padding: 16px 8px; background: #FADBD8; border-radius: 8px; width: 18%;">
+                    <span style="font-size: 26px; display: block; margin-bottom: 6px;">✅</span>
+                    <b style="color: #C0392B; font-size: 13px;">Click Confirm</b><br>
+                    <span style="color: #6c757d; font-size: 12px;">Salesperson confirms SO</span>
+                </td>
+                <td style="text-align: center; padding: 0 4px; color: #C0392B; font-size: 22px;">→</td>
+                <td style="text-align: center; padding: 16px 8px; background: #FADBD8; border-radius: 8px; width: 18%;">
+                    <span style="font-size: 26px; display: block; margin-bottom: 6px;">🔍</span>
+                    <b style="color: #C0392B; font-size: 13px;">Check Prices</b><br>
+                    <span style="color: #6c757d; font-size: 12px;">Compare vs cost price</span>
+                </td>
+                <td style="text-align: center; padding: 0 4px; color: #C0392B; font-size: 22px;">→</td>
+                <td style="text-align: center; padding: 16px 8px; background: #FADBD8; border-radius: 8px; width: 18%;">
+                    <span style="font-size: 26px; display: block; margin-bottom: 6px;">🔒</span>
+                    <b style="color: #C0392B; font-size: 13px;">Wizard Opens</b><br>
+                    <span style="color: #6c757d; font-size: 12px;">Shows lines + asks password</span>
+                </td>
+                <td style="text-align: center; padding: 0 4px; color: #C0392B; font-size: 22px;">→</td>
+                <td style="text-align: center; padding: 16px 8px; background: #FADBD8; border-radius: 8px; width: 18%;">
+                    <span style="font-size: 26px; display: block; margin-bottom: 6px;">🔓</span>
+                    <b style="color: #C0392B; font-size: 13px;">Authorize</b><br>
+                    <span style="color: #6c757d; font-size: 12px;">Password OK → order confirmed</span>
+                </td>
+            </tr>
+        </table>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Validation Checks (in
+            order)</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <th style="background: #C0392B; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
+                    Check
+                </th>
+                <th style="background: #C0392B; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">
+                    Error If Failed
+                </th>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>1.</b> Password entered?</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">"Please enter a password."</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>2.</b> User in "Allow Below Cost
+                    Price" group?
+                </td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">"You do not belong to the Allow Below
+                    Cost Price group."
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>3.</b> User has a password
+                    configured?
+                </td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">"No price override password is
+                    configured for your user."
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>4.</b> Password matches?</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">"Incorrect password."</td>
+            </tr>
+        </table>
+
+        <div style="padding: 14px 18px; border-radius: 8px; margin: 14px 0; font-size: 14px; background: #EBF5FB; border-left: 4px solid #2980B9; display: flex; gap: 10px; align-items: flex-start;">
+            <span style="font-size: 18px; color: #2980B9; flex-shrink: 0;">ℹ️</span>
+            <div>
+                <b>No below-cost lines?</b> If all prices are at or above cost, the order confirms
+                normally — no wizard, no interruption, just the standard Odoo flow.
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ Installation ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #C0392B; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #FADBD8;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #FADBD8; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">📥</span>
+            Installation
+        </h2>
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Requirements</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <th style="background: #C0392B; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px; border-radius: 8px 0 0 0;">
+                    Requirement
+                </th>
+                <th style="background: #C0392B; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px; border-radius: 0 8px 0 0;">
+                    Details
+                </th>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Odoo Version</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>17.0</b> (Community &amp;
+                    Enterprise)
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Depends On</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">
+                    <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">sale_management</code>,
+                    <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">product</code>,
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Python Libraries</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">None</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">License</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">LGPL-3</td>
+            </tr>
+        </table>
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Steps</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top; width: 40px;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #C0392B; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">1</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;"><b style="color: #96281B;">Upload the
+                    module</b><br>Copy <code
+                        style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">sale_price_control</code>
+                    into your addons directory.
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #C0392B; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">2</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;"><b style="color: #96281B;">Update app
+                    list</b><br>Go to <span
+                        style="font-weight: 600; color: #C0392B; background: #FADBD8; padding: 3px 10px; border-radius: 6px; font-size: 13.5px;">Apps → Update Apps List</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #C0392B; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">3</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;"><b style="color: #96281B;">Install</b><br>Search
+                    for <b>"Sale Price Control"</b> and click <b>Install</b>.
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- ═══ Configuration ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #C0392B; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #FADBD8;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #FADBD8; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">⚙️</span>
+            Configuration
+        </h2>
+        <p style="margin-bottom: 12px;">Two things need to be set up: <b>group membership</b> and <b>password</b>.</p>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Step 1 — Assign the
+            Security Group</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top; width: 40px;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #C0392B; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">1</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Go to <span
+                        style="font-weight: 600; color: #C0392B; background: #FADBD8; padding: 3px 10px; border-radius: 6px; font-size: 13.5px;">Settings → Users &amp; Companies → Users</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #C0392B; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">2</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Select the user (e.g. Sales Manager)</td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #C0392B; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">3</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Under the <b>Sale Price Control</b>
+                    section, enable <b>"Allow Below Cost Price"</b></td>
+            </tr>
+        </table>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Step 2 — Set the Override
+            Password</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top; width: 40px;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #C0392B; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">1</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">On the same user form, go to the <b>Preferences</b>
+                    tab
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #C0392B; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">2</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Find the <b>"Sale Price Override"</b>
+                    section (only visible for group members)
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #C0392B; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">3</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Enter and save the <b>Price Override
+                    Password</b> (displayed as dots for security)
+                </td>
+            </tr>
+        </table>
+
+        <div style="padding: 14px 18px; border-radius: 8px; margin: 14px 0; font-size: 14px; background: #E6F6F5; border-left: 4px solid #00A09D; display: flex; gap: 10px; align-items: flex-start;">
+            <span style="font-size: 18px; color: #00A09D; flex-shrink: 0;">💡</span>
+            <div>
+                <b>Self-service:</b> Users can also set their own password from their own Preferences page
+                (top-right menu → My Profile → Preferences).
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ Usage ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #C0392B; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #FADBD8;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #FADBD8; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">🛒</span>
+            Usage
+        </h2>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Scenario: Confirming an
+            Order with Below-Cost Prices</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top; width: 40px;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #C0392B; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">1</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Create a Sale Order and add products. Set a
+                    <b>price below cost</b> on one or more lines.
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #C0392B; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">2</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Click <b>"Confirm"</b>. Instead of
+                    confirming, a <b>wizard popup</b> appears.
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #C0392B; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">3</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">The wizard shows all below-cost lines with
+                    <b>product name, unit price, and cost price</b>.
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #C0392B; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">4</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Enter your <b>price override password</b>.
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
+                        style="display: inline-block; width: 28px; height: 28px; background: #C0392B; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">5</span>
+                </td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Click <b>"🔓 Authorize &amp; Confirm
+                    Order"</b>. If the password is correct, the lines are marked as approved and the order is confirmed.
+                </td>
+            </tr>
+        </table>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">What the Wizard Shows</h3>
+        <div style="background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 16px 20px; margin: 14px 0; font-size: 14px;">
+            <div style="margin-bottom: 8px;"><b>⚠ Warning:</b> The following order lines have prices below cost.</div>
+            <div style="font-family: monospace; color: #dc3545; font-weight: 700; font-size: 13px; background: #fff3cd; padding: 8px; border-radius: 4px;">
+                Widget X: Unit Price 8.00 — Cost Price 10.00<br>
+                Gadget Y [Box]: Unit Price 45.00 — Cost Price 50.00
+            </div>
+        </div>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Approval Auto-Reset</h3>
+        <p style="margin-bottom: 12px;">
+            If a line has been approved but then one of the following is changed, the approval is
+            <b>automatically cleared</b> and the check will trigger again on the next confirmation:
+        </p>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 5px 0 5px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #C0392B; font-weight: 700;">↺</span> <b>Unit Price</b>
+                changed (via UI or direct write)
+            </li>
+            <li style="padding: 5px 0 5px 28px; position: relative;"><span
+                    style="position: absolute; left: 0; color: #C0392B; font-weight: 700;">↺</span> <b>Product</b>
+                changed
+            </li>
+        </ul>
+    </div>
+
+
+    <!-- ═══ FAQ ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #C0392B; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #FADBD8;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #FADBD8; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">❓</span>
+            Frequently Asked Questions
+        </h2>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Can a regular salesperson
+            bypass the check?</h3>
+        <p style="margin-bottom: 12px;">No. The wizard requires both <b>group membership</b> and a <b>correct
+            password</b>. Without both, the order cannot be confirmed with below-cost prices. The salesperson must
+            either fix the prices or ask an authorized user to enter the password.</p>
+
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">What if a product has zero
+            cost price?</h3>
+        <p style="margin-bottom: 12px;">Products with <b>cost = 0</b> are <b>skipped</b>. The check only triggers when
+            <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">standard_price >
+                0</code> and <code
+                    style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">price_unit
+                &lt; standard_price</code>.</p>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Is the override password
+            stored securely?</h3>
+        <p style="margin-bottom: 12px;">The password is stored as plain text in the database (like many Odoo
+            configuration passwords). It is displayed as dots in the UI via the <code
+                    style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">password="True"</code>
+            widget. This is an <b>authorization PIN</b>, not a login credential.</p>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Does this require any
+            JavaScript?</h3>
+        <p style="margin-bottom: 12px;">No. The module is <b>100% server-side Python + XML</b>. No JS assets, no browser
+            cache issues, no frontend dependencies.</p>
+    </div>
+
+    <!-- ═══ Support ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #C0392B; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #FADBD8;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #FADBD8; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">🤝</span>
+            Support
+        </h2>
+        <p style="margin-bottom: 12px;">For questions, bug reports, or feature requests:</p>
+        <div style="margin-top: 10px; line-height: 1.6;">
+            <div style="display: flex; align-items: center; margin-bottom: 5px;">
+                <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"
+                     style="width: 18px; height: 18px; margin-right: 8px;">
+                <a href="https://wa.me/201007802335" target="_blank"
+                   style="text-decoration: none; color: #25D366; font-weight: bold;">+20 100 780 2335</a>
+            </div>
+            <div style="display: flex; align-items: center;">
+                <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email"
+                     style="width: 18px; height: 18px; margin-right: 8px;">
+                <a href="mailto:mohamed.yaseen.dahab@gmail.com" style="text-decoration: none; color: #007bff;">mohamed.yaseen.dahab@gmail.com</a>
+            </div>
+        </div>
+        <div style="padding: 14px 18px; border-radius: 8px; margin: 14px 0; font-size: 14px; background: #E6F6F5; border-left: 4px solid #00A09D; display: flex; gap: 10px; align-items: flex-start;">
+            <span style="font-size: 18px; color: #00A09D; flex-shrink: 0;">💡</span>
+            <div>
+                <b>Upgrade command:</b><br>
+                <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">./odoo-bin
+                    -u sale_price_control -d your_database</code>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

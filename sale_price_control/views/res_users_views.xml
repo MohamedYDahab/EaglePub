@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_users_form_price_override" model="ir.ui.view">
+        <field name="name">res.users.form.price.override</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='preferences']" position="inside">
+                <group string="Sale Price Override" groups="sale_price_control.group_price_override">
+                    <field name="price_override_password" password="True"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_users_form_simple_price_override" model="ir.ui.view">
+        <field name="name">res.users.preferences.form.price.override</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='preferences_page']" position="inside">
+                <group string="Sale Price Override" groups="sale_price_control.group_price_override">
+                    <field name="price_override_password" password="True"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
