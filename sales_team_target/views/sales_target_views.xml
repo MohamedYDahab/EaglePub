@@ -9,7 +9,6 @@
             <search string="Sales Targets">
                 <field name="user_id"/>
                 <field name="pos_config_id"/>
-                <field name="team_id"/>
                 <filter string="My Targets" name="my_targets"
                         domain="[('user_id', '=', uid)]"/>
                 <separator/>
@@ -37,8 +36,6 @@
                             context="{'group_by': 'user_id'}"/>
                     <filter string="Point of Sale" name="group_pos"
                             context="{'group_by': 'pos_config_id'}"/>
-                    <filter string="Sales Team" name="group_team"
-                            context="{'group_by': 'team_id'}"/>
                     <filter string="Month" name="group_month"
                             context="{'group_by': 'month'}"/>
                     <filter string="Year" name="group_year"
@@ -68,7 +65,6 @@
                 <field name="pos_config_id"
                        column_invisible="context.get('default_target_type') == 'salesperson'"
                        optional="show"/>
-                <field name="team_id" optional="hide"/>
                 <field name="month"/>
                 <field name="year"/>
                 <field name="target_amount" sum="Total Target"/>
@@ -137,8 +133,6 @@
                                    invisible="target_type != 'salesperson'"
                                    required="target_type == 'salesperson'"
                                    options="{'no_create': True}"/>
-                            <field name="team_id"
-                                   invisible="target_type != 'salesperson'"/>
                             <field name="pos_config_id"
                                    readonly="state != 'draft'"
                                    invisible="target_type != 'pos'"

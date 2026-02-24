@@ -48,9 +48,6 @@ class SalesTargetReportWizard(models.TransientModel):
         'pos.config', string='Points of Sale',
         help='Leave empty for all.',
     )
-    team_id = fields.Many2one(
-        'crm.team', string='Sales Team',
-    )
     company_id = fields.Many2one(
         'res.company', string='Company', required=True,
         default=lambda self: self.env.company,

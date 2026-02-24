@@ -35,9 +35,6 @@ class SalesTarget(models.Model):
         domain=[('share', '=', False)],
         tracking=True,
     )
-    team_id = fields.Many2one(
-        'crm.team', string='Sales Team',
-    )
 
     # ── POS mode fields ──
     pos_config_id = fields.Many2one(
@@ -145,9 +142,6 @@ class SalesTarget(models.Model):
             if rec.year < 2020 or rec.year > 2099:
                 raise ValidationError(
                     _('Year must be between 2020 and 2099.'))
-
-    @api.depends('user_id')
-
 
     @api.depends('target_type', 'user_id', 'pos_config_id',
                  'month', 'year')

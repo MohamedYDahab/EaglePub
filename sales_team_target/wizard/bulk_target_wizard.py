@@ -31,15 +31,11 @@ class BulkTargetWizard(models.TransientModel):
         'res.company', string='Company', required=True,
         default=lambda self: self.env.company,
     )
-    team_id = fields.Many2one(
-        'crm.team', string='Sales Team',
-        help='Filter salespersons by team. Leave empty for all.',
-    )
     line_ids = fields.One2many(
         'bulk.target.wizard.line', 'wizard_id', string='Targets',
     )
 
-    @api.onchange('target_type', 'team_id', 'month', 'year', 'company_id')
+    @api.onchange('target_type', 'month', 'year', 'company_id')
     def _onchange_populate_lines(self):
         """Populate lines based on target type."""
         self.line_ids = [(5, 0, 0)]

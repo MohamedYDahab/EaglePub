@@ -23,10 +23,6 @@
                                options="{'no_create': True}"
                                placeholder="All Salespersons"
                                invisible="target_type == 'pos'"/>
-                        <field name="team_id"
-                               options="{'no_create': True}"
-                               placeholder="All Teams"
-                               invisible="target_type == 'pos'"/>
                         <field name="pos_config_ids" widget="many2many_tags"
                                options="{'no_create': True}"
                                placeholder="All Points of Sale"
