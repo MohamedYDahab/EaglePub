@@ -1,0 +1,52 @@
+/* POS Product Packaging Styles */
+
+.popup-packaging {
+    max-width: 500px;
+}
+
+.popup-packaging .packaging-list {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.popup-packaging .packaging-item {
+    min-width: 120px;
+    padding: 10px 15px;
+    text-align: center;
+}
+
+.popup-packaging .packaging-item .packaging-name {
+    font-size: 1rem;
+}
+
+.popup-packaging .packaging-item .packaging-qty {
+    font-size: 0.85rem;
+}
+
+.popup-packaging .packaging-item.btn-primary .packaging-qty {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.popup-packaging .package-qty-input input {
+    font-weight: bold;
+}
+
+.popup-packaging .packaging-summary {
+    border: 2px solid #e9ecef;
+}
+
+/* Orderline packaging info */
+.orderline .packaging-info {
+    font-size: 0.8rem;
+    color: #6c757d;
+    margin-top: 2px;
+}
+
+.orderline .packaging-info i {
+    color: #17a2b8;
+}
+
+/* Control button */
+.control-button .fa-cubes {
+    color: #6f42c1;
+}

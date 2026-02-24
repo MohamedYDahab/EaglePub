@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <!-- Extend orderline to show packaging info -->
+    <t t-name="pos_product_packaging.OrderlinePackaging" t-inherit="point_of_sale.Orderline" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('product-name')]" position="after">
+            <div t-if="hasPackaging" class="packaging-info text-muted small">
+                <i class="fa fa-cube me-1"/>
+                <span t-esc="packagingInfo"/>
+            </div>
+        </xpath>
+    </t>
+
+    <!-- Packaging Button -->
+    <t t-name="pos_product_packaging.PackagingButton">
+        <button class="control-button btn btn-light" t-on-click="onClick">
+            <i class="fa fa-cubes me-1"/>
+            Packaging
+        </button>
+    </t>
+
+</templates>

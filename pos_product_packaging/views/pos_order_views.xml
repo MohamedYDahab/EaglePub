@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Extend POS Order Line Tree View -->
+    <record id="view_pos_order_line_tree_packaging" model="ir.ui.view">
+        <field name="name">pos.order.line.tree.packaging</field>
+        <field name="model">pos.order.line</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_order_line"/>
+        <field name="arch" type="xml">
+            <field name="qty" position="after">
+                <field name="packaging_id" optional="show"/>
+                <field name="package_qty" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Extend POS Order Form View -->
+    <record id="view_pos_pos_form_packaging" model="ir.ui.view">
+        <field name="name">pos.order.form.packaging</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='lines']/tree/field[@name='qty']" position="after">
+                <field name="packaging_id" optional="show"/>
+                <field name="package_qty" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
