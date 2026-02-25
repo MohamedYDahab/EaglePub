@@ -42,7 +42,6 @@ patch(ControlButtons.prototype, {
                 const available = stock[pid];
                 if (available === undefined || available === null) continue;
                 if (available >= line.get_quantity()) continue;
-
                 issues.push(
                     `${line.get_product().display_name}: ` +
                     `Available ${available}, Ordered ${line.get_quantity()}`
@@ -50,21 +49,21 @@ patch(ControlButtons.prototype, {
             }
 
             if (issues.length > 0) {
-                const msg = _t("Insufficient Stock:\n") + issues.join("\n");
+                const msg = _t("Insufficient Stock:") + "\n" + issues.join("\n");
                 if (mode === 'hard' && !bypass) {
                     this.dialog.add(AlertDialog, {
-                        title: _t("❌ Negative Stock Blocked / مخزون سالب"),
+                        title: _t("Negative Stock Blocked"),
                         body: msg + "\n\n" +
-                              _t("Please adjust quantities or restock.\n" +
-                                 "يرجى تعديل الكميات أو إعادة التخزين"),
+                              _t("Please adjust quantities or restock.") + "\n" +
+                              "يرجى تعديل الكميات أو إعادة التخزين",
                     });
                     return 'blocked';
                 } else {
                     this.dialog.add(AlertDialog, {
-                        title: _t("⚠️ Low Stock Warning / تحذير مخزون منخفض"),
+                        title: _t("Low Stock Warning"),
                         body: msg + "\n\n" +
-                              _t("Proceeding with negative stock.\n" +
-                                 "المتابعة بمخزون سالب"),
+                              _t("Proceeding with negative stock.") + "\n" +
+                              "المتابعة بمخزون سالب",
                     });
                     return 'warned';
                 }
