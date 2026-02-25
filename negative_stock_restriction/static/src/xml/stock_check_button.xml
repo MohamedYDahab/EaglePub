@@ -5,7 +5,7 @@
                 t-on-click="() => this.click()">
             <i class="fa fa-exclamation-triangle me-1" role="img"
                aria-label="Stock Check" title="Stock Check"/>
-            فحص المخزون / Stock Check
+            Stock Check
         </button>
     </t>
 </templates>

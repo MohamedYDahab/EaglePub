@@ -8,7 +8,7 @@ import { _t } from "@web/core/l10n/translation";
 export class ManagerOverridePopup extends AbstractAwaitablePopup {
     static template = "negative_stock_restriction.ManagerOverridePopup";
     static defaultProps = {
-        title: _t("Manager Override / تجاوز المدير"),
+        title: _t("Manager Override"),
         issues: [],
     };
 
@@ -36,7 +36,7 @@ export class ManagerOverridePopup extends AbstractAwaitablePopup {
 
     async verifyPin() {
         if (!this.state.pin) {
-            this.state.error = _t("Please enter a PIN / الرجاء إدخال رمز");
+            this.state.error = _t("Please enter a PIN");
             return;
         }
 
@@ -54,14 +54,14 @@ export class ManagerOverridePopup extends AbstractAwaitablePopup {
                 this.props.close({ confirmed: true, payload: { pin: this.state.pin } });
             } else if (!result.is_manager) {
                 this.state.error = _t(
-                    "You are not in the Manager Override group / لست في مجموعة تجاوز المدير"
+                    "You are not in the Manager Override group"
                 );
             } else {
-                this.state.error = _t("Incorrect PIN / رمز غير صحيح");
+                this.state.error = _t("Incorrect PIN");
             }
         } catch (error) {
             console.error("PIN verify error:", error);
-            this.state.error = _t("Verification failed / فشل التحقق");
+            this.state.error = _t("Verification failed");
         } finally {
             this.state.loading = false;
         }

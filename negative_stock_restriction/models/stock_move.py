@@ -82,8 +82,7 @@ class StockMove(models.Model):
                         "Product: %(product)s\n"
                         "Available: %(available)s\n"
                         "Requested: %(demand)s\n"
-                        "Location: %(location)s\n\n"
-                        "تم حظر المخزون السالب!",
+                        "Location: %(location)s\n\n",
                         product=move.product_id.display_name,
                         available=avail,
                         demand=demand,

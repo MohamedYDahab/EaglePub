@@ -88,9 +88,8 @@ patch(ProductScreen.prototype, {
 
             if (check.issues && check.issues.length > 0) {
                 const msg =
-                    _t("Insufficient Stock:") + "\n" +
-                    check.issues.join("\n") + "\n\n" +
-                    "مخزون غير كافٍ";
+                    _t("Insufficient Stock:") + "\n"
+                    ;
 
                 if (check.blocked) {
                     if (check.canOverride) {
@@ -98,7 +97,7 @@ patch(ProductScreen.prototype, {
                         const { confirmed } = await this._stockPopup.add(
                             ManagerOverridePopup,
                             {
-                                title: _t("Manager Override Required / مطلوب تجاوز المدير"),
+                                title: _t("Manager Override Required "),
                                 issues: check.issues,
                             }
                         );
@@ -107,11 +106,10 @@ patch(ProductScreen.prototype, {
                     } else {
                         // Hard block, no override available
                         await this._stockPopup.add(ErrorPopup, {
-                            title: _t("Negative Stock Blocked / تم حظر المخزون السالب"),
+                            title: _t("Negative Stock Blocked"),
                             body: msg + "\n\n" +
-                                _t("Please adjust quantities or restock before payment.") +
-                                "\n" +
-                                "يرجى تعديل الكميات أو إعادة التخزين قبل الدفع",
+                                _t("Please adjust quantities or restock before payment.")
+                                ,
                         });
                         return;
                     }
@@ -120,11 +118,10 @@ patch(ProductScreen.prototype, {
                     const { confirmed } = await this._stockPopup.add(
                         ConfirmPopup,
                         {
-                            title: _t("Low Stock Warning / تحذير مخزون منخفض"),
+                            title: _t("Low Stock Warning"),
                             body: msg + "\n\n" +
-                                _t("Do you want to proceed with negative stock?") +
-                                "\n" +
-                                "هل تريد المتابعة بمخزون سالب؟",
+                                _t("Do you want to proceed with negative stock?")
+                                ,
                             confirmText: _t("Proceed"),
                             cancelText: _t("Cancel"),
                         }
@@ -163,26 +160,26 @@ patch(PaymentScreen.prototype, {
                     if (check.issues && check.issues.length > 0) {
                         const msg =
                             _t("Insufficient Stock:") + "\n" +
-                            check.issues.join("\n") + "\n\n" +
-                            "مخزون غير كافٍ";
+                            check.issues.join("\n")
+
+                            ;
 
                         if (check.blocked) {
                             if (check.canOverride) {
                                 const { confirmed } = await this._stockPopup.add(
                                     ManagerOverridePopup,
                                     {
-                                        title: _t("Manager Override Required / مطلوب تجاوز المدير"),
+                                        title: _t("Manager Override Required"),
                                         issues: check.issues,
                                     }
                                 );
                                 if (!confirmed) return;
                             } else {
                                 await this._stockPopup.add(ErrorPopup, {
-                                    title: _t("Negative Stock Blocked / تم حظر المخزون السالب"),
+                                    title: _t("Negative Stock Blocked"),
                                     body: msg + "\n\n" +
-                                        _t("Cannot validate order. Go back and adjust quantities.") +
-                                        "\n" +
-                                        "لا يمكن تأكيد الطلب. عُد وعدّل الكميات",
+                                        _t("Cannot validate order. Go back and adjust quantities.")
+                                        ,
                                 });
                                 return;
                             }
@@ -190,11 +187,10 @@ patch(PaymentScreen.prototype, {
                             const { confirmed } = await this._stockPopup.add(
                                 ConfirmPopup,
                                 {
-                                    title: _t("Low Stock Warning / تحذير مخزون منخفض"),
+                                    title: _t("Low Stock Warning"),
                                     body: msg + "\n\n" +
-                                        _t("Validate order with negative stock?") +
-                                        "\n" +
-                                        "تأكيد الطلب بمخزون سالب؟",
+                                        _t("Validate order with negative stock?")
+                                        ,
                                     confirmText: _t("Validate"),
                                     cancelText: _t("Cancel"),
                                 }

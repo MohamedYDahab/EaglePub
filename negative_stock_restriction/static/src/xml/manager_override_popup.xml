@@ -8,7 +8,7 @@
             <div class="modal-body">
                 <!-- Issue list -->
                 <div class="override-info" t-if="props.issues and props.issues.length">
-                    <strong>⚠️ <t t-esc="'Insufficient Stock / مخزون غير كافٍ:'"/></strong>
+                    <strong>⚠️ <t t-esc="'Insufficient Stock :'"/></strong>
                     <ul class="mb-0 mt-1">
                         <t t-foreach="props.issues" t-as="issue" t-key="issue_index">
                             <li><t t-esc="issue"/></li>
@@ -18,8 +18,6 @@
 
                 <p class="text-center text-muted">
                     Enter manager PIN to override
-                    <br/>
-                    أدخل رمز المدير للتجاوز
                 </p>
 
                 <input
@@ -41,14 +39,14 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button class="btn btn-secondary" t-on-click="cancel">
-                    <i class="fa fa-times me-1"/>Cancel / إلغاء
+                    <i class="fa fa-times me-1"/>Cancel
                 </button>
                 <button class="btn btn-primary"
                         t-on-click="verifyPin"
                         t-att-disabled="state.loading">
                     <i class="fa fa-key me-1" t-if="!state.loading"/>
                     <i class="fa fa-spinner fa-spin me-1" t-if="state.loading"/>
-                    Verify / تحقق
+                    Verify
                 </button>
             </div>
         </div>

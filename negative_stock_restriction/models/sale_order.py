@@ -68,7 +68,6 @@ class SaleOrder(models.Model):
                     msg = _("Insufficient Stock for Order %(order)s:\n",
                             order=order.name)
                     msg += "\n".join(issues)
-                    msg += "\n\nمخزون غير كافٍ للطلب"
 
                     if mode == 'hard' and not bypass:
                         raise UserError(msg)

@@ -37,8 +37,7 @@ export class StockCheckButton extends Component {
             if (!result.enabled) {
                 await this.popup.add(ErrorPopup, {
                     title: _t("Stock Check"),
-                    body: _t("Stock restriction is disabled.") +
-                          "\n" + "تقييد المخزون معطل",
+                    body: _t("Stock restriction is disabled."),
                 });
                 return;
             }
@@ -86,8 +85,8 @@ export class StockCheckButton extends Component {
                 });
                 await this.popup.add(ErrorPopup, {
                     title: hasIssue
-                        ? _t("Insufficient Stock ⚠️ / مخزون غير كافٍ")
-                        : _t("Stock OK ✅ / المخزون جيد"),
+                        ? _t("Insufficient Stock ⚠️")
+                        : _t("Stock OK ✅"),
                     body: lines_info.join("\n"),
                 });
             }
