@@ -1,5 +1,5 @@
 {
-    'name': 'Sale Price Control',
+    'name': 'Sale Price Control With Password',
     'version': '17.0.7.0.0',
     'category': 'Sales',
     'summary': 'Prevent confirming sale orders with prices below cost without password authorization',
