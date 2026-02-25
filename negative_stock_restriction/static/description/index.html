@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Negative Stock Restriction – User Manual</title>
+</head>
+<body style="font-family: Arial, Helvetica, sans-serif; color: #212529; background: #F8F9FA; line-height: 1.7; font-size: 15px; margin: 0; padding: 0;">
+
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<div style="background: linear-gradient(135deg, #1B4F72 0%, #154360 100%); color: #fff; padding: 60px 20px 50px; text-align: center;">
+    <h1 style="font-size: 2.4rem; font-weight: 700; letter-spacing: -0.5px; margin: 0 0 12px;">📦 Negative Stock Restriction</h1>
+    <p style="font-size: 1.1rem; opacity: 0.9; max-width: 700px; margin: 0 auto 20px; padding: 0;">
+        Prevent negative inventory across Stock Transfers, Point of Sale, and Sale Orders —
+        with real-time POS stock badges, manager PIN override, and per-product/category/warehouse exceptions.
+    </p>
+    <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">Odoo 18.0</span>
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">Stock / POS / Sales</span>
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">Real-Time Stock Badges</span>
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">Manager Override</span>
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">Bilingual EN/AR</span>
+        <span style="background: rgba(255,255,255,0.18); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">LGPL-3</span>
+    </div>
+</div>
+
+<!-- ══════════════════════ MAIN CONTENT ══════════════════════ -->
+<div style="max-width: 960px; margin: 30px auto; padding: 0 20px 60px;">
+
+    <!-- ═══ Overview ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #1B4F72; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #D4E6F1;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #D4E6F1; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">📋</span>
+            Overview
+        </h2>
+        <p style="margin-bottom: 12px;">
+            <b>Negative Stock Restriction</b> is a comprehensive inventory safeguard for Odoo 18. It prevents
+            your stock from going negative across <b>three key areas</b>: Stock Transfers (delivery orders),
+            Point of Sale, and Sale Order confirmation.
+        </p>
+        <p style="margin-bottom: 12px;">
+            Choose between <b>Hard Block</b> (completely prevents the action) or <b>Soft Warning</b> (shows a
+            warning but allows proceeding). Configure which quantity to check — <b>On Hand</b>, <b>Available</b>,
+            or <b>Forecast</b> — and set granular exceptions at the product, category, or warehouse level.
+        </p>
+        <p style="margin-bottom: 12px;">
+            In the POS, real-time <b>color-coded stock badges</b> appear on every product card, updating
+            instantly after each sale. Out-of-stock products can be <b>auto-hidden</b>, and managers can
+            <b>override blocks with a PIN</b> when needed.
+        </p>
+        <!-- 🖼️ PLACEHOLDER: Full settings page screenshot -->
+        <img src="restriction_settings_overview.png"
+             style="width: 100%; border-radius: 10px; border: 1px solid #DEE2E6; margin: 16px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06);"
+             alt="Module Overview – Settings Page"/>
+        <p style="text-align: center; color: #6c757d; font-size: 13px; margin-top: -8px;">
+            📸 <i>screenshot_overview.png — Full settings page with all options visible</i>
+        </p>
+    </div>
+
+    <!-- ═══ Key Features ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #1B4F72; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #D4E6F1;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #D4E6F1; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">⭐</span>
+            Key Features
+        </h2>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Hard Block or Soft Warning:</b> Choose to completely prevent negative stock or just warn the user and let them decide</li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>3 Quantity Types:</b> Check against On Hand, Available (on hand − reserved), or Forecast (available + incoming − outgoing)</li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Stock Transfers:</b> Block/warn on delivery orders when the move would cause negative stock</li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Point of Sale:</b> Block Pay and Validate buttons with stock check — includes bilingual EN/AR messages</li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Sale Orders:</b> Check stock on SO confirmation with warehouse-aware quantities</li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Real-Time POS Badges:</b> Green / Yellow / Red stock quantity badges on every product card</li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Instant Refresh After Sale:</b> Badges update immediately after each completed order — no session restart needed</li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Auto-Hide Out-of-Stock:</b> Optionally hide products with zero or negative stock from POS product list</li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Low Stock Threshold:</b> Configurable threshold — yellow badge when stock is running low</li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Manager PIN Override:</b> Managers can enter a PIN to override hard blocks in POS</li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Per-Product Exceptions:</b> Allow specific products to go negative (e.g. services sold as storable)</li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Per-Category Exceptions:</b> Exempt entire product categories from the restriction</li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Per-Warehouse Exceptions:</b> Allow specific warehouses to go negative (e.g. transit warehouses)</li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Bypass Security Group:</b> Authorized users can bypass restrictions entirely</li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Manual Stock Check Button:</b> Dedicated button in POS to check stock levels for current order</li>
+            <li style="padding: 7px 0 7px 28px; position: relative;"><span style="position: absolute; left: 0; color: #00A09D; font-weight: 700;">✓</span> <b>Configurable Refresh Interval:</b> Set how often POS badges auto-refresh (default 15s, or 0 to disable)</li>
+        </ul>
+    </div>
+
+    <!-- ═══ How It Works ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #1B4F72; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #D4E6F1;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #D4E6F1; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">⚡</span>
+            How It Works
+        </h2>
+
+        <!-- Flow diagram -->
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <td style="text-align: center; padding: 16px 8px; background: #D4E6F1; border-radius: 8px; width: 18%;">
+                    <span style="font-size: 26px; display: block; margin-bottom: 6px;">🛒</span>
+                    <b style="color: #1B4F72; font-size: 13px;">Action</b><br>
+                    <span style="color: #6c757d; font-size: 12px;">Pay / Confirm / Deliver</span>
+                </td>
+                <td style="text-align: center; padding: 0 4px; color: #1B4F72; font-size: 22px;">→</td>
+                <td style="text-align: center; padding: 16px 8px; background: #D4E6F1; border-radius: 8px; width: 18%;">
+                    <span style="font-size: 26px; display: block; margin-bottom: 6px;">🔍</span>
+                    <b style="color: #1B4F72; font-size: 13px;">Check Stock</b><br>
+                    <span style="color: #6c757d; font-size: 12px;">Compare qty vs demand</span>
+                </td>
+                <td style="text-align: center; padding: 0 4px; color: #1B4F72; font-size: 22px;">→</td>
+                <td style="text-align: center; padding: 16px 8px; background: #D4E6F1; border-radius: 8px; width: 18%;">
+                    <span style="font-size: 26px; display: block; margin-bottom: 6px;">🚫</span>
+                    <b style="color: #1B4F72; font-size: 13px;">Block / Warn</b><br>
+                    <span style="color: #6c757d; font-size: 12px;">Hard block or soft warning</span>
+                </td>
+                <td style="text-align: center; padding: 0 4px; color: #1B4F72; font-size: 22px;">→</td>
+                <td style="text-align: center; padding: 16px 8px; background: #D4E6F1; border-radius: 8px; width: 18%;">
+                    <span style="font-size: 26px; display: block; margin-bottom: 6px;">🔑</span>
+                    <b style="color: #1B4F72; font-size: 13px;">Override</b><br>
+                    <span style="color: #6c757d; font-size: 12px;">Manager PIN or bypass group</span>
+                </td>
+            </tr>
+        </table>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Where It Checks</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <th style="background: #1B4F72; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">Area</th>
+                <th style="background: #1B4F72; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">Trigger Point</th>
+                <th style="background: #1B4F72; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">Hard Block</th>
+                <th style="background: #1B4F72; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">Soft Warning</th>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Stock Transfers</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">_action_done()</code> on outgoing moves</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">UserError raised</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Warning logged</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Point of Sale</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Pay button + Validate button</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Error popup (or PIN override)</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Confirm popup</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Sale Orders</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">action_confirm()</code></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">UserError raised</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Warning logged + chatter note</td>
+            </tr>
+        </table>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Exception Priority</h3>
+        <p style="margin-bottom: 12px;">
+            Before blocking, the module checks exceptions in this order. If <b>any</b> exception is found, the product is <b>skipped</b>:
+        </p>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF; width: 40px;"><span style="display: inline-block; width: 28px; height: 28px; background: #1B4F72; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">1</span></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Warehouse</b> — <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">allow_negative_stock</code> on the warehouse</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><span style="display: inline-block; width: 28px; height: 28px; background: #1B4F72; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">2</span></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Product</b> — <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">allow_negative_stock</code> on the product template or variant</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><span style="display: inline-block; width: 28px; height: 28px; background: #1B4F72; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">3</span></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Category</b> — <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">allow_negative_stock</code> on the product category</td>
+            </tr>
+        </table>
+
+        <div style="padding: 14px 18px; border-radius: 8px; margin: 14px 0; font-size: 14px; background: #EBF5FB; border-left: 4px solid #2980B9; display: flex; gap: 10px; align-items: flex-start;">
+            <span style="font-size: 18px; color: #2980B9; flex-shrink: 0;">ℹ️</span>
+            <div>
+                <b>No stock issues?</b> If all products have sufficient stock, everything proceeds
+                normally — no popups, no interruption, just the standard Odoo flow.
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ POS Stock Badges ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #1B4F72; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #D4E6F1;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #D4E6F1; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">🏷️</span>
+            POS Real-Time Stock Badges
+        </h2>
+        <p style="margin-bottom: 12px;">
+            When enabled, every product card in the POS displays a <b>color-coded badge</b> showing the current stock level at the POS location:
+        </p>
+
+        <!-- Badge legend -->
+        <div style="display: flex; gap: 16px; flex-wrap: wrap; margin: 18px 0;">
+            <div style="flex: 1; min-width: 150px; text-align: center; padding: 18px 12px; border-radius: 10px; border: 2px solid #28a745;">
+                <div style="display: inline-block; background: #28a745; color: #fff; padding: 4px 14px; border-radius: 12px; font-size: 16px; font-weight: 700; margin-bottom: 8px;">25</div>
+                <div style="font-weight: 700; color: #28a745;">🟢 Green</div>
+                <div style="font-size: 13px; color: #6c757d;">Stock above threshold</div>
+            </div>
+            <div style="flex: 1; min-width: 150px; text-align: center; padding: 18px 12px; border-radius: 10px; border: 2px solid #ffc107;">
+                <div style="display: inline-block; background: #ffc107; color: #333; padding: 4px 14px; border-radius: 12px; font-size: 16px; font-weight: 700; margin-bottom: 8px;">3</div>
+                <div style="font-weight: 700; color: #e6a800;">🟡 Yellow</div>
+                <div style="font-size: 13px; color: #6c757d;">Stock ≤ threshold (low)</div>
+            </div>
+            <div style="flex: 1; min-width: 150px; text-align: center; padding: 18px 12px; border-radius: 10px; border: 2px solid #dc3545;">
+                <div style="display: inline-block; background: #dc3545; color: #fff; padding: 4px 14px; border-radius: 12px; font-size: 16px; font-weight: 700; margin-bottom: 8px;">0</div>
+                <div style="font-weight: 700; color: #dc3545;">🔴 Red</div>
+                <div style="font-size: 13px; color: #6c757d;">Out of stock (pulsing)</div>
+            </div>
+        </div>
+
+        <!-- 🖼️ PLACEHOLDER: POS with badges -->
+        <img src="screenshot_pos_badges.png"
+             style="width: 100%; border-radius: 10px; border: 1px solid #DEE2E6; margin: 16px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06);"
+             alt="POS Product Cards with Stock Badges"/>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Refresh Triggers</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <th style="background: #1B4F72; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">Trigger</th>
+                <th style="background: #1B4F72; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">When</th>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>After every sale</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Badges refresh ~1.5s after order validation completes</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Tab visibility</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">When user switches back to the POS browser tab</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Auto-refresh interval</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Configurable (default 15 seconds, set to 0 to disable)</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Category switch</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Badges re-applied when DOM changes (search, scroll, category)</td>
+            </tr>
+        </table>
+
+        <div style="padding: 14px 18px; border-radius: 8px; margin: 14px 0; font-size: 14px; background: #E6F6F5; border-left: 4px solid #00A09D; display: flex; gap: 10px; align-items: flex-start;">
+            <span style="font-size: 18px; color: #00A09D; flex-shrink: 0;">💡</span>
+            <div>
+                <b>No session restart needed!</b> Stock badges update in real-time after every completed sale.
+                The cashier always sees the current quantity without closing and reopening the POS session.
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ POS Blocking ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #1B4F72; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #D4E6F1;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #D4E6F1; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">🛒</span>
+            POS Payment &amp; Validation Blocking
+        </h2>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Hard Block Mode</h3>
+        <p style="margin-bottom: 12px;">
+            When a cashier clicks <b>Pay</b> or <b>Validate</b>, the module checks stock for all order lines.
+            If any product has insufficient stock and is not exempt, the action is <b>completely blocked</b>.
+        </p>
+        <!-- 🖼️ PLACEHOLDER: Hard block popup -->
+        <img src="screenshot_pos_hard_block.png"
+             style="width: 100%; border-radius: 10px; border: 1px solid #DEE2E6; margin: 16px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06);"
+             alt="POS Hard Block Popup"/>
+        <p style="text-align: center; color: #6c757d; font-size: 13px; margin-top: -8px;">
+            📸 <i>screenshot_pos_hard_block.png — Hard block error popup showing insufficient stock details</i>
+        </p>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Soft Warning Mode</h3>
+        <p style="margin-bottom: 12px;">
+            In soft mode, a <b>confirmation popup</b> appears instead. The cashier can choose to proceed or cancel.
+        </p>
+        <!-- 🖼️ PLACEHOLDER: Soft warning popup -->
+        <img src="screenshot_pos_soft_warning.png"
+             style="width: 100%; border-radius: 10px; border: 1px solid #DEE2E6; margin: 16px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06);"
+             alt="POS Soft Warning Popup"/>
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Manager PIN Override</h3>
+        <p style="margin-bottom: 12px;">
+            When enabled, hard-blocked orders show a <b>Manager Override</b> popup instead of a flat error.
+            A manager enters their PIN to authorize the sale.
+        </p>
+        <!-- 🖼️ PLACEHOLDER: Manager override popup -->
+        <img src="screenshot_manager_override.png"
+             style="width: 100%; border-radius: 10px; border: 1px solid #DEE2E6; margin: 16px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06);"
+             alt="Manager PIN Override Popup"/>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Manual Stock Check Button</h3>
+        <p style="margin-bottom: 12px;">
+            A red <b>"فحص المخزون / Stock Check"</b> button is added to the POS product screen.
+            Click it anytime to see stock levels for all items in the current order.
+        </p>
+        <!-- 🖼️ PLACEHOLDER: Stock check button & result -->
+        <img src="screenshot_stock_check_button.png"
+             style="width: 100%; border-radius: 10px; border: 1px solid #DEE2E6; margin: 16px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06);"
+             alt="Stock Check Button and Result Popup"/>
+    </div>
+
+    <!-- ═══ Stock Transfer Blocking ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #1B4F72; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #D4E6F1;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #D4E6F1; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">📦</span>
+            Stock Transfer Blocking
+        </h2>
+        <p style="margin-bottom: 12px;">
+            When validating a delivery order (outgoing stock move from internal location to customer/external),
+            the module checks if the transfer would cause negative stock. Only <b>outgoing</b> moves are checked —
+            internal transfers, receipts, and returns are unaffected.
+        </p>
+        <!-- 🖼️ PLACEHOLDER: Delivery order block -->
+        <img src="screenshot_stock_transfer_block.png"
+             style="width: 100%; border-radius: 10px; border: 1px solid #DEE2E6; margin: 16px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06);"
+             alt="Stock Transfer Block Error"/>
+
+    </div>
+
+    <!-- ═══ Sale Order Blocking ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #1B4F72; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #D4E6F1;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #D4E6F1; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">📝</span>
+            Sale Order Confirmation Blocking
+        </h2>
+        <p style="margin-bottom: 12px;">
+            When a salesperson clicks <b>Confirm</b> on a Sale Order, the module checks stock for every line
+            against the order's warehouse. In <b>soft mode</b>, a warning is posted to the order chatter
+            so there's a record of the low-stock confirmation.
+        </p>
+        <!-- 🖼️ PLACEHOLDER: SO block -->
+        <img src="screenshot_stock_transfer_block.png"
+             style="width: 100%; border-radius: 10px; border: 1px solid #DEE2E6; margin: 16px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06);"
+             alt="Sale Order Confirmation Block"/>
+
+    </div>
+
+    <!-- ═══ Installation ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #1B4F72; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #D4E6F1;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #D4E6F1; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">📥</span>
+            Installation
+        </h2>
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Requirements</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <th style="background: #1B4F72; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px; border-radius: 8px 0 0 0;">Requirement</th>
+                <th style="background: #1B4F72; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px; border-radius: 0 8px 0 0;">Details</th>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Odoo Version</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>18.0</b> (Community &amp; Enterprise)</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Depends On</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">
+                    <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">stock</code>,
+                    <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">point_of_sale</code>,
+                    <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">sale_management</code>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Python Libraries</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">None (standard Odoo only)</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">License</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">LGPL-3</td>
+            </tr>
+        </table>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Steps</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top; width: 40px;"><span style="display: inline-block; width: 28px; height: 28px; background: #1B4F72; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">1</span></td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;"><b style="color: #154360;">Upload the module</b><br>Copy <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">negative_stock_restriction</code> into your Odoo addons directory.</td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span style="display: inline-block; width: 28px; height: 28px; background: #1B4F72; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">2</span></td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;"><b style="color: #154360;">Update Apps List</b><br>Go to <span style="font-weight: 600; color: #1B4F72; background: #D4E6F1; padding: 3px 10px; border-radius: 6px; font-size: 13.5px;">Apps → Update Apps List</span></td>
+            </tr>
+            <tr>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span style="display: inline-block; width: 28px; height: 28px; background: #1B4F72; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">3</span></td>
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;"><b style="color: #154360;">Install</b><br>Search for <b>"Negative Stock Restriction"</b> and click <b>Install</b>.</td>
+            </tr>
+        </table>
+
+        <div style="padding: 14px 18px; border-radius: 8px; margin: 14px 0; font-size: 14px; background: #E6F6F5; border-left: 4px solid #00A09D; display: flex; gap: 10px; align-items: flex-start;">
+            <span style="font-size: 18px; color: #00A09D; flex-shrink: 0;">💡</span>
+            <div>
+                <b>Upgrade command:</b><br>
+                <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">./odoo-bin -u negative_stock_restriction -d your_database --stop-after-init</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ Configuration ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #1B4F72; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #D4E6F1;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #D4E6F1; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">⚙️</span>
+            Configuration
+        </h2>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Settings</h3>
+        <p style="margin-bottom: 12px;">Go to <span style="font-weight: 600; color: #1B4F72; background: #D4E6F1; padding: 3px 10px; border-radius: 6px; font-size: 13.5px;">Settings → Inventory → Negative Stock Restriction</span></p>
+
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <th style="background: #1B4F72; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">Setting</th>
+                <th style="background: #1B4F72; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">Default</th>
+                <th style="background: #1B4F72; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">Description</th>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Enable Negative Stock Restriction</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">✅ On</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Master toggle — turns the entire module on/off</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Restriction Mode</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Hard Block</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Hard Block = prevent action | Soft Warning = warn and allow</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Restrict in Stock Transfers</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">✅ On</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Check stock on delivery order validation</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Restrict in Point of Sale</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">✅ On</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Check stock on POS Pay/Validate</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Restrict in Sale Orders</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">✅ On</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Check stock on SO confirmation</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Low Stock Warning Threshold</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">5</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Yellow badge threshold in POS</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Stock Quantity Type</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Available</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">On Hand | Available (on hand − reserved) | Forecast</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Show Stock on POS Product Cards</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">✅ On</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Display color-coded badges on product cards</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Auto-Hide Out-of-Stock in POS</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">❌ Off</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Hide products with stock ≤ 0 from POS</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>POS Stock Refresh Interval</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">15 sec</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Auto-refresh period (0 = only after sales)</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Allow Manager Override</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">❌ Off</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Enable PIN override in Hard Block mode</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Manager Override PIN</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">0000</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">PIN required to override (displayed as dots)</td>
+            </tr>
+        </table>
+
+        <!-- 🖼️ PLACEHOLDER: Settings page -->
+        <img src="restriction_settings_overview.png"
+             style="width: 100%; border-radius: 10px; border: 1px solid #DEE2E6; margin: 16px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06);"
+             alt="Settings Configuration Page"/>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Security Groups</h3>
+        <p style="margin-bottom: 12px;">
+            Go to <span style="font-weight: 600; color: #1B4F72; background: #D4E6F1; padding: 3px 10px; border-radius: 6px; font-size: 13.5px;">Settings → Users &amp; Companies → Users</span>
+            and assign groups in the <b>Inventory</b> section:
+        </p>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <th style="background: #1B4F72; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">Group</th>
+                <th style="background: #1B4F72; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">Effect</th>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Bypass Negative Stock Restriction</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">User completely skips all restrictions (hard block becomes soft, soft proceeds silently)</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Negative Stock Manager Override</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">User can enter the manager PIN to override hard blocks in POS</td>
+            </tr>
+        </table>
+
+        <!-- 🖼️ PLACEHOLDER: Security groups on user form -->
+        <img src="screenshot_security_groups.png"
+             style="width: 100%; border-radius: 10px; border: 1px solid #DEE2E6; margin: 16px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06);"
+             alt="Security Groups on User Form"/>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Per-Entity Exceptions</h3>
+        <p style="margin-bottom: 12px;">
+            Add the <b>"Allow Negative Stock"</b> toggle on individual records:
+        </p>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <th style="background: #1B4F72; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">Where</th>
+                <th style="background: #1B4F72; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">Location</th>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Product</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Product form → General Information section (only visible for storable products)</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Category</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Product Category form → first group</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Warehouse</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Warehouse form → "Negative Stock" section</td>
+            </tr>
+        </table>
+
+        <!-- 🖼️ PLACEHOLDER: Exception toggles -->
+        <img src="screenshot_product_exception.png"
+             style="width: 100%; border-radius: 10px; border: 1px solid #DEE2E6; margin: 16px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06);"
+             alt="Product Allow Negative Stock Toggle"/>
+        <img src="screenshot_category_exception.png"
+             style="width: 100%; border-radius: 10px; border: 1px solid #DEE2E6; margin: 16px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06);"
+             alt="Category Allow Negative Stock Toggle"/>
+        <img src="screenshot_warehouse_exception.png"
+             style="width: 100%; border-radius: 10px; border: 1px solid #DEE2E6; margin: 16px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06);"
+             alt="Warehouse Allow Negative Stock Toggle"/>
+    </div>
+
+    <!-- ═══ Quantity Types Explained ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #1B4F72; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #D4E6F1;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #D4E6F1; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">📊</span>
+            Quantity Types Explained
+        </h2>
+        <table style="width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;">
+            <tr>
+                <th style="background: #1B4F72; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">Type</th>
+                <th style="background: #1B4F72; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">Formula</th>
+                <th style="background: #1B4F72; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 13px;">Best For</th>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>On Hand</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Total physical stock in the location</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Simple retail / POS where reservations don't matter</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Available</b> <span style="background: #28a745; color: #fff; padding: 2px 8px; border-radius: 10px; font-size: 11px;">Default</span></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">On Hand − Reserved quantities</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Most businesses — accounts for pending orders</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;"><b>Forecast</b></td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">Available + Incoming − Outgoing</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #E9ECEF;">When you want to allow sales against expected receipts</td>
+            </tr>
+        </table>
+
+        <div style="padding: 14px 18px; border-radius: 8px; margin: 14px 0; font-size: 14px; background: #fff3cd; border-left: 4px solid #ffc107; display: flex; gap: 10px; align-items: flex-start;">
+            <span style="font-size: 18px; color: #e6a800; flex-shrink: 0;">⚠️</span>
+            <div>
+                <b>Important:</b> The quantity type affects <b>everything</b> — POS badges, POS blocking,
+                stock transfer blocking, and SO confirmation checks all use the same configured type.
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ FAQ ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #1B4F72; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #D4E6F1;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #D4E6F1; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">❓</span>
+            Frequently Asked Questions
+        </h2>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Do I need to restart the POS session to see updated stock?</h3>
+        <p style="margin-bottom: 12px;">
+            <b>No.</b> Stock badges refresh automatically after every completed sale (~1.5s delay), when you switch
+            back to the POS tab, and on a configurable interval (default 15 seconds). You never need to close/reopen
+            the session.
+        </p>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Can a cashier bypass the hard block?</h3>
+        <p style="margin-bottom: 12px;">
+            Only if they are in the <b>Bypass</b> group (skips entirely) or if <b>Manager Override</b> is enabled
+            and someone with the <b>Manager Override</b> group enters the correct PIN. Regular cashiers cannot proceed.
+        </p>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">What happens if the network is down during a POS stock check?</h3>
+        <p style="margin-bottom: 12px;">
+            The module is designed to <b>fail open</b> — if the stock check RPC call fails (network error, timeout),
+            the sale is allowed to proceed. This prevents the POS from becoming unusable due to connectivity issues.
+        </p>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Does this work with multi-warehouse / multi-location POS?</h3>
+        <p style="margin-bottom: 12px;">
+            Yes. The module uses the POS config's <b>source location</b> (from the operation type) to determine which
+            location to check. Each POS can point to a different warehouse/location and will check the correct stock.
+        </p>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Are consumable / service products affected?</h3>
+        <p style="margin-bottom: 12px;">
+            <b>No.</b> Only <b>storable products</b> (<code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">type = 'product'</code>) are checked.
+            Consumables and services always show as unlimited stock (9999999) and are never blocked.
+        </p>
+
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">What about lot/serial tracked products?</h3>
+        <p style="margin-bottom: 12px;">
+            Stock transfers check lot-specific availability when lots are assigned to the move.
+            In POS and SO, the check uses the overall product availability at the location.
+        </p>
+    </div>
+
+
+    <!-- ═══ Support ═══ -->
+    <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 36px; margin-bottom: 24px;">
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #1B4F72; padding-bottom: 10px; margin: 0 0 18px; border-bottom: 2px solid #D4E6F1;">
+            <span style="display: inline-block; width: 32px; height: 32px; background: #D4E6F1; border-radius: 8px; text-align: center; line-height: 32px; font-size: 16px; margin-right: 10px; vertical-align: middle;">🤝</span>
+            Support
+        </h2>
+        <p style="margin-bottom: 12px;">For questions, bug reports, or feature requests:</p>
+        <div style="margin-top: 10px; line-height: 1.6;">
+            <div style="display: flex; align-items: center; margin-bottom: 5px;">
+                <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" style="width: 18px; height: 18px; margin-right: 8px;">
+                <a href="https://wa.me/201007802335" target="_blank" style="text-decoration: none; color: #25D366; font-weight: bold;">+20 100 780 2335</a>
+            </div>
+            <div style="display: flex; align-items: center;">
+                <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email" style="width: 18px; height: 18px; margin-right: 8px;">
+                <a href="mailto:support@example.com" style="text-decoration: none; color: #007bff;">support@example.com</a>
+            </div>
+        </div>
+        <div style="padding: 14px 18px; border-radius: 8px; margin: 14px 0; font-size: 14px; background: #E6F6F5; border-left: 4px solid #00A09D; display: flex; gap: 10px; align-items: flex-start;">
+            <span style="font-size: 18px; color: #00A09D; flex-shrink: 0;">💡</span>
+            <div>
+                <b>Upgrade command:</b><br>
+                <code style="background: #E9ECEF; padding: 2px 6px; border-radius: 4px; font-size: 12.5px;">./odoo-bin -u negative_stock_restriction -d your_database --stop-after-init</code>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ══════════════════════ FOOTER ══════════════════════ -->
+<div style="text-align: center; padding: 30px 20px 40px; color: #6c757d; font-size: 13px;">
+    <p style="margin: 0 0 6px;">Negative Stock Restriction v18.0.2.0.0 · LGPL-3 · Odoo 18.0</p>
+    <p style="margin: 0;">Made with ❤️ for Odoo</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <!-- Inject Stock Check button into ControlButtons via template inheritance -->
+    <t t-inherit="point_of_sale.ControlButtons" t-inherit-mode="extension">
+        <xpath expr="//t[@t-if='props.showRemainingButtons']//div[hasclass('control-buttons')]" position="inside">
+            <button class="btn btn-danger btn-lg py-5 fw-bolder"
+                    t-on-click="() => this.onClickStockCheck()">
+                <i class="fa fa-exclamation-triangle me-1" role="img"
+                   aria-label="Stock Check" title="Stock Check"/>
+                Stock Check
+            </button>
+        </xpath>
+    </t>
+</templates>
