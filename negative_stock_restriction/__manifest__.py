@@ -1,5 +1,5 @@
 {
-    'name': 'Negative Stock Restriction',
+    'name': 'Negative Stock Restriction in PoS SO and Stock Move',
     'version': '17.0.2.0.0',
     'summary': 'Prevent negative inventory in Stock, POS, and Sales',
     'description': """
