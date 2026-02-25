@@ -21,7 +21,7 @@ Sale Price Control
         'wizard/price_override_wizard_views.xml',
         'views/res_users_views.xml',
     ],
-    'images': ['static/description/screenshot_overview.png'],
+    'images': ['static/description/sale_price_control.png'],
     'installable': True,
     'application': False,
     'auto_install': False,
