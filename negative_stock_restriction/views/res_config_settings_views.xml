@@ -1,34 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="res_config_settings_view_form_neg_stock"
-            model="ir.ui.view">
-        <field name="name">res.config.settings.view.form.neg.stock</field>
+    <record id="res_config_settings_view_form_neg_stock" model="ir.ui.view">
+        <field name="name">res.config.settings.neg.stock</field>
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="stock.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//app[@name='stock']" position="inside">
-                <block title="Negative Stock Restriction"
-                       name="neg_stock_restriction">
-                    <setting
-                        string="Enable Negative Stock Restriction"
-                        help="Prevent or warn when stock would go negative">
+                <block title="Negative Stock Restriction" name="neg_stock_restriction">
+                    <setting string="Enable Negative Stock Restriction"
+                             help="Prevent or warn when stock would go negative">
                         <field name="neg_stock_enabled"/>
                     </setting>
-                    <setting
-                        invisible="not neg_stock_enabled"
-                        string="Restriction Mode">
+                    <setting invisible="not neg_stock_enabled" string="Restriction Mode">
                         <field name="neg_stock_mode" widget="radio"/>
                     </setting>
-                    <setting
-                        invisible="not neg_stock_enabled"
-                        string="Restrict in Stock Transfers"
-                        help="Block/warn on delivery orders and transfers">
+                    <setting invisible="not neg_stock_enabled"
+                             string="Restrict in Stock Transfers"
+                             help="Block/warn on delivery orders">
                         <field name="neg_stock_stock_enabled"/>
                     </setting>
-                    <setting
-                        invisible="not neg_stock_enabled"
-                        string="Restrict in Point of Sale"
-                        help="Check stock before allowing POS sales">
+                    <setting invisible="not neg_stock_enabled"
+                             string="Restrict in Point of Sale"
+                             help="Check stock before POS sales">
                         <field name="neg_stock_pos_enabled"/>
                     </setting>
                 </block>

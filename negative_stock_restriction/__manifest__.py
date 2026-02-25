@@ -1,17 +1,7 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Negative Stock Restriction',
     'version': '19.0.1.0.0',
     'summary': 'Prevent negative inventory in Stock and POS',
-    'description': """
-        Prevents or warns when stock would go negative.
-        Features:
-        - Hard Block or Soft Warning mode (configurable)
-        - Stock Transfer restriction (delivery orders)
-        - Point of Sale restriction (real-time stock check)
-        - User bypass group for Inventory Managers
-        - Configurable via Settings > Inventory
-    """,
     'category': 'Inventory/Inventory',
     'author': 'Custom',
     'license': 'LGPL-3',

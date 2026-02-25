@@ -3,7 +3,7 @@
 import { ControlButtons } from "@point_of_sale/app/screens/product_screen/control_buttons/control_buttons";
 import { patch } from "@web/core/utils/patch";
 import { _t } from "@web/core/l10n/translation";
-import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
+import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { useService } from "@web/core/utils/hooks";
 
 patch(ControlButtons.prototype, {
@@ -13,17 +13,14 @@ patch(ControlButtons.prototype, {
     },
 
     async onClickStockCheck() {
-        const order = this.pos.selectedOrder || this.pos.currentOrder;
+        const order = this.pos.getOrder();
         if (!order) return;
 
-        const orderlines = order.lines || order.orderlines || [];
+        const orderlines = order.getOrderlines();
         if (!orderlines.length) return;
 
         const productIds = [
-            ...new Set(orderlines.map((l) => {
-                const product = l.product_id || l.product;
-                return product.id;
-            })),
+            ...new Set(orderlines.map((l) => l.getProduct().id)),
         ];
 
         try {
@@ -41,37 +38,32 @@ patch(ControlButtons.prototype, {
             const issues = [];
 
             for (const line of orderlines) {
-                const product = line.product_id || line.product;
-                const pid = product.id;
+                const pid = line.getProduct().id;
                 const available = stock[pid];
                 if (available === undefined || available === null) continue;
-                const qty = line.qty || line.quantity || 0;
-                if (available >= qty) continue;
-
+                if (available >= line.getQuantity()) continue;
                 issues.push(
-                    `${product.display_name}: ` +
-                    `Available ${available}, Ordered ${qty}`
+                    `${line.getProduct().display_name}: ` +
+                    `Available ${available}, Ordered ${line.getQuantity()}`
                 );
             }
 
             if (issues.length > 0) {
-                const msg = _t("Insufficient Stock:\n") + issues.join("\n");
+                const msg = _t("Insufficient Stock:") + "\n" + issues.join("\n");
                 if (mode === 'hard' && !bypass) {
-                    this.dialog.add(ConfirmationDialog, {
-                        title: _t("❌ Negative Stock Blocked / مخزون سالب"),
+                    this.dialog.add(AlertDialog, {
+                        title: _t("Negative Stock Blocked"),
                         body: msg + "\n\n" +
-                              _t("Please adjust quantities or restock.\n" +
-                                 "يرجى تعديل الكميات أو إعادة التخزين"),
-                        confirmLabel: _t("OK"),
+                              _t("Please adjust quantities or restock.") + "\n" +
+                              "يرجى تعديل الكميات أو إعادة التخزين",
                     });
                     return 'blocked';
                 } else {
-                    this.dialog.add(ConfirmationDialog, {
-                        title: _t("⚠️ Low Stock Warning / تحذير مخزون منخفض"),
+                    this.dialog.add(AlertDialog, {
+                        title: _t("Low Stock Warning"),
                         body: msg + "\n\n" +
-                              _t("Proceeding with negative stock.\n" +
-                                 "المتابعة بمخزون سالب"),
-                        confirmLabel: _t("OK"),
+                              _t("Proceeding with negative stock.") + "\n" +
+                              "المتابعة بمخزون سالب",
                     });
                     return 'warned';
                 }
