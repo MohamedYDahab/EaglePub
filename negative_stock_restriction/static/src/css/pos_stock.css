@@ -1,0 +1,84 @@
+/* ── Negative Stock Restriction – POS Badges ─────────────────────── */
+
+.neg-stock-badge {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.4;
+    z-index: 5;
+    min-width: 28px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.neg-stock-badge-green {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.neg-stock-badge-yellow {
+    background-color: #ffc107;
+    color: #333;
+}
+
+.neg-stock-badge-red {
+    background-color: #dc3545;
+    color: #fff;
+    animation: neg-stock-pulse 1.5s infinite;
+}
+
+@keyframes neg-stock-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Hide products flagged as out-of-stock */
+.neg-stock-hidden {
+    display: none !important;
+}
+
+/* Make product card relative for absolute badge positioning */
+.product-list .product {
+    position: relative;
+}
+
+/* ── Manager Override Popup ──────────────────────────────────────── */
+
+.manager-override-popup .pin-input {
+    font-size: 24px;
+    text-align: center;
+    letter-spacing: 12px;
+    padding: 12px;
+    border: 2px solid #6c757d;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 200px;
+    margin: 16px auto;
+    display: block;
+}
+
+.manager-override-popup .pin-input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.manager-override-popup .pin-error {
+    color: #dc3545;
+    font-size: 13px;
+    text-align: center;
+    margin-top: 8px;
+}
+
+.manager-override-popup .override-info {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 12px;
+    font-size: 13px;
+}

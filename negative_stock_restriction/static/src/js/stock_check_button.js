@@ -44,28 +44,50 @@ export class StockCheckButton extends Component {
             }
 
             const stock = result.stock;
+            const exempt = result.exempt || {};
+            const threshold = result.threshold || 0;
             const lines_info = [];
 
             for (const line of orderlines) {
                 const pid = line.get_product().id;
                 const available = stock[pid];
                 if (available === undefined || available === null) continue;
-                const ok = available >= line.get_quantity();
+
+                const qty = line.get_quantity();
+                const isExempt = exempt[pid] || false;
+                let icon = "";
+
+                if (isExempt) {
+                    icon = " 🔓"; // exempt
+                } else if (available >= qty && available > threshold) {
+                    icon = " ✅";
+                } else if (available >= qty) {
+                    icon = " ⚠️"; // low stock
+                } else {
+                    icon = " ❌"; // insufficient
+                }
+
                 lines_info.push(
                     line.get_product().display_name + ": " +
-                    _t("Available") + " " + available + ", " +
-                    _t("Ordered") + " " + line.get_quantity() +
-                    (ok ? " ✅" : " ⚠️")
+                    _t("Available") + " " + parseFloat(available).toFixed(1) + ", " +
+                    _t("Ordered") + " " + qty +
+                    (isExempt ? " (" + _t("Exempt") + ")" : "") +
+                    icon
                 );
             }
 
             if (lines_info.length > 0) {
                 const hasIssue = orderlines.some((line) => {
-                    const avail = stock[line.get_product().id];
-                    return avail !== undefined && avail < line.get_quantity();
+                    const pid = line.get_product().id;
+                    const avail = stock[pid];
+                    const isExempt = exempt[pid] || false;
+                    return !isExempt && avail !== undefined &&
+                           avail < line.get_quantity();
                 });
                 await this.popup.add(ErrorPopup, {
-                    title: hasIssue ? _t("Insufficient Stock ⚠️") : _t("Stock OK ✅"),
+                    title: hasIssue
+                        ? _t("Insufficient Stock ⚠️ / مخزون غير كافٍ")
+                        : _t("Stock OK ✅ / المخزون جيد"),
                     body: lines_info.join("\n"),
                 });
             }
