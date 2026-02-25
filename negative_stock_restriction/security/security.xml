@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Group: Bypass Negative Stock Restriction -->
     <record id="group_bypass_negative_stock" model="res.groups">
         <field name="name">Bypass Negative Stock Restriction</field>
-        <field name="comment">Users in this group can bypass negative stock restrictions with a warning.</field>
+        <field name="comment">Users in this group can bypass the restriction with a warning.</field>
     </record>
 </odoo>

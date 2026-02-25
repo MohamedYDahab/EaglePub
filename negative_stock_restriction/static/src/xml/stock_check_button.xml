@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="negative_stock_restriction.StockCheckButton">
+        <button class="control-button btn btn-danger rounded-0 fw-bolder"
+                t-on-click="() => this.click()">
+            <i class="fa fa-exclamation-triangle me-1" role="img"
+               aria-label="Stock Check" title="Stock Check"/>
+            فحص المخزون / Stock Check
+        </button>
+    </t>
+</templates>
