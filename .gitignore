@@ -1,0 +1,13 @@
+### PyCharm (JetBrains) Specific ###
+.idea/
+*.iml
+
+# These files inside .idea contain your personal workspace 
+# and task history, which should never be shared.
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionary.xml
+.idea/shelf/
+
+# If you use Jupyter Notebooks inside PyCharm
+.ipynb_checkpoints/
