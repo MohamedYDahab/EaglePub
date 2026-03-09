@@ -16,8 +16,8 @@
     'category': 'Inventory/Inventory',
     'author': 'Mohamed Yaseen Dahab',
     'license': 'OPL-1',
-    'price': 30,
-    'currency': "USD",
+    'price': 49.90,
+    'currency': 'USD',
     'depends': ['stock', 'point_of_sale', 'sale_management'],
     'data': [
         'security/security.xml',
