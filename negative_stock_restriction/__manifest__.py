@@ -1,6 +1,6 @@
 {
     'name': 'Stock Restrict Negative Quantity in PoS SO and Stock Move',
-    'version': '19.0.2.0.0',
+    'version': '19.0.1.0.0',
     'summary': 'Prevent negative inventory in Stock, POS, and Sales',
     'description': """
         Comprehensive negative stock restriction module:
