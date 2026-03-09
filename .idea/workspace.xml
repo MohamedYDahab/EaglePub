@@ -5,8 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="508d2c7a-e0fd-4e58-8fc4-dab58e64d7b5" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos_product_packaging/models/pos_order.py" beforeDir="false" afterPath="$PROJECT_DIR$/pos_product_packaging/models/pos_order.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/negative_stock_restriction/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/negative_stock_restriction/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/negative_stock_restriction/__manifest__.py" beforeDir="false" afterPath="$PROJECT_DIR$/negative_stock_restriction/__manifest__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/negative_stock_restriction/data/data.xml" beforeDir="false" afterPath="$PROJECT_DIR$/negative_stock_restriction/data/data.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/negative_stock_restriction/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/negative_stock_restriction/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/negative_stock_restriction/models/pos_session.py" beforeDir="false" afterPath="$PROJECT_DIR$/negative_stock_restriction/models/pos_session.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/negative_stock_restriction/models/res_config_settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/negative_stock_restriction/models/res_config_settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/negative_stock_restriction/models/stock_move.py" beforeDir="false" afterPath="$PROJECT_DIR$/negative_stock_restriction/models/stock_move.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/negative_stock_restriction/security/security.xml" beforeDir="false" afterPath="$PROJECT_DIR$/negative_stock_restriction/security/security.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/negative_stock_restriction/static/src/js/stock_check.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/negative_stock_restriction/static/src/xml/stock_check.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/negative_stock_restriction/views/res_config_settings_views.xml" beforeDir="false" afterPath="$PROJECT_DIR$/negative_stock_restriction/views/res_config_settings_views.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +43,7 @@
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="3A7IMBxSKI068Eygh6474QXkOdQ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
