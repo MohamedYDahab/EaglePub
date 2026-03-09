@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_neg_stock" model="ir.ui.view">
+        <field name="name">res.config.settings.neg.stock</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="stock.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='stock']" position="inside">
+                <block title="Negative Stock Restriction" name="neg_stock_restriction">
+
+                    <!-- ── Master Toggle ─────────────────────────── -->
+                    <setting string="Enable Negative Stock Restriction"
+                             help="Prevent or warn when stock would go negative">
+                        <field name="neg_stock_enabled"/>
+                    </setting>
+
+                    <!-- ── Mode ──────────────────────────────────── -->
+                    <setting invisible="not neg_stock_enabled"
+                             string="Restriction Mode"
+                             help="Hard Block: completely prevents the action. Soft Warning: shows a warning but allows proceeding.">
+                        <field name="neg_stock_mode" widget="radio"/>
+                    </setting>
+
+                    <!-- ── Module Toggles ────────────────────────── -->
+                    <setting invisible="not neg_stock_enabled"
+                             string="Restrict in Stock Transfers"
+                             help="Block/warn on delivery orders and stock moves">
+                        <field name="neg_stock_stock_enabled"/>
+                    </setting>
+
+                    <setting invisible="not neg_stock_enabled"
+                             string="Restrict in Point of Sale"
+                             help="Check stock before POS sales">
+                        <field name="neg_stock_pos_enabled"/>
+                    </setting>
+
+                    <setting invisible="not neg_stock_enabled"
+                             string="Restrict in Sale Orders"
+                             help="Check stock when confirming Sale Orders">
+                        <field name="neg_stock_so_enabled"/>
+                    </setting>
+
+                    <!-- ── Threshold ─────────────────────────────── -->
+                    <setting invisible="not neg_stock_enabled"
+                             string="Low Stock Warning Threshold"
+                             help="Show yellow/warning badge in POS when stock is at or below this value">
+                        <field name="neg_stock_threshold"/>
+                    </setting>
+
+                    <setting invisible="not neg_stock_enabled"
+                             string="Stock Quantity Type"
+                             help="Choose which quantity to check and display in POS / Stock / Sales">
+                        <field name="neg_stock_qty_type" widget="radio"/>
+                    </setting>
+
+                    <!-- ── POS Display Settings ──────────────────── -->
+                    <setting invisible="not neg_stock_enabled or not neg_stock_pos_enabled"
+                             string="Show Stock on POS Product Cards"
+                             help="Display real-time stock quantity badges on product cards in POS">
+                        <field name="neg_stock_show_in_pos"/>
+                    </setting>
+
+                    <setting invisible="not neg_stock_enabled or not neg_stock_pos_enabled"
+                             string="Auto-Hide Out-of-Stock in POS"
+                             help="Automatically hide products with zero or negative stock from POS product list">
+                        <field name="neg_stock_hide_out_of_stock"/>
+                    </setting>
+
+                    <setting invisible="not neg_stock_enabled or not neg_stock_pos_enabled or not neg_stock_show_in_pos"
+                             string="POS Stock Refresh Interval"
+                             help="How often (in seconds) to auto-refresh stock badges. Stock also refreshes instantly after every sale. Set to 0 to only refresh after sales.">
+                        <field name="neg_stock_refresh_interval"/>
+                    </setting>
+
+                    <!-- ── Manager Override ──────────────────────── -->
+                    <setting invisible="not neg_stock_enabled or neg_stock_mode != 'hard'"
+                             string="Allow Manager Override"
+                             help="Allow managers to override hard blocks using a PIN in POS">
+                        <field name="neg_stock_manager_override"/>
+                    </setting>
+
+                    <setting invisible="not neg_stock_enabled or not neg_stock_manager_override or neg_stock_mode != 'hard'"
+                             string="Manager Override PIN"
+                             help="PIN code required to override negative stock blocks">
+                        <field name="neg_stock_manager_pin" password="True"/>
+                    </setting>
+
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_bypass_negative_stock" model="res.groups">
+        <field name="name">Bypass Negative Stock Restriction</field>
+        <field name="comment">Users in this group can bypass the negative stock restriction
+            (in soft mode, they see a warning; in hard mode, they can still proceed).</field>
+    </record>
+
+    <record id="group_neg_stock_manager" model="res.groups">
+        <field name="name">Negative Stock Manager Override</field>
+        <field name="comment">Users in this group can use the manager PIN to override
+            hard-blocked negative stock orders in POS.</field>
+    </record>
+</odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="negative_stock_restriction.ManagerOverridePopup">
+        <Dialog title="props.title" size="'md'">
+            <div class="manager-override-popup">
+                <!-- Issue list -->
+                <div class="override-info" t-if="props.issues and props.issues.length">
+                    <strong>⚠️ Insufficient Stock:</strong>
+                    <ul class="mb-0 mt-1">
+                        <t t-foreach="props.issues" t-as="issue" t-key="issue_index">
+                            <li><t t-esc="issue"/></li>
+                        </t>
+                    </ul>
+                </div>
+
+                <p class="text-center text-muted">
+                    Enter manager PIN to override
+                </p>
+
+                <input
+                    class="pin-input"
+                    type="password"
+                    inputmode="numeric"
+                    maxlength="10"
+                    placeholder="● ● ● ●"
+                    t-att-value="state.pin"
+                    t-on-input="onPinInput"
+                    t-on-keyup="onKeyup"
+                    t-att-disabled="state.loading"
+                    autofocus="autofocus"
+                />
+
+                <div class="pin-error" t-if="state.error">
+                    <t t-esc="state.error"/>
+                </div>
+            </div>
+            <t t-set-slot="footer">
+                <div class="d-flex justify-content-between w-100">
+                    <button class="btn btn-secondary" t-on-click="cancel">
+                        <i class="fa fa-times me-1"/>Cancel
+                    </button>
+                    <button class="btn btn-primary"
+                            t-on-click="verifyPin"
+                            t-att-disabled="state.loading">
+                        <i class="fa fa-key me-1" t-if="!state.loading"/>
+                        <i class="fa fa-spinner fa-spin me-1" t-if="state.loading"/>
+                        Verify
+                    </button>
+                </div>
+            </t>
+        </Dialog>
+    </t>
+</templates>

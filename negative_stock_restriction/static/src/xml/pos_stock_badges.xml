@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <!-- Stock badges are dynamically injected via DOM manipulation
+         in pos_stock_badges.js. This file is kept as a placeholder
+         for potential future template-based badge rendering. -->
+</templates>

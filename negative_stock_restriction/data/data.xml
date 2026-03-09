@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="neg_stock_enabled" model="ir.config_parameter">
+        <field name="key">negative_stock_restriction.enabled</field>
+        <field name="value">True</field>
+    </record>
+    <record id="neg_stock_mode" model="ir.config_parameter">
+        <field name="key">negative_stock_restriction.mode</field>
+        <field name="value">hard</field>
+    </record>
+    <record id="neg_stock_pos_enabled" model="ir.config_parameter">
+        <field name="key">negative_stock_restriction.pos_enabled</field>
+        <field name="value">True</field>
+    </record>
+    <record id="neg_stock_stock_enabled" model="ir.config_parameter">
+        <field name="key">negative_stock_restriction.stock_enabled</field>
+        <field name="value">True</field>
+    </record>
+    <record id="neg_stock_so_enabled" model="ir.config_parameter">
+        <field name="key">negative_stock_restriction.so_enabled</field>
+        <field name="value">True</field>
+    </record>
+    <record id="neg_stock_threshold" model="ir.config_parameter">
+        <field name="key">negative_stock_restriction.threshold</field>
+        <field name="value">5</field>
+    </record>
+    <record id="neg_stock_qty_type" model="ir.config_parameter">
+        <field name="key">negative_stock_restriction.qty_type</field>
+        <field name="value">available</field>
+    </record>
+    <record id="neg_stock_show_in_pos" model="ir.config_parameter">
+        <field name="key">negative_stock_restriction.show_in_pos</field>
+        <field name="value">True</field>
+    </record>
+    <record id="neg_stock_hide_oos" model="ir.config_parameter">
+        <field name="key">negative_stock_restriction.hide_out_of_stock</field>
+        <field name="value">False</field>
+    </record>
+    <record id="neg_stock_refresh_interval" model="ir.config_parameter">
+        <field name="key">negative_stock_restriction.refresh_interval</field>
+        <field name="value">15</field>
+    </record>
+    <record id="neg_stock_manager_override" model="ir.config_parameter">
+        <field name="key">negative_stock_restriction.manager_override</field>
+        <field name="value">False</field>
+    </record>
+    <record id="neg_stock_manager_pin" model="ir.config_parameter">
+        <field name="key">negative_stock_restriction.manager_pin</field>
+        <field name="value">0000</field>
+    </record>
+</odoo>

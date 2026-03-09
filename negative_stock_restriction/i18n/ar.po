@@ -1,0 +1,602 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* negative_stock_restriction
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e-20251121\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-25 19:47+0000\n"
+"PO-Revision-Date: 2026-02-25 19:47+0000\n"
+"Last-Translator: \n"
+"Language-Team: Arabic\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+
+#. module: negative_stock_restriction
+#. odoo-python
+#: code:addons/negative_stock_restriction/models/sale_order.py:0
+#, python-format
+msgid ""
+"%(product)s: Available %(available)s, Ordered %(demand)s (Warehouse: %(wh)s)"
+msgstr ""
+"%(product)s: المتاح %(available)s، المطلوب %(demand)s (المستودع: %(wh)s)"
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields,field_description:negative_stock_restriction.field_res_config_settings__neg_stock_manager_override
+#: model_terms:ir.ui.view,arch_db:negative_stock_restriction.res_config_settings_view_form_neg_stock
+msgid "Allow Manager Override"
+msgstr "السماح بتجاوز المدير"
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields,field_description:negative_stock_restriction.field_product_category__allow_negative_stock
+#: model:ir.model.fields,field_description:negative_stock_restriction.field_product_product__allow_negative_stock
+#: model:ir.model.fields,field_description:negative_stock_restriction.field_product_template__allow_negative_stock
+#: model:ir.model.fields,field_description:negative_stock_restriction.field_stock_warehouse__allow_negative_stock
+msgid "Allow Negative Stock"
+msgstr "السماح بمخزون سالب"
+
+#. module: negative_stock_restriction
+#: model_terms:ir.ui.view,arch_db:negative_stock_restriction.res_config_settings_view_form_neg_stock
+msgid "Allow managers to override hard blocks using a PIN in POS"
+msgstr "السماح للمديرين بتجاوز الحظر باستخدام رمز PIN في نقطة البيع"
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields,help:negative_stock_restriction.field_res_config_settings__neg_stock_manager_override
+msgid "Allow managers to override hard blocks using a PIN/password"
+msgstr "السماح للمديرين بتجاوز الحظر الصارم باستخدام رمز PIN أو كلمة مرور"
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields,field_description:negative_stock_restriction.field_res_config_settings__neg_stock_hide_out_of_stock
+msgid "Auto-Hide Out-of-Stock Products"
+msgstr "إخفاء المنتجات غير المتوفرة تلقائياً"
+
+#. module: negative_stock_restriction
+#: model_terms:ir.ui.view,arch_db:negative_stock_restriction.res_config_settings_view_form_neg_stock
+msgid "Auto-Hide Out-of-Stock in POS"
+msgstr "إخفاء غير المتوفر تلقائياً في نقطة البيع"
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields,help:negative_stock_restriction.field_res_config_settings__neg_stock_hide_out_of_stock
+#: model_terms:ir.ui.view,arch_db:negative_stock_restriction.res_config_settings_view_form_neg_stock
+msgid ""
+"Automatically hide products with zero or negative stock from POS product "
+"list"
+msgstr ""
+"إخفاء المنتجات ذات المخزون الصفري أو السالب تلقائياً من قائمة منتجات نقطة البيع"
+
+#. module: negative_stock_restriction
+#. odoo-javascript
+#: code:addons/negative_stock_restriction/static/src/js/stock_check_button.js:0
+#: code:addons/negative_stock_restriction/static/src/js/stock_check_payment.js:0
+#, python-format
+msgid "Available"
+msgstr "المتاح"
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields.selection,name:negative_stock_restriction.selection__res_config_settings__neg_stock_qty_type__available
+msgid "Available (On Hand − Reserved)"
+msgstr "المتاح (الموجود − المحجوز)"
+
+#. module: negative_stock_restriction
+#: model_terms:ir.ui.view,arch_db:negative_stock_restriction.res_config_settings_view_form_neg_stock
+msgid "Block/warn on delivery orders and stock moves"
+msgstr "حظر/تحذير عند أوامر التسليم وحركات المخزون"
+
+#. module: negative_stock_restriction
+#: model:res.groups,name:negative_stock_restriction.group_bypass_negative_stock
+msgid "Bypass Negative Stock Restriction"
+msgstr "تجاوز تقييد المخزون السالب"
+
+#. module: negative_stock_restriction
+#. odoo-javascript
+#: code:addons/negative_stock_restriction/static/src/js/stock_check_payment.js:0
+#: code:addons/negative_stock_restriction/static/src/js/stock_check_payment.js:0
+#: code:addons/negative_stock_restriction/static/src/xml/manager_override_popup.xml:0
+#, python-format
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: negative_stock_restriction
+#. odoo-javascript
+#: code:addons/negative_stock_restriction/static/src/js/stock_check_payment.js:0
+#, python-format
+msgid "Cannot validate order. Go back and adjust quantities."
+msgstr "لا يمكن تأكيد الطلب. عُد وعدّل الكميات."
+
+#. module: negative_stock_restriction
+#: model_terms:ir.ui.view,arch_db:negative_stock_restriction.res_config_settings_view_form_neg_stock
+msgid "Check stock before POS sales"
+msgstr "فحص المخزون قبل مبيعات نقطة البيع"
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields,help:negative_stock_restriction.field_res_config_settings__neg_stock_so_enabled
+#: model_terms:ir.ui.view,arch_db:negative_stock_restriction.res_config_settings_view_form_neg_stock
+msgid "Check stock when confirming Sale Orders"
+msgstr "فحص المخزون عند تأكيد أوامر البيع"
+
+#. module: negative_stock_restriction
+#: model_terms:ir.ui.view,arch_db:negative_stock_restriction.res_config_settings_view_form_neg_stock
+msgid "Choose which quantity to check and display in POS / Stock / Sales"
+msgstr "اختر نوع الكمية للفحص والعرض في نقطة البيع / المخزون / المبيعات"
+
+#. module: negative_stock_restriction
+#: model:ir.model,name:negative_stock_restriction.model_res_config_settings
+msgid "Config Settings"
+msgstr "تهيئة الإعدادات"
+
+#. module: negative_stock_restriction
+#. odoo-python
+#: code:addons/negative_stock_restriction/models/sale_order.py:0
+#, python-format
+msgid "Default"
+msgstr "افتراضي"
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields,help:negative_stock_restriction.field_res_config_settings__neg_stock_show_in_pos
+#: model_terms:ir.ui.view,arch_db:negative_stock_restriction.res_config_settings_view_form_neg_stock
+msgid "Display real-time stock quantity badges on product cards in POS"
+msgstr "عرض شارات كمية المخزون الفورية على بطاقات المنتجات في نقطة البيع"
+
+#. module: negative_stock_restriction
+#. odoo-javascript
+#: code:addons/negative_stock_restriction/static/src/js/stock_check_payment.js:0
+#, python-format
+msgid "Do you want to proceed with negative stock?"
+msgstr "هل تريد المتابعة بمخزون سالب؟"
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields,field_description:negative_stock_restriction.field_res_config_settings__neg_stock_enabled
+#: model_terms:ir.ui.view,arch_db:negative_stock_restriction.res_config_settings_view_form_neg_stock
+msgid "Enable Negative Stock Restriction"
+msgstr "تفعيل تقييد المخزون السالب"
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields,field_description:negative_stock_restriction.field_res_config_settings__neg_stock_pos_enabled
+msgid "Enable in Point of Sale"
+msgstr "تفعيل في نقطة البيع"
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields,field_description:negative_stock_restriction.field_res_config_settings__neg_stock_so_enabled
+msgid "Enable in Sale Orders"
+msgstr "تفعيل في أوامر البيع"
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields,field_description:negative_stock_restriction.field_res_config_settings__neg_stock_stock_enabled
+msgid "Enable in Stock Transfers"
+msgstr "تفعيل في تحويلات المخزون"
+
+#. module: negative_stock_restriction
+#. odoo-javascript
+#: code:addons/negative_stock_restriction/static/src/xml/manager_override_popup.xml:0
+#, python-format
+msgid "Enter manager PIN to override"
+msgstr "أدخل رمز المدير للتجاوز"
+
+#. module: negative_stock_restriction
+#. odoo-javascript
+#: code:addons/negative_stock_restriction/static/src/js/stock_check_button.js:0
+#, python-format
+msgid "Exempt"
+msgstr "مستثنى"
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields.selection,name:negative_stock_restriction.selection__res_config_settings__neg_stock_qty_type__forecast
+msgid "Forecast (On Hand − Reserved + Incoming − Outgoing)"
+msgstr "المتوقع (الموجود − المحجوز + الوارد − الصادر)"
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields.selection,name:negative_stock_restriction.selection__res_config_settings__neg_stock_mode__hard
+msgid "Hard Block"
+msgstr "حظر صارم"
+
+#. module: negative_stock_restriction
+#: model_terms:ir.ui.view,arch_db:negative_stock_restriction.res_config_settings_view_form_neg_stock
+msgid ""
+"Hard Block: completely prevents the action. Soft Warning: shows a warning "
+"but allows proceeding."
+msgstr ""
+"حظر صارم: يمنع الإجراء بالكامل. تحذير مرن: يعرض تحذيراً ويسمح بالمتابعة."
+
+#. module: negative_stock_restriction
+#: model_terms:ir.ui.view,arch_db:negative_stock_restriction.res_config_settings_view_form_neg_stock
+msgid ""
+"How often (in seconds) to auto-refresh stock badges. Stock also refreshes "
+"instantly after every sale. Set to 0 to only refresh after sales."
+msgstr ""
+"عدد الثواني بين كل تحديث تلقائي لشارات المخزون. يتم التحديث فوراً بعد كل عملية بيع. اضبط على 0 للتحديث بعد البيع فقط."
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields,help:negative_stock_restriction.field_res_config_settings__neg_stock_refresh_interval
+msgid ""
+"How often to auto-refresh stock quantities on POS product cards. Stock also "
+"refreshes instantly after every completed order. Set to 0 to disable auto-"
+"refresh (only refresh after orders)."
+msgstr ""
+"عدد مرات التحديث التلقائي لكميات المخزون على بطاقات المنتجات في نقطة البيع. يتم التحديث فوراً بعد كل طلب مكتمل. اضبط على 0 لتعطيل التحديث التلقائي (التحديث بعد الطلبات فقط)."
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields,help:negative_stock_restriction.field_product_category__allow_negative_stock
+msgid ""
+"If checked, all products in this category are exempt from negative stock "
+"restrictions."
+msgstr ""
+"إذا تم التفعيل، جميع المنتجات في هذه الفئة مستثناة من تقييد المخزون السالب."
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields,help:negative_stock_restriction.field_product_product__allow_negative_stock
+#: model:ir.model.fields,help:negative_stock_restriction.field_product_template__allow_negative_stock
+msgid ""
+"If checked, this product is exempt from negative stock restrictions. Sales "
+"and transfers can proceed even when stock goes below zero."
+msgstr ""
+"إذا تم التفعيل، هذا المنتج مستثنى من تقييد المخزون السالب. يمكن المتابعة بالبيع والتحويل حتى لو أصبح المخزون أقل من صفر."
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields,help:negative_stock_restriction.field_stock_warehouse__allow_negative_stock
+msgid ""
+"If checked, this warehouse is exempt from negative stock restrictions. All "
+"transfers out of this warehouse will be allowed."
+msgstr ""
+"إذا تم التفعيل، هذا المستودع مستثنى من تقييد المخزون السالب. جميع التحويلات الصادرة من هذا المستودع ستكون مسموحة."
+
+#. module: negative_stock_restriction
+#. odoo-javascript
+#: code:addons/negative_stock_restriction/static/src/js/manager_override_popup.js:0
+#, python-format
+msgid "Incorrect PIN"
+msgstr "رمز PIN غير صحيح"
+
+#. module: negative_stock_restriction
+#. odoo-python
+#: code:addons/negative_stock_restriction/models/sale_order.py:0
+#, python-format
+msgid "Insufficient Stock for Order %(order)s:\n"
+msgstr "مخزون غير كافٍ للطلب %(order)s:\n"
+
+#. module: negative_stock_restriction
+#. odoo-javascript
+#: code:addons/negative_stock_restriction/static/src/js/stock_check_button.js:0
+#, python-format
+msgid "Insufficient Stock ⚠️"
+msgstr "مخزون غير كافٍ ⚠️"
+
+#. module: negative_stock_restriction
+#. odoo-javascript
+#: code:addons/negative_stock_restriction/static/src/js/stock_check_payment.js:0
+#: code:addons/negative_stock_restriction/static/src/js/stock_check_payment.js:0
+#, python-format
+msgid "Insufficient Stock:"
+msgstr "مخزون غير كافٍ:"
+
+#. module: negative_stock_restriction
+#. odoo-javascript
+#: code:addons/negative_stock_restriction/static/src/js/stock_check_payment.js:0
+#: code:addons/negative_stock_restriction/static/src/js/stock_check_payment.js:0
+#, python-format
+msgid "Low Stock Warning"
+msgstr "تحذير مخزون منخفض"
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields,field_description:negative_stock_restriction.field_res_config_settings__neg_stock_threshold
+#: model_terms:ir.ui.view,arch_db:negative_stock_restriction.res_config_settings_view_form_neg_stock
+msgid "Low Stock Warning Threshold"
+msgstr "حد تحذير المخزون المنخفض"
+
+#. module: negative_stock_restriction
+#. odoo-javascript
+#: code:addons/negative_stock_restriction/static/src/js/manager_override_popup.js:0
+#, python-format
+msgid "Manager Override"
+msgstr "تجاوز المدير"
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields,field_description:negative_stock_restriction.field_res_config_settings__neg_stock_manager_pin
+#: model_terms:ir.ui.view,arch_db:negative_stock_restriction.res_config_settings_view_form_neg_stock
+msgid "Manager Override PIN"
+msgstr "رمز PIN لتجاوز المدير"
+
+#. module: negative_stock_restriction
+#. odoo-javascript
+#: code:addons/negative_stock_restriction/static/src/js/stock_check_payment.js:0
+#, python-format
+msgid "Manager Override Required"
+msgstr "مطلوب تجاوز المدير"
+
+#. module: negative_stock_restriction
+#. odoo-javascript
+#: code:addons/negative_stock_restriction/static/src/js/stock_check_payment.js:0
+#, python-format
+msgid "Manager Override Required "
+msgstr "مطلوب تجاوز المدير "
+
+#. module: negative_stock_restriction
+#: model_terms:ir.ui.view,arch_db:negative_stock_restriction.stock_warehouse_form_view_neg_stock
+msgid "Negative Stock"
+msgstr "المخزون السالب"
+
+#. module: negative_stock_restriction
+#. odoo-javascript
+#: code:addons/negative_stock_restriction/static/src/js/stock_check_payment.js:0
+#: code:addons/negative_stock_restriction/static/src/js/stock_check_payment.js:0
+#, python-format
+msgid "Negative Stock Blocked"
+msgstr "تم حظر المخزون السالب"
+
+#. module: negative_stock_restriction
+#. odoo-python
+#: code:addons/negative_stock_restriction/models/stock_move.py:0
+#, python-format
+msgid ""
+"Negative Stock Blocked!\n"
+"Product: %(product)s\n"
+"Available: %(available)s\n"
+"Requested: %(demand)s\n"
+"Location: %(location)s\n"
+"\n"
+msgstr ""
+"تم حظر المخزون السالب!\n"
+"المنتج: %(product)s\n"
+"المتاح: %(available)s\n"
+"المطلوب: %(demand)s\n"
+"الموقع: %(location)s\n"
+"\n"
+
+#. module: negative_stock_restriction
+#: model:res.groups,name:negative_stock_restriction.group_neg_stock_manager
+msgid "Negative Stock Manager Override"
+msgstr "تجاوز مدير المخزون السالب"
+
+#. module: negative_stock_restriction
+#: model_terms:ir.ui.view,arch_db:negative_stock_restriction.res_config_settings_view_form_neg_stock
+msgid "Negative Stock Restriction"
+msgstr "تقييد المخزون السالب"
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields.selection,name:negative_stock_restriction.selection__res_config_settings__neg_stock_qty_type__on_hand
+msgid "On Hand (Total Physical)"
+msgstr "الموجود (إجمالي المخزون الفعلي)"
+
+#. module: negative_stock_restriction
+#. odoo-javascript
+#: code:addons/negative_stock_restriction/static/src/js/stock_check_button.js:0
+#: code:addons/negative_stock_restriction/static/src/js/stock_check_payment.js:0
+#, python-format
+msgid "Ordered"
+msgstr "المطلوب"
+
+#. module: negative_stock_restriction
+#: model_terms:ir.ui.view,arch_db:negative_stock_restriction.res_config_settings_view_form_neg_stock
+msgid "PIN code required to override negative stock blocks"
+msgstr "رمز PIN مطلوب لتجاوز حظر المخزون السالب"
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields,help:negative_stock_restriction.field_res_config_settings__neg_stock_manager_pin
+msgid "PIN code required to override negative stock blocks in POS"
+msgstr "رمز PIN مطلوب لتجاوز حظر المخزون السالب في نقطة البيع"
+
+#. module: negative_stock_restriction
+#: model_terms:ir.ui.view,arch_db:negative_stock_restriction.res_config_settings_view_form_neg_stock
+msgid "POS Stock Refresh Interval"
+msgstr "فترة تحديث مخزون نقطة البيع"
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields,field_description:negative_stock_restriction.field_res_config_settings__neg_stock_refresh_interval
+msgid "POS Stock Refresh Interval (seconds)"
+msgstr "فترة تحديث مخزون نقطة البيع (بالثواني)"
+
+#. module: negative_stock_restriction
+#. odoo-javascript
+#: code:addons/negative_stock_restriction/static/src/js/stock_check_payment.js:0
+#, python-format
+msgid "Please adjust quantities or restock before payment."
+msgstr "يرجى تعديل الكميات أو إعادة التخزين قبل الدفع."
+
+#. module: negative_stock_restriction
+#. odoo-javascript
+#: code:addons/negative_stock_restriction/static/src/js/manager_override_popup.js:0
+#, python-format
+msgid "Please enter a PIN"
+msgstr "الرجاء إدخال رمز PIN"
+
+#. module: negative_stock_restriction
+#: model:ir.model,name:negative_stock_restriction.model_pos_config
+msgid "Point of Sale Configuration"
+msgstr "تهيئة نقطة البيع"
+
+#. module: negative_stock_restriction
+#: model:ir.model,name:negative_stock_restriction.model_pos_session
+msgid "Point of Sale Session"
+msgstr "جلسة نقطة البيع"
+
+#. module: negative_stock_restriction
+#: model_terms:ir.ui.view,arch_db:negative_stock_restriction.res_config_settings_view_form_neg_stock
+msgid "Prevent or warn when stock would go negative"
+msgstr "منع أو تحذير عندما يصبح المخزون سالباً"
+
+#. module: negative_stock_restriction
+#. odoo-javascript
+#: code:addons/negative_stock_restriction/static/src/js/stock_check_payment.js:0
+#, python-format
+msgid "Proceed"
+msgstr "متابعة"
+
+#. module: negative_stock_restriction
+#: model:ir.model,name:negative_stock_restriction.model_product_template
+msgid "Product"
+msgstr "المنتج"
+
+#. module: negative_stock_restriction
+#: model:ir.model,name:negative_stock_restriction.model_product_category
+msgid "Product Category"
+msgstr "فئة المنتج"
+
+#. module: negative_stock_restriction
+#: model_terms:ir.ui.view,arch_db:negative_stock_restriction.res_config_settings_view_form_neg_stock
+msgid "Restrict in Point of Sale"
+msgstr "تقييد في نقطة البيع"
+
+#. module: negative_stock_restriction
+#: model_terms:ir.ui.view,arch_db:negative_stock_restriction.res_config_settings_view_form_neg_stock
+msgid "Restrict in Sale Orders"
+msgstr "تقييد في أوامر البيع"
+
+#. module: negative_stock_restriction
+#: model_terms:ir.ui.view,arch_db:negative_stock_restriction.res_config_settings_view_form_neg_stock
+msgid "Restrict in Stock Transfers"
+msgstr "تقييد في تحويلات المخزون"
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields,field_description:negative_stock_restriction.field_res_config_settings__neg_stock_mode
+#: model_terms:ir.ui.view,arch_db:negative_stock_restriction.res_config_settings_view_form_neg_stock
+msgid "Restriction Mode"
+msgstr "وضع التقييد"
+
+#. module: negative_stock_restriction
+#: model:ir.model,name:negative_stock_restriction.model_sale_order
+msgid "Sales Order"
+msgstr "أمر البيع"
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields,field_description:negative_stock_restriction.field_res_config_settings__neg_stock_show_in_pos
+#: model_terms:ir.ui.view,arch_db:negative_stock_restriction.res_config_settings_view_form_neg_stock
+msgid "Show Stock on POS Product Cards"
+msgstr "عرض المخزون على بطاقات منتجات نقطة البيع"
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields,help:negative_stock_restriction.field_res_config_settings__neg_stock_threshold
+msgid ""
+"Show a yellow/warning badge in POS when stock is at or below this value. Set"
+" to 0 to only warn when fully out of stock."
+msgstr ""
+"عرض شارة صفراء/تحذيرية في نقطة البيع عندما يكون المخزون عند هذه القيمة أو أقل. اضبط على 0 للتحذير فقط عند نفاد المخزون بالكامل."
+
+#. module: negative_stock_restriction
+#: model_terms:ir.ui.view,arch_db:negative_stock_restriction.res_config_settings_view_form_neg_stock
+msgid "Show yellow/warning badge in POS when stock is at or below this value"
+msgstr "عرض شارة تحذير صفراء في نقطة البيع عندما يكون المخزون عند هذه القيمة أو أقل"
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields.selection,name:negative_stock_restriction.selection__res_config_settings__neg_stock_mode__soft
+msgid "Soft Warning"
+msgstr "تحذير مرن"
+
+#. module: negative_stock_restriction
+#. odoo-javascript
+#: code:addons/negative_stock_restriction/static/src/js/stock_check_button.js:0
+#: code:addons/negative_stock_restriction/static/src/xml/stock_check_button.xml:0
+#: code:addons/negative_stock_restriction/static/src/xml/stock_check_button.xml:0
+#: code:addons/negative_stock_restriction/static/src/xml/stock_check_button.xml:0
+#, python-format
+msgid "Stock Check"
+msgstr "فحص المخزون"
+
+#. module: negative_stock_restriction
+#: model:ir.model,name:negative_stock_restriction.model_stock_move
+msgid "Stock Move"
+msgstr "حركة المخزون"
+
+#. module: negative_stock_restriction
+#. odoo-javascript
+#: code:addons/negative_stock_restriction/static/src/js/stock_check_button.js:0
+#, python-format
+msgid "Stock OK ✅"
+msgstr "المخزون جيد ✅"
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields,field_description:negative_stock_restriction.field_res_config_settings__neg_stock_qty_type
+#: model_terms:ir.ui.view,arch_db:negative_stock_restriction.res_config_settings_view_form_neg_stock
+msgid "Stock Quantity Type"
+msgstr "نوع كمية المخزون"
+
+#. module: negative_stock_restriction
+#. odoo-javascript
+#: code:addons/negative_stock_restriction/static/src/js/stock_check_button.js:0
+#, python-format
+msgid "Stock restriction is disabled."
+msgstr "تقييد المخزون معطل."
+
+#. module: negative_stock_restriction
+#: model:res.groups,comment:negative_stock_restriction.group_bypass_negative_stock
+msgid ""
+"Users in this group can bypass the negative stock restriction\n"
+"            (in soft mode, they see a warning; in hard mode, they can still proceed)."
+msgstr ""
+"المستخدمون في هذه المجموعة يمكنهم تجاوز تقييد المخزون السالب\n"
+"            (في الوضع المرن يرون تحذيراً، وفي الوضع الصارم يمكنهم المتابعة)."
+
+#. module: negative_stock_restriction
+#: model:res.groups,comment:negative_stock_restriction.group_neg_stock_manager
+msgid ""
+"Users in this group can use the manager PIN to override\n"
+"            hard-blocked negative stock orders in POS."
+msgstr ""
+"المستخدمون في هذه المجموعة يمكنهم استخدام رمز المدير لتجاوز\n"
+"            الطلبات المحظورة بسبب المخزون السالب في نقطة البيع."
+
+#. module: negative_stock_restriction
+#. odoo-javascript
+#: code:addons/negative_stock_restriction/static/src/js/stock_check_payment.js:0
+#, python-format
+msgid "Validate"
+msgstr "تأكيد"
+
+#. module: negative_stock_restriction
+#. odoo-javascript
+#: code:addons/negative_stock_restriction/static/src/js/stock_check_payment.js:0
+#, python-format
+msgid "Validate order with negative stock?"
+msgstr "تأكيد الطلب بمخزون سالب؟"
+
+#. module: negative_stock_restriction
+#. odoo-javascript
+#: code:addons/negative_stock_restriction/static/src/js/manager_override_popup.js:0
+#, python-format
+msgid "Verification failed"
+msgstr "فشل التحقق"
+
+#. module: negative_stock_restriction
+#. odoo-javascript
+#: code:addons/negative_stock_restriction/static/src/xml/manager_override_popup.xml:0
+#, python-format
+msgid "Verify"
+msgstr "تحقق"
+
+#. module: negative_stock_restriction
+#: model:ir.model,name:negative_stock_restriction.model_stock_warehouse
+msgid "Warehouse"
+msgstr "المستودع"
+
+#. module: negative_stock_restriction
+#: model:ir.model.fields,help:negative_stock_restriction.field_res_config_settings__neg_stock_qty_type
+msgid ""
+"Which quantity to check and display:\n"
+"• On Hand: total physical stock in the location\n"
+"• Available: on hand minus reserved quantities\n"
+"• Forecast: available plus incoming minus outgoing"
+msgstr ""
+"نوع الكمية للفحص والعرض:\n"
+"• الموجود: إجمالي المخزون الفعلي في الموقع\n"
+"• المتاح: الموجود ناقص الكميات المحجوزة\n"
+"• المتوقع: المتاح زائد الوارد ناقص الصادر"
+
+#. module: negative_stock_restriction
+#. odoo-javascript
+#: code:addons/negative_stock_restriction/static/src/js/manager_override_popup.js:0
+#, python-format
+msgid "You are not in the Manager Override group"
+msgstr "أنت لست في مجموعة تجاوز المدير"
+
+#. module: negative_stock_restriction
+#. odoo-python
+#: code:addons/negative_stock_restriction/models/sale_order.py:0
+#, python-format
+msgid ""
+"⚠️ Low Stock Warning:\n"
+"%s"
+msgstr ""
+"⚠️ تحذير مخزون منخفض:\n"
+"%s"
