@@ -23,6 +23,10 @@
                 <input type="number" class="form-control form-control-sm"
                        style="width:90px;" t-att-value="state.year"
                        t-on-change="onYearChange" min="2020" max="2099"/>
+                <button class="btn btn-sm btn-outline-secondary" t-on-click="onRefreshDashboard"
+                        title="Refresh data">
+                    <i class="fa fa-refresh"/>
+                </button>
                 <button class="btn btn-sm btn-primary" t-on-click="onViewAll">
                     <i class="fa fa-list me-1"/>All Targets
                 </button>

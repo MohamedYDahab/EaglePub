@@ -1,6 +1,8 @@
 .st_dashboard {
     background: #f1f3f5;
-    min-height: 100vh;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 /* ── Header ── */
@@ -25,6 +27,7 @@
 
 .st_body {
     padding: 20px 24px;
+    padding-bottom: 60px;
 }
 
 /* ── KPI Cards ── */
@@ -93,6 +96,8 @@
 }
 .st_chart_wrap {
     position: relative;
+    width: 100%;
+    height: 100%;
 }
 
 /* ── Table ── */
@@ -114,4 +119,10 @@
 /* ── Progress override ── */
 .st_dashboard .progress {
     background: #ecf0f1;
+}
+
+/* ── Ensure Odoo action container allows full height ── */
+.o_action_manager .o_action.st_dashboard_action {
+    height: 100%;
+    overflow: hidden;
 }

@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import { registry } from "@web/core/registry";
-import { Component, useState, onWillStart, onMounted, useRef } from "@odoo/owl";
+import { Component, useState, onWillStart, onMounted, onPatched, onWillUnmount, useRef } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
 import { loadJS } from "@web/core/assets";
 
@@ -34,42 +34,75 @@ class SalesTargetDashboard extends Component {
         this._barChart = null;
         this._trendChart = null;
         this._doughnutChart = null;
+        this._chartsNeedRender = false;
 
         onWillStart(async () => {
             await loadJS("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js");
             await this._fetchData();
         });
 
-        onMounted(() => this._renderCharts());
+        // Render charts after initial mount
+        onMounted(() => {
+            this._renderCharts();
+        });
+
+        // Re-render charts after any OWL patch (state change re-render)
+        // This is the KEY fix: when state changes, OWL re-renders the DOM
+        // and replaces canvas elements. We must re-binds charts to the new canvas.
+        onPatched(() => {
+            if (this._chartsNeedRender) {
+                this._chartsNeedRender = false;
+                this._renderCharts();
+            }
+        });
+
+        // Clean up chart instances on unmount to prevent memory leaks
+        onWillUnmount(() => {
+            this._destroyCharts();
+        });
     }
 
     async _fetchData() {
         this.state.loading = true;
-        this.state.data = await this.orm.call(
-            "sales.target", "get_dashboard_data",
-            [], {month: this.state.month, year: this.state.year}
-        );
+        try {
+            this.state.data = await this.orm.call(
+                "sales.target", "get_dashboard_data",
+                [], {month: this.state.month, year: this.state.year}
+            );
+        } catch (e) {
+            console.error("Failed to fetch dashboard data:", e);
+            this.state.data = {};
+        }
         this.state.loading = false;
+        // Flag that charts need rendering after the DOM updates
+        this._chartsNeedRender = true;
     }
 
     async onMonthChange(ev) {
         this.state.month = ev.target.value;
-        await this._refresh();
+        await this._fetchData();
     }
 
     async onYearChange(ev) {
         this.state.year = parseInt(ev.target.value);
-        await this._refresh();
+        await this._fetchData();
     }
 
-    async _refresh() {
+    async onRefreshDashboard() {
         await this._fetchData();
-        this._renderCharts();
     }
 
     /* ───── Charts ───── */
 
+    _destroyCharts() {
+        if (this._barChart) { this._barChart.destroy(); this._barChart = null; }
+        if (this._trendChart) { this._trendChart.destroy(); this._trendChart = null; }
+        if (this._doughnutChart) { this._doughnutChart.destroy(); this._doughnutChart = null; }
+    }
+
     _renderCharts() {
+        // Destroy existing chart instances first to prevent canvas reuse errors
+        this._destroyCharts();
         this._renderBarChart();
         this._renderTrendChart();
         this._renderDoughnutChart();
@@ -78,9 +111,10 @@ class SalesTargetDashboard extends Component {
     _renderBarChart() {
         const el = this.barRef.el;
         if (!el || !this.state.data.chart_data) return;
-        if (this._barChart) this._barChart.destroy();
 
         const d = this.state.data.chart_data;
+        if (!d.length) return;
+
         this._barChart = new Chart(el, {
             type: "bar",
             data: {
@@ -120,7 +154,6 @@ class SalesTargetDashboard extends Component {
     _renderTrendChart() {
         const el = this.trendRef.el;
         if (!el || !this.state.data.trend_data) return;
-        if (this._trendChart) this._trendChart.destroy();
 
         const d = this.state.data.trend_data;
         this._trendChart = new Chart(el, {
@@ -162,7 +195,6 @@ class SalesTargetDashboard extends Component {
     _renderDoughnutChart() {
         const el = this.doughnutRef.el;
         if (!el || !this.state.data) return;
-        if (this._doughnutChart) this._doughnutChart.destroy();
 
         const inv = this.state.data.total_invoice || 0;
         const pos = this.state.data.total_pos || 0;

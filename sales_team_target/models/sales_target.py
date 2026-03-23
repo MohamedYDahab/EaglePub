@@ -313,9 +313,49 @@ class SalesTarget(models.Model):
 
     # ─────────────────── Dashboard API ───────────────────
 
+    def _live_compute_achievement(self):
+        """Compute achievement directly from invoices/POS orders.
+
+        This bypasses stored computed fields which may be stale
+        (they only recompute when the target record itself changes,
+        not when new invoices or POS orders are created).
+        Returns dict: {target_id: {invoice_amount, pos_amount,
+                        achieved_amount, achievement_ratio, remaining}}
+        """
+        result = {}
+        for rec in self:
+            date_from, date_to = rec._get_date_range()
+
+            inv_amt = 0.0
+            pos_amt = 0.0
+
+            if rec.target_type == 'salesperson' and rec.user_id:
+                inv_amt = rec._compute_invoice_amount(date_from, date_to)
+            elif rec.target_type == 'pos' and rec.pos_config_id:
+                pos_amt = rec._compute_pos_amount(date_from, date_to)
+
+            achieved = inv_amt + pos_amt
+            ratio = round(
+                (achieved / rec.target_amount * 100)
+                if rec.target_amount else 0, 1)
+
+            result[rec.id] = {
+                'invoice_amount': inv_amt,
+                'pos_amount': pos_amt,
+                'achieved_amount': achieved,
+                'achievement_ratio': ratio,
+                'remaining_amount': rec.target_amount - achieved,
+            }
+        return result
+
     @api.model
     def get_dashboard_data(self, month=None, year=None):
-        """Return dashboard KPIs, ranking, and chart data."""
+        """Return dashboard KPIs, ranking, and chart data.
+
+        Uses _live_compute_achievement() to always show fresh data
+        from actual invoices and POS orders, regardless of whether
+        stored computed fields are up-to-date.
+        """
         today = fields.Date.today()
         month = month or str(today.month)
         year = year or today.year
@@ -327,20 +367,24 @@ class SalesTarget(models.Model):
         ]
         targets = self.search(domain)
 
+        # ── Live-compute achievements from invoices/POS ──
+        live = targets._live_compute_achievement() if targets else {}
+
         total_target = sum(targets.mapped('target_amount'))
-        total_achieved = sum(targets.mapped('achieved_amount'))
-        total_invoice = sum(targets.mapped('invoice_amount'))
-        total_pos = sum(targets.mapped('pos_amount'))
+        total_achieved = sum(v['achieved_amount'] for v in live.values())
+        total_invoice = sum(v['invoice_amount'] for v in live.values())
+        total_pos = sum(v['pos_amount'] for v in live.values())
         overall_ratio = round(
             (total_achieved / total_target * 100)
             if total_target else 0, 1)
-        on_target = len(
-            targets.filtered(lambda t: t.achievement_ratio >= 100))
+        on_target = sum(
+            1 for v in live.values()
+            if v['achievement_ratio'] >= 100)
 
         # Ranking sorted by ratio desc
         ranking = []
-        for t in targets.sorted(
-                key=lambda r: r.achievement_ratio, reverse=True):
+        for t in targets:
+            tv = live.get(t.id, {})
             name = (t.user_id.name if t.target_type == 'salesperson'
                     else t.pos_config_id.name)
             ranking.append({
@@ -348,10 +392,11 @@ class SalesTarget(models.Model):
                 'name': name or '',
                 'target_type': t.target_type,
                 'target': t.target_amount,
-                'achieved': t.achieved_amount,
-                'ratio': round(t.achievement_ratio, 1),
-                'remaining': t.remaining_amount,
+                'achieved': tv.get('achieved_amount', 0),
+                'ratio': tv.get('achievement_ratio', 0),
+                'remaining': tv.get('remaining_amount', t.target_amount),
             })
+        ranking.sort(key=lambda r: r['ratio'], reverse=True)
 
         # Bar chart: top 15
         chart_data = [{
@@ -360,20 +405,26 @@ class SalesTarget(models.Model):
             'achieved': r['achieved'],
         } for r in ranking[:15]]
 
-        # Monthly trend for the year
+        # Monthly trend for the year (also live-computed)
         month_names = dict(MONTH_SELECTION)
         trend = []
+        all_year_targets = self.search([
+            ('year', '=', year),
+            ('company_id', '=', self.env.company.id),
+        ])
+        all_year_live = all_year_targets._live_compute_achievement() \
+            if all_year_targets else {}
+
         for m_val in range(1, 13):
             m_str = str(m_val)
-            m_targets = self.search([
-                ('month', '=', m_str),
-                ('year', '=', year),
-                ('company_id', '=', self.env.company.id),
-            ])
+            m_recs = all_year_targets.filtered(
+                lambda t, ms=m_str: t.month == ms)
             trend.append({
                 'month': month_names.get(m_str, m_str),
-                'target': sum(m_targets.mapped('target_amount')),
-                'achieved': sum(m_targets.mapped('achieved_amount')),
+                'target': sum(m_recs.mapped('target_amount')),
+                'achieved': sum(
+                    all_year_live.get(t.id, {}).get('achieved_amount', 0)
+                    for t in m_recs),
             })
 
         return {
