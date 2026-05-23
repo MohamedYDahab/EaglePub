@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="pos_product_packaging.ProductCardQty"
+       t-inherit="point_of_sale.ProductCard"
+       t-inherit-mode="extension">
+        <xpath expr="//article" position="inside">
+            <span t-if="props.product?.is_storable and props.product?.qty_available !== undefined"
+                  class="product-qty-on-hand position-absolute top-0 start-0 m-1 px-2 rounded-pill fw-bold"
+                  t-att-class="props.product.qty_available &lt;= 0 ? 'bg-danger text-white' : (props.product.qty_available &lt; 5 ? 'bg-warning text-dark' : 'bg-success text-white')"
+                  t-attf-title="On hand: {{ props.product.qty_available }}">
+                <i class="fa fa-cubes me-1"/>
+                <t t-esc="props.product.qty_available"/>
+            </span>
+        </xpath>
+    </t>
+
+</templates>

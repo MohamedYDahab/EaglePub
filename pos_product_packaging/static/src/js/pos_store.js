@@ -6,6 +6,59 @@ import { PackagingPopup } from "@pos_product_packaging/js/packaging_popup";
 import { makeAwaitable } from "@point_of_sale/app/utils/make_awaitable_dialog";
 
 patch(PosStore.prototype, {
+    async syncAllOrders(options = {}) {
+        const ordersBeforeSync = options.orders
+            ? [...options.orders]
+            : (() => {
+                  const { orderToCreate, orderToUpdate } = this.getPendingOrder();
+                  return [...orderToCreate, ...orderToUpdate];
+              })();
+
+        const tmplIdsToRefresh = new Set();
+        for (const order of ordersBeforeSync) {
+            for (const line of order?.lines || []) {
+                const tmpl =
+                    line.product_id?.product_tmpl_id ||
+                    line.product_tmpl_id;
+                const tmplId = tmpl?.id || tmpl;
+                if (tmplId) {
+                    tmplIdsToRefresh.add(tmplId);
+                }
+            }
+        }
+
+        const result = await super.syncAllOrders(options);
+
+        if (tmplIdsToRefresh.size > 0 && !this.data.network.offline) {
+            this._refreshQtyAvailable([...tmplIdsToRefresh]).catch((err) => {
+                console.warn("pos_product_packaging: qty refresh failed", err);
+            });
+        }
+
+        return result;
+    },
+
+    async _refreshQtyAvailable(templateIds) {
+        if (!templateIds || templateIds.length === 0) {
+            return;
+        }
+        const records = await this.data.call(
+            "product.template",
+            "read",
+            [templateIds, ["qty_available"]]
+        );
+        const tmplModel = this.models["product.template"];
+        if (!tmplModel) {
+            return;
+        }
+        for (const rec of records || []) {
+            const local = tmplModel.get(rec.id);
+            if (local) {
+                local.qty_available = rec.qty_available;
+            }
+        }
+    },
+
     /**
      * Get packaging records (product.uom) for a product.
      *
@@ -116,11 +169,27 @@ patch(PosStore.prototype, {
                 };
             });
 
-            const payload = await makeAwaitable(this.dialog, PackagingPopup, {
+            // Pricelist-aware unit price (falls back to list_price if pricelist absent)
+            const order = this.getOrder();
+            const pricelist = order?.pricelist_id;
+            const fiscalPosition = order?.fiscal_position_id;
+            const unitPrice = productTemplate.getPrice
+                ? productTemplate.getPrice(pricelist, 1)
+                : productTemplate.list_price || 0;
+
+            const popupProps = {
                 title: productTemplate.display_name || productTemplate.name || "Select Packaging",
                 product: productTemplate,
                 packagings: packagingData,
-            });
+                unitPrice: unitPrice,
+            };
+            if (pricelist) {
+                popupProps.pricelist = pricelist;
+            }
+            if (fiscalPosition) {
+                popupProps.fiscalPosition = fiscalPosition;
+            }
+            const payload = await makeAwaitable(this.dialog, PackagingPopup, popupProps);
 
             if (payload) {
                 if (payload.packaging) {

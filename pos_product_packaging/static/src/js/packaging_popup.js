@@ -11,12 +11,16 @@ export class PackagingPopup extends Component {
         title: { type: String, optional: true },
         product: { type: Object, optional: true },
         packagings: { type: Array, optional: true },
+        unitPrice: { type: Number, optional: true },
+        pricelist: { type: Object, optional: true },
+        fiscalPosition: { type: Object, optional: true },
         close: { type: Function },
         getPayload: { type: Function, optional: true },
     };
     static defaultProps = {
         title: "Select Packaging",
         packagings: [],
+        unitPrice: 0,
     };
 
     setup() {
@@ -26,9 +30,40 @@ export class PackagingPopup extends Component {
             packageQty: 1,
             totalQty: 0,
             totalPrice: 0,
+            packagePrice: 0,
+            totalTax: 0,
+            totalPriceIncl: 0,
         });
         this.packagings = this.props.packagings || [];
         this.product = this.props.product;
+        this.unitPrice = this.props.unitPrice || this.product?.list_price || 0;
+    }
+
+    formatCurrency(value) {
+        return this.env.utils.formatCurrency(value);
+    }
+
+    _computeTaxAmounts(quantity) {
+        if (!this.product?.getTaxDetails || quantity <= 0) {
+            return { excl: this.unitPrice * quantity, incl: this.unitPrice * quantity, tax: 0 };
+        }
+        try {
+            const details = this.product.getTaxDetails({
+                overridedValues: {
+                    price: this.unitPrice,
+                    quantity: quantity,
+                    pricelist: this.props.pricelist || false,
+                    fiscalPosition: this.props.fiscalPosition || false,
+                },
+            });
+            const excl = details?.raw_total_excluded_currency ?? this.unitPrice * quantity;
+            const incl = details?.raw_total_included_currency ?? excl;
+            return { excl, incl, tax: incl - excl };
+        } catch (e) {
+            console.warn("pos_product_packaging: tax computation failed", e);
+            const fallback = this.unitPrice * quantity;
+            return { excl: fallback, incl: fallback, tax: 0 };
+        }
     }
 
     selectPackaging(packaging) {
@@ -57,10 +92,20 @@ export class PackagingPopup extends Component {
         if (this.state.selectedPackaging && this.product) {
             const packagingQty = this.state.selectedPackaging.qty || 1;
             this.state.totalQty = this.state.packageQty * packagingQty;
-            this.state.totalPrice = this.state.totalQty * (this.product.list_price || 0);
+            this.state.totalPrice = this.state.totalQty * this.unitPrice;
+            this.state.packagePrice = packagingQty * this.unitPrice;
+
+            const tax = this._computeTaxAmounts(this.state.totalQty);
+            this.state.totalPriceExcl = tax.excl;
+            this.state.totalPriceIncl = tax.incl;
+            this.state.totalTax = tax.tax;
         } else {
             this.state.totalQty = 0;
             this.state.totalPrice = 0;
+            this.state.packagePrice = 0;
+            this.state.totalPriceExcl = 0;
+            this.state.totalPriceIncl = 0;
+            this.state.totalTax = 0;
         }
     }
 

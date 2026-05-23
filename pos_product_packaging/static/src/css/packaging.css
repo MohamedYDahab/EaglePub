@@ -50,3 +50,37 @@
 .control-button .fa-cubes {
     color: #6f42c1;
 }
+
+/* Quantity on hand badge on product card */
+.product .product-qty-on-hand {
+    font-size: 0.75rem;
+    line-height: 1.2;
+    z-index: 2;
+    pointer-events: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.product .product-qty-on-hand i {
+    font-size: 0.7rem;
+}
+
+/* Popup price summary */
+.popup-packaging .packaging-price-block {
+    border-top: 1px solid #dee2e6;
+    margin-top: 8px;
+    padding-top: 8px;
+}
+
+.popup-packaging .packaging-price-block .price-label {
+    color: #6c757d;
+    font-size: 0.85rem;
+}
+
+.popup-packaging .packaging-price-block .price-value {
+    font-weight: 600;
+}
+
+.popup-packaging .packaging-price-block .package-total-price {
+    font-size: 1.25rem;
+    color: #198754;
+}
