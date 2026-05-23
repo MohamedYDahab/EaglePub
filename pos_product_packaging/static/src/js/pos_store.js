@@ -57,16 +57,16 @@ patch(PosStore.prototype, {
     },
 
     /**
-     * Get the quantity per package from a uom.uom record.
-     * In v19 uom.uom: factor = ratio where 1 * (reference unit) = factor * (this unit)
-     * For "Box of 12": factor = 1/12 = 0.0833...
-     * So qty = 1 / factor
+     * Units of the product's base UoM contained in one packaging UoM.
+     * In v19, uom.uom.factor is the absolute multiplier vs the category's
+     * reference unit (e.g. "Box of 10 Units" -> factor = 10).
      */
-    _getUomQty(uomRecord) {
-        if (!uomRecord || !uomRecord.factor || uomRecord.factor === 0) {
+    _getUomQty(packagingUom, baseUom) {
+        if (!packagingUom || !packagingUom.factor) {
             return 1;
         }
-        return 1.0 / uomRecord.factor;
+        const baseFactor = baseUom?.factor || 1;
+        return packagingUom.factor / baseFactor;
     },
 
     async addLineToCurrentOrder(vals, opts = {}, configure = true) {
@@ -105,12 +105,13 @@ patch(PosStore.prototype, {
 
         if (packagings && packagings.length > 0) {
             // Build popup data: get UoM info for each packaging
+            const baseUom = productTemplate.uom_id;
             const packagingData = packagings.map((pUom) => {
                 const uomRecord = pUom.uom_id;
                 return {
                     id: pUom.id,
                     name: uomRecord?.name || uomRecord?.display_name || "Package",
-                    qty: this._getUomQty(uomRecord),
+                    qty: this._getUomQty(uomRecord, baseUom),
                     record: pUom,
                 };
             });
