@@ -206,9 +206,8 @@
                 <field name="state"/>
                 <field name="currency_id"/>
                 <templates>
-                    <t t-name="kanban-box">
-                        <div t-attf-class="oe_kanban_global_click
-                            #{record.achievement_ratio.raw_value >= 100
+                    <t t-name="card">
+                        <div t-attf-class="#{record.achievement_ratio.raw_value >= 100
                                 ? 'border-start border-success border-3'
                                 : record.achievement_ratio.raw_value >= 50
                                     ? 'border-start border-warning border-3'
