@@ -82,3 +82,11 @@
     margin-bottom: 12px;
     font-size: 13px;
 }
+
+/* Odoo only applies pre-wrap to traceback popups, so the line breaks
+   separating each short product collapse and the list runs together. */
+.pos .popup-confirm .modal-body,
+.pos .popup-error .modal-body {
+    white-space: pre-line;
+    text-align: left;
+}

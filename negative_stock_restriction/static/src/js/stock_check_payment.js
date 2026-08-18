@@ -1,7 +1,7 @@
 /** @odoo-module */
 
 import { patch } from "@web/core/utils/patch";
-import { ProductScreen } from "@point_of_sale/app/screens/product_screen/product_screen";
+import { Order } from "@point_of_sale/app/store/models";
 import { PaymentScreen } from "@point_of_sale/app/screens/payment_screen/payment_screen";
 import { ErrorPopup } from "@point_of_sale/app/errors/popups/error_popup";
 import { ConfirmPopup } from "@point_of_sale/app/utils/confirm_popup/confirm_popup";
@@ -25,7 +25,8 @@ async function checkStockForOrder(orm, pos, orderlines) {
     const result = await orm.call(
         "pos.session",
         "get_stock_for_products",
-        [productIds]
+        [productIds],
+        { config_id: pos.config.id }
     );
 
     if (!result.enabled) {
@@ -65,80 +66,84 @@ async function checkStockForOrder(orm, pos, orderlines) {
     return { blocked, issues, mode, bypass, canOverride };
 }
 
-// ─── Patch ProductScreen: block Pay button ──────────────────────────────────
+/**
+ * Run the check and show the popup that matches the configured mode.
+ * Returns true when the caller may carry on with the original action.
+ */
+async function confirmStockForOrder(orm, popup, pos, orderlines, texts) {
+    let check;
+    try {
+        check = await checkStockForOrder(orm, pos, orderlines);
+    } catch (error) {
+        // Never hold the till hostage to a network or server hiccup.
+        console.error("[NegStock] Stock check failed:", error);
+        return true;
+    }
 
-patch(ProductScreen.prototype, {
-    setup() {
-        super.setup(...arguments);
-        this._stockOrm = useService("orm");
-        this._stockPopup = useService("popup");
-    },
+    if (!check.issues || !check.issues.length) {
+        return true;
+    }
 
-    async onClickPay() {
-        const order = this.pos.get_order();
-        if (!order) return super.onClickPay(...arguments);
+    const msg = _t("Insufficient Stock:") + "\n" + check.issues.join("\n");
 
-        const orderlines = order.get_orderlines();
-        if (!orderlines.length) return super.onClickPay(...arguments);
+    if (!check.blocked) {
+        // Soft warning: let the cashier decide.
+        const { confirmed } = await popup.add(ConfirmPopup, {
+            title: _t("Low Stock Warning"),
+            body: msg + "\n\n" + texts.softBody,
+            confirmText: texts.confirmText,
+            cancelText: _t("Cancel"),
+        });
+        return Boolean(confirmed);
+    }
 
-        try {
-            const check = await checkStockForOrder(
-                this._stockOrm, this.pos, orderlines
-            );
+    if (check.canOverride) {
+        const { confirmed } = await popup.add(ManagerOverridePopup, {
+            title: _t("Manager Override Required"),
+            issues: check.issues,
+        });
+        return Boolean(confirmed);
+    }
 
-            if (check.issues && check.issues.length > 0) {
-                const msg =
-                    _t("Insufficient Stock:") + "\n"
-                    ;
+    await popup.add(ErrorPopup, {
+        title: _t("Negative Stock Blocked"),
+        body: msg + "\n\n" + texts.hardBody,
+    });
+    return false;
+}
 
-                if (check.blocked) {
-                    if (check.canOverride) {
-                        // Show manager override popup
-                        const { confirmed } = await this._stockPopup.add(
-                            ManagerOverridePopup,
-                            {
-                                title: _t("Manager Override Required "),
-                                issues: check.issues,
-                            }
-                        );
-                        if (!confirmed) return; // Cancelled
-                        // PIN verified → proceed
-                    } else {
-                        // Hard block, no override available
-                        await this._stockPopup.add(ErrorPopup, {
-                            title: _t("Negative Stock Blocked"),
-                            body: msg + "\n\n" +
-                                _t("Please adjust quantities or restock before payment.")
-                                ,
-                        });
-                        return;
-                    }
-                } else {
-                    // Soft warning
-                    const { confirmed } = await this._stockPopup.add(
-                        ConfirmPopup,
-                        {
-                            title: _t("Low Stock Warning"),
-                            body: msg + "\n\n" +
-                                _t("Do you want to proceed with negative stock?")
-                                ,
-                            confirmText: _t("Proceed"),
-                            cancelText: _t("Cancel"),
-                        }
-                    );
-                    if (!confirmed) return;
+// --- Patch Order.pay: block the Pay button ---------------------------------
+//
+// ProductScreen.onClickPay is dead code in Odoo 17 (see the FIXME in core);
+// both the actionpad and the mobile switchpane call order.pay() directly, so
+// that is where the check has to sit.
+
+patch(Order.prototype, {
+    async pay() {
+        const orderlines = this.get_orderlines();
+        if (orderlines.length) {
+            const proceed = await confirmStockForOrder(
+                this.env.services.orm,
+                this.env.services.popup,
+                this.pos,
+                orderlines,
+                {
+                    softBody: _t("Do you want to proceed with negative stock?"),
+                    confirmText: _t("Proceed"),
+                    hardBody: _t(
+                        "Please adjust quantities or restock before payment."
+                    ),
                 }
+            );
+            if (!proceed) {
+                return;
             }
-        } catch (error) {
-            console.error("Stock check on pay error:", error);
-            // On error, allow proceeding (don't block POS for network issues)
         }
-
-        return super.onClickPay(...arguments);
+        return super.pay(...arguments);
     },
 });
 
-// ─── Patch PaymentScreen: block Validate button ─────────────────────────────
+// --- Patch PaymentScreen: block Validate button ----------------------------
 
 patch(PaymentScreen.prototype, {
     setup() {
@@ -149,67 +154,32 @@ patch(PaymentScreen.prototype, {
 
     async validateOrder(isForceValidate) {
         const order = this.pos.get_order();
-        if (order) {
-            const orderlines = order.get_orderlines();
-            if (orderlines.length) {
-                try {
-                    const check = await checkStockForOrder(
-                        this._stockOrm, this.pos, orderlines
-                    );
+        const orderlines = order ? order.get_orderlines() : [];
 
-                    if (check.issues && check.issues.length > 0) {
-                        const msg =
-                            _t("Insufficient Stock:") + "\n" +
-                            check.issues.join("\n")
-
-                            ;
-
-                        if (check.blocked) {
-                            if (check.canOverride) {
-                                const { confirmed } = await this._stockPopup.add(
-                                    ManagerOverridePopup,
-                                    {
-                                        title: _t("Manager Override Required"),
-                                        issues: check.issues,
-                                    }
-                                );
-                                if (!confirmed) return;
-                            } else {
-                                await this._stockPopup.add(ErrorPopup, {
-                                    title: _t("Negative Stock Blocked"),
-                                    body: msg + "\n\n" +
-                                        _t("Cannot validate order. Go back and adjust quantities.")
-                                        ,
-                                });
-                                return;
-                            }
-                        } else {
-                            const { confirmed } = await this._stockPopup.add(
-                                ConfirmPopup,
-                                {
-                                    title: _t("Low Stock Warning"),
-                                    body: msg + "\n\n" +
-                                        _t("Validate order with negative stock?")
-                                        ,
-                                    confirmText: _t("Validate"),
-                                    cancelText: _t("Cancel"),
-                                }
-                            );
-                            if (!confirmed) return;
-                        }
-                    }
-                } catch (error) {
-                    console.error("Stock check on validate error:", error);
+        if (orderlines.length) {
+            const proceed = await confirmStockForOrder(
+                this._stockOrm,
+                this._stockPopup,
+                this.pos,
+                orderlines,
+                {
+                    softBody: _t("Validate order with negative stock?"),
+                    confirmText: _t("Validate"),
+                    hardBody: _t(
+                        "Cannot validate order. Go back and adjust quantities."
+                    ),
                 }
+            );
+            if (!proceed) {
+                return;
             }
         }
 
         const result = await super.validateOrder(isForceValidate);
 
-        // ── Fire refresh event so ProductScreen badges update instantly ──
-        // Small delay to let the order sync and stock quants update
+        // Fire refresh event so ProductScreen badges update instantly.
+        // Small delay to let the order sync and stock quants update.
         setTimeout(() => {
-            console.log("[NegStock] Order validated → dispatching refresh...");
             document.dispatchEvent(new CustomEvent("neg-stock-refresh"));
         }, 1500);
 

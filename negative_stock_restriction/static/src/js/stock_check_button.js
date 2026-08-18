@@ -31,7 +31,8 @@ export class StockCheckButton extends Component {
             const result = await this.orm.call(
                 "pos.session",
                 "get_stock_for_products",
-                [productIds]
+                [productIds],
+                { config_id: this.pos.config.id }
             );
 
             if (!result.enabled) {

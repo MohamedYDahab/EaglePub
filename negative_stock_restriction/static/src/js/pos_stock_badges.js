@@ -3,207 +3,202 @@
 import { patch } from "@web/core/utils/patch";
 import { ProductScreen } from "@point_of_sale/app/screens/product_screen/product_screen";
 import { useService } from "@web/core/utils/hooks";
-import { onMounted, onWillUnmount, useState } from "@odoo/owl";
+import { onMounted, onWillUnmount } from "@odoo/owl";
 
 /**
  * This module patches ProductScreen to:
- * 1. Fetch stock data for all products on load
+ * 1. Fetch stock data for the products currently on screen
  * 2. Inject stock badges into product cards via DOM manipulation
  * 3. Auto-hide out-of-stock products if configured
  * 4. Refresh stock INSTANTLY after every completed order
  *    (via custom "neg-stock-refresh" event fired by validateOrder)
  * 5. Refresh on browser tab visibility change (user switches back)
  * 6. Refresh on configurable interval (default 15s, 0 = disabled)
- * 7. Re-apply badges on DOM changes (category switches)
+ * 7. Re-apply badges on DOM changes (category switches, search, scroll)
  */
 
 patch(ProductScreen.prototype, {
     setup() {
         super.setup(...arguments);
         this._badgeOrm = useService("orm");
-        this._negStockState = useState({
-            stockData: {},
-            settings: null,
-            loaded: false,
-        });
+        // Plain object, not useState: badges are written straight to the DOM
+        // and must never trigger an Owl re-render of the product list.
+        this._negStock = { stockData: {}, settings: null };
 
-        // ── Bound event handlers (so we can removeEventListener) ──
-        this._onNegStockRefresh = async () => {
-            console.log("[NegStock] Order completed → refreshing stock...");
-            await this._loadStockData();
-            this._applyStockBadges();
-        };
+        this._onNegStockRefresh = () => this.refreshNegStock();
 
-        this._onVisibilityChange = async () => {
+        this._onVisibilityChange = () => {
             if (document.visibilityState === "visible") {
-                console.log("[NegStock] Tab visible → refreshing stock...");
-                await this._loadStockData();
-                this._applyStockBadges();
+                this.refreshNegStock();
             }
         };
 
         onMounted(async () => {
-            // Load settings & initial stock data
             await this._loadNegStockSettings();
-            await this._loadStockData();
-            this._applyStockBadges();
+            await this.refreshNegStock();
 
-            // ── 1. Listen for order-completed refresh events ──
             document.addEventListener(
                 "neg-stock-refresh", this._onNegStockRefresh
             );
-
-            // ── 2. Listen for tab visibility changes ──
             document.addEventListener(
                 "visibilitychange", this._onVisibilityChange
             );
 
-            // ── 3. Configurable auto-refresh interval ──
-            const interval = this._negStockState.settings
-                ? this._negStockState.settings.refresh_interval
-                : 15;
-
-            if (interval && interval > 0) {
-                this._stockRefreshInterval = setInterval(async () => {
-                    await this._loadStockData();
-                    this._applyStockBadges();
-                }, interval * 1000); // convert seconds to ms
+            const settings = this._negStock.settings;
+            const interval = settings ? settings.refresh_interval : 15;
+            if (interval > 0) {
+                this._stockRefreshInterval = setInterval(
+                    () => this.refreshNegStock(), interval * 1000
+                );
             }
 
-            // ── 4. MutationObserver: re-apply badges on DOM changes ──
-            //    (category switches, search results, scroll load)
+            // Re-apply badges when the product list changes (category switch,
+            // search, scroll). Products that appeared since the last fetch
+            // have no stock data yet, so pull it in for them.
             this._badgeObserver = new MutationObserver(() => {
                 clearTimeout(this._badgeDebounce);
                 this._badgeDebounce = setTimeout(() => {
-                    this._applyStockBadges();
+                    if (this._hasUnknownProducts()) {
+                        this.refreshNegStock();
+                    } else {
+                        this._applyStockBadges();
+                    }
                 }, 150);
             });
-
-            const container = document.querySelector(".product-list");
-            if (container) {
-                this._badgeObserver.observe(container, {
-                    childList: true,
-                    subtree: true,
-                });
-            }
+            this._observeProductList();
         });
 
         onWillUnmount(() => {
-            // Clean up everything
             document.removeEventListener(
                 "neg-stock-refresh", this._onNegStockRefresh
             );
             document.removeEventListener(
                 "visibilitychange", this._onVisibilityChange
             );
-            if (this._stockRefreshInterval) {
-                clearInterval(this._stockRefreshInterval);
-            }
+            clearInterval(this._stockRefreshInterval);
+            clearTimeout(this._badgeDebounce);
             if (this._badgeObserver) {
                 this._badgeObserver.disconnect();
-            }
-            if (this._badgeDebounce) {
-                clearTimeout(this._badgeDebounce);
             }
         });
     },
 
+    /** Owl re-creates the list container, so re-resolve it every time. */
+    _observeProductList() {
+        const container = document.querySelector(".product-list");
+        if (container && this._badgeObserver) {
+            this._badgeObserver.observe(container, {
+                childList: true,
+                subtree: true,
+            });
+        }
+    },
+
+    _negStockCards() {
+        return document.querySelectorAll(
+            ".product-list .product[data-product-id]"
+        );
+    },
+
+    _visibleProductIds() {
+        return [...this._negStockCards()].map(
+            (card) => parseInt(card.dataset.productId)
+        );
+    },
+
+    _hasUnknownProducts() {
+        const stockData = this._negStock.stockData;
+        return this._visibleProductIds().some((id) => !(id in stockData));
+    },
+
+    _negStockActive() {
+        const settings = this._negStock.settings;
+        return Boolean(
+            settings && settings.enabled && settings.pos_enabled &&
+            settings.show_in_pos
+        );
+    },
+
     async _loadNegStockSettings() {
         try {
-            const settings = await this._badgeOrm.call(
-                "pos.session",
-                "get_neg_stock_settings",
-                []
+            this._negStock.settings = await this._badgeOrm.call(
+                "pos.session", "get_neg_stock_settings", []
             );
-            this._negStockState.settings = settings;
         } catch (e) {
             console.error("[NegStock] Failed to load settings:", e);
         }
     },
 
     async _loadStockData() {
-        const settings = this._negStockState.settings;
-        if (!settings || !settings.enabled || !settings.pos_enabled ||
-            !settings.show_in_pos) {
+        if (!this._negStockActive()) {
             return;
         }
-
+        const productIds = this._visibleProductIds();
+        if (!productIds.length) {
+            return;
+        }
         try {
             const data = await this._badgeOrm.call(
-                "pos.session",
-                "get_all_product_stock",
-                []
+                "pos.session", "get_all_product_stock", [],
+                { config_id: this.pos.config.id, product_ids: productIds }
             );
-            this._negStockState.stockData = data || {};
-            this._negStockState.loaded = true;
+            Object.assign(this._negStock.stockData, data || {});
         } catch (e) {
             console.error("[NegStock] Failed to load stock data:", e);
         }
     },
 
-    /**
-     * Public method: can be called from anywhere to force a refresh.
-     * E.g. after stock check button or other custom triggers.
-     */
+    /** Force a refresh; safe to call from anywhere. */
     async refreshNegStock() {
         await this._loadStockData();
         this._applyStockBadges();
     },
 
     _applyStockBadges() {
-        const settings = this._negStockState.settings;
-        if (!settings || !settings.enabled || !settings.pos_enabled ||
-            !settings.show_in_pos) {
+        if (!this._negStockActive()) {
             return;
         }
+        // Injecting badges mutates the very subtree we observe, which would
+        // retrigger the observer forever. Pause it for the duration.
+        if (this._badgeObserver) {
+            this._badgeObserver.disconnect();
+        }
+        try {
+            this._renderStockBadges();
+        } finally {
+            this._observeProductList();
+        }
+    },
 
-        const stockData = this._negStockState.stockData;
+    _renderStockBadges() {
+        const settings = this._negStock.settings;
+        const stockData = this._negStock.stockData;
         const threshold = settings.threshold || 0;
         const hideOOS = settings.hide_out_of_stock || false;
 
-        // Find all product cards in the product list
-        const productCards = document.querySelectorAll(
-            ".product-list .product"
-        );
+        this._negStockCards().forEach((card) => {
+            const productId = parseInt(card.dataset.productId);
 
-        productCards.forEach((card) => {
-            let productId = null;
-
-            // Try to get product ID from the element's __owl__ component
-            if (card.__owl__ && card.__owl__.component &&
-                card.__owl__.component.props &&
-                card.__owl__.component.props.product) {
-                productId = card.__owl__.component.props.product.id;
-            }
-
-            // Fallback: try data attribute
-            if (!productId && card.dataset && card.dataset.productId) {
-                productId = parseInt(card.dataset.productId);
-            }
-
-            if (!productId) return;
-
-            // Remove existing badge
             const existing = card.querySelector(".neg-stock-badge");
-            if (existing) existing.remove();
+            if (existing) {
+                existing.remove();
+            }
 
-            // Get stock quantity
             const qty = stockData[productId];
-
-            // Only show badges for storable products that have stock data
-            if (qty === undefined || qty === null) return;
+            // No entry means the product is not storable — nothing to show.
+            if (qty === undefined || qty === null) {
+                card.classList.remove("neg-stock-hidden");
+                return;
+            }
 
             const roundedQty = Math.floor(qty * 10) / 10; // 1 decimal
 
-            // Auto-hide out-of-stock
             if (hideOOS && roundedQty <= 0) {
                 card.classList.add("neg-stock-hidden");
                 return;
-            } else {
-                card.classList.remove("neg-stock-hidden");
             }
+            card.classList.remove("neg-stock-hidden");
 
-            // Determine badge color
             let badgeClass = "neg-stock-badge-green";
             if (roundedQty <= 0) {
                 badgeClass = "neg-stock-badge-red";
@@ -211,13 +206,9 @@ patch(ProductScreen.prototype, {
                 badgeClass = "neg-stock-badge-yellow";
             }
 
-            // Create and inject badge
             const badge = document.createElement("div");
             badge.className = "neg-stock-badge " + badgeClass;
             badge.textContent = roundedQty;
-
-            // Ensure card has relative positioning
-            card.style.position = "relative";
             card.appendChild(badge);
         });
     },
