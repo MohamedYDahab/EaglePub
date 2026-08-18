@@ -15,7 +15,9 @@
     """,
     'category': 'Inventory/Inventory',
     'author': 'Mohamed Yaseen Dahab',
-    'license': 'LGPL-3',
+    'license': 'OPL-1',
+    'price': 30,
+    'currency': "USD",
     'depends': ['stock', 'point_of_sale', 'sale_management'],
     'data': [
         'security/security.xml',
