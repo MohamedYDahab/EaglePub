@@ -8,7 +8,6 @@ class ResConfigSettings(models.TransientModel):
     neg_stock_enabled = fields.Boolean(
         string="Enable Negative Stock Restriction",
         config_parameter='negative_stock_restriction.enabled',
-        default=True,
     )
     neg_stock_mode = fields.Selection(
         [('hard', 'Hard Block'), ('soft', 'Soft Warning')],
@@ -21,18 +20,15 @@ class ResConfigSettings(models.TransientModel):
     neg_stock_stock_enabled = fields.Boolean(
         string="Enable in Stock Transfers",
         config_parameter='negative_stock_restriction.stock_enabled',
-        default=True,
     )
     neg_stock_pos_enabled = fields.Boolean(
         string="Enable in Point of Sale",
         config_parameter='negative_stock_restriction.pos_enabled',
-        default=True,
     )
     neg_stock_so_enabled = fields.Boolean(
         string="Enable in Sale Orders",
         help="Check stock when confirming Sale Orders",
         config_parameter='negative_stock_restriction.so_enabled',
-        default=True,
     )
 
     # ── Threshold / Buffer ─────────────────────────────────────────────
@@ -63,7 +59,6 @@ class ResConfigSettings(models.TransientModel):
         string="Show Stock on POS Product Cards",
         help="Display real-time stock quantity badges on product cards in POS",
         config_parameter='negative_stock_restriction.show_in_pos',
-        default=True,
     )
     neg_stock_hide_out_of_stock = fields.Boolean(
         string="Auto-Hide Out-of-Stock Products",
@@ -93,3 +88,23 @@ class ResConfigSettings(models.TransientModel):
         config_parameter='negative_stock_restriction.manager_pin',
         default='0000',
     )
+
+    def set_values(self):
+        """Persist this module's zero-valued integers.
+
+        ``res.config.settings`` maps ``0`` to ``False`` and ``set_param`` then
+        *deletes* the record, so a threshold or interval of 0 would silently
+        fall back to its default. Booleans are left alone: Odoo represents an
+        unticked box as an absent parameter, and ``default_get`` reads any
+        stored string back as ``bool(value)`` -- so writing the literal
+        ``'False'`` would render the box as ticked.
+        """
+        super().set_values()
+        ICP = self.env['ir.config_parameter'].sudo()
+        for name, icp in self._get_classified_fields()['config']:
+            # Other modules read their own parameters their own way; only
+            # touch the ones this module owns.
+            if not icp.startswith('negative_stock_restriction.'):
+                continue
+            if self._fields[name].type == 'integer' and not self[name]:
+                ICP.set_param(icp, '0')

@@ -19,14 +19,15 @@
     'price': 49.90,
     'currency': 'USD',
     'depends': ['stock', 'point_of_sale', 'sale_management'],
+    'post_init_hook': 'post_init_hook',
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
-        'data/data.xml',
         'views/res_config_settings_views.xml',
         'views/product_template_views.xml',
         'views/product_category_views.xml',
         'views/stock_warehouse_views.xml',
+        'views/neg_stock_warning_wizard_views.xml',
     ],
     'assets': {
         'point_of_sale._assets_pos': [

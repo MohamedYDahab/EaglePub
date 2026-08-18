@@ -28,7 +28,8 @@ patch(ControlButtons.prototype, {
             const result = await this._stockCheckOrm.call(
                 "pos.session",
                 "get_stock_for_products",
-                [productIds]
+                [productIds],
+                { config_id: this.pos.config.id }
             );
 
             if (!result.enabled) {

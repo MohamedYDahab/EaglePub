@@ -15,6 +15,9 @@ import { _t } from "@web/core/l10n/translation";
 /**
  * Check stock for the current order, respecting exceptions.
  * Returns { blocked: bool, issues: string[], canOverride: bool }
+ *
+ * Orderlines carry product.product records (getProduct() returns product_id),
+ * so this path is keyed by variant - unlike the badges, which are per template.
  */
 async function checkStockForOrder(orm, pos, orderlines) {
     const productIds = [
@@ -27,7 +30,8 @@ async function checkStockForOrder(orm, pos, orderlines) {
     const result = await orm.call(
         "pos.session",
         "get_stock_for_products",
-        [productIds]
+        [productIds],
+        { config_id: pos.config.id }
     );
 
     if (!result.enabled) {
@@ -68,81 +72,104 @@ async function checkStockForOrder(orm, pos, orderlines) {
 }
 
 /**
- * Handle the stock check result: show appropriate popup and return
- * true if the action should proceed, false if blocked.
+ * Run the check and show the popup that matches the configured mode.
+ * Returns true when the caller may carry on with the original action.
  */
-async function handleStockCheck(dialog, check) {
-    if (!check.issues || check.issues.length === 0) {
+async function confirmStockForOrder(orm, dialog, pos, orderlines, texts) {
+    let check;
+    try {
+        check = await checkStockForOrder(orm, pos, orderlines);
+    } catch (error) {
+        // Never hold the till hostage to a network or server hiccup.
+        console.error("[NegStock] Stock check failed:", error);
+        return true;
+    }
+
+    if (!check.issues || !check.issues.length) {
         return true;
     }
 
     const msg = _t("Insufficient Stock:") + "\n" + check.issues.join("\n");
 
-    if (check.blocked) {
-        if (check.canOverride) {
-            // Show manager override popup
-            const overrideResult = await makeAwaitable(
-                dialog,
-                ManagerOverridePopup,
-                {
-                    title: _t("Manager Override Required"),
-                    issues: check.issues,
-                }
-            );
-            return !!overrideResult;
-        } else {
-            // Hard block, no override available
-            dialog.add(AlertDialog, {
-                title: _t("Negative Stock Blocked"),
-                body: msg + "\n\n" +
-                    _t("Please adjust quantities or restock before payment."),
-            });
-            return false;
-        }
-    } else {
-        // Soft warning
-        const confirmed = await ask(dialog, {
+    if (!check.blocked) {
+        // Soft warning: let the cashier decide.
+        return await ask(dialog, {
             title: _t("Low Stock Warning"),
-            body: msg + "\n\n" +
-                _t("Do you want to proceed with negative stock?"),
+            body: msg + "\n\n" + texts.softBody,
         });
-        return confirmed;
     }
+
+    if (check.canOverride) {
+        const overrideResult = await makeAwaitable(
+            dialog,
+            ManagerOverridePopup,
+            {
+                title: _t("Manager Override Required"),
+                issues: check.issues,
+            }
+        );
+        return !!overrideResult;
+    }
+
+    dialog.add(AlertDialog, {
+        title: _t("Negative Stock Blocked"),
+        body: msg + "\n\n" + texts.hardBody,
+    });
+    return false;
 }
 
-// ─── Patch PosStore: intercept pay() flow ───────────────────────────────────
+// --- Patch PosStore.pay: block the Pay button ------------------------------
 
 patch(PosStore.prototype, {
     async pay() {
-        const currentOrder = this.getOrder();
-        if (currentOrder) {
-            const orderlines = currentOrder.getOrderlines();
-            if (orderlines.length) {
-                try {
-                    const orm = this.env.services.orm;
-                    const dialog = this.dialog;
-                    const check = await checkStockForOrder(orm, this, orderlines);
-                    const canProceed = await handleStockCheck(dialog, check);
-                    if (!canProceed) return;
-                } catch (error) {
-                    console.error("Stock check on pay error:", error);
-                    // On error, allow proceeding (don't block POS for network issues)
+        const order = this.getOrder();
+        const orderlines = order ? order.getOrderlines() : [];
+
+        if (orderlines.length) {
+            const proceed = await confirmStockForOrder(
+                this.env.services.orm, this.dialog, this, orderlines,
+                {
+                    softBody: _t("Do you want to proceed with negative stock?"),
+                    hardBody: _t(
+                        "Please adjust quantities or restock before payment."
+                    ),
                 }
+            );
+            if (!proceed) {
+                return;
             }
         }
         return super.pay(...arguments);
     },
 });
 
-// ─── Patch PaymentScreen: block Validate button ─────────────────────────────
+// --- Patch PaymentScreen: block the Validate button ------------------------
 
 patch(PaymentScreen.prototype, {
     async validateOrder(isForceValidate) {
+        const order = this.pos.getOrder();
+        const orderlines = order ? order.getOrderlines() : [];
+
+        if (orderlines.length) {
+            const proceed = await confirmStockForOrder(
+                this.env.services.orm, this.dialog, this.pos, orderlines,
+                {
+                    softBody: _t("Validate order with negative stock?"),
+                    hardBody: _t(
+                        "Cannot validate order. Go back and adjust quantities."
+                    ),
+                }
+            );
+            if (!proceed) {
+                return;
+            }
+        }
+
         const result = await super.validateOrder(isForceValidate);
 
-        // ── Fire refresh event so ProductScreen badges update instantly ──
+        // Fire refresh event so ProductScreen badges update instantly.
+        // Small delay to let the order sync and stock quants update.
         setTimeout(() => {
-            console.log("[NegStock] Order validated → dispatching refresh...");
             document.dispatchEvent(new CustomEvent("neg-stock-refresh"));
         }, 1500);
 

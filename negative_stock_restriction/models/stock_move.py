@@ -2,6 +2,8 @@ import logging
 from odoo import models, _
 from odoo.exceptions import UserError
 
+from . import neg_stock_settings as settings
+
 _logger = logging.getLogger(__name__)
 
 
@@ -9,14 +11,10 @@ class StockMove(models.Model):
     _inherit = 'stock.move'
 
     def _action_done(self, **kwargs):
-        ICP = self.env['ir.config_parameter'].sudo()
-        enabled = ICP.get_param('negative_stock_restriction.enabled', 'True')
-        stock_enabled = ICP.get_param('negative_stock_restriction.stock_enabled', 'True')
-
-        if enabled == 'True' and stock_enabled == 'True':
-            mode = ICP.get_param('negative_stock_restriction.mode', 'hard')
-            qty_type = ICP.get_param(
-                'negative_stock_restriction.qty_type', 'available')
+        if (settings.flag(self.env, 'enabled')
+                and settings.flag(self.env, 'stock_enabled')):
+            mode = settings.param(self.env, 'mode', 'hard')
+            qty_type = settings.param(self.env, 'qty_type', 'available')
             bypass = self.env.user.has_group(
                 'negative_stock_restriction.group_bypass_negative_stock'
             )
@@ -50,7 +48,7 @@ class StockMove(models.Model):
                 if qty_type == 'on_hand':
                     quants = self.env['stock.quant'].search([
                         ('product_id', '=', move.product_id.id),
-                        ('location_id', '=', move.location_id.id),
+                        ('location_id', 'child_of', move.location_id.id),
                     ])
                     avail = sum(quants.mapped('quantity'))
                 elif qty_type == 'forecast':

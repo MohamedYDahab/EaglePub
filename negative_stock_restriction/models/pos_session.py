@@ -1,35 +1,108 @@
-import logging
 from odoo import models, api
 
-_logger = logging.getLogger(__name__)
+from . import neg_stock_settings as settings
 
 
 class PosSession(models.Model):
     _inherit = 'pos.session'
 
+    # -- Setting readers ------------------------------------------------
+
+    @api.model
+    def _neg_stock_param(self, key, default=None):
+        return settings.param(self.env, key, default)
+
+    @api.model
+    def _neg_stock_bool(self, key):
+        return settings.flag(self.env, key)
+
+    @api.model
+    def _neg_stock_int(self, key, default):
+        return settings.number(self.env, key, default)
+
+    # -- Location & quantity resolution ---------------------------------
+
+    @api.model
+    def _neg_stock_location(self, location_id=False, config_id=False):
+        """Resolve the location POS stock should be read from."""
+        if location_id:
+            return self.env['stock.location'].browse(location_id).exists()
+
+        config = self.env['pos.config'].browse(config_id).exists() \
+            if config_id else self.env['pos.config']
+
+        if not config:
+            # user_id is whoever *opened* the session, not necessarily the
+            # cashier calling us (pos_hr, shared terminals), so fall back to
+            # any session still open for the allowed companies.
+            session = self.search([
+                ('state', '=', 'opened'),
+                ('user_id', '=', self.env.uid),
+            ], limit=1) or self.search([
+                ('state', '=', 'opened'),
+                ('company_id', 'in', self.env.companies.ids),
+            ], limit=1)
+            config = session.config_id
+
+        return config.picking_type_id.default_location_src_id
+
+    @api.model
+    def _neg_stock_qty_map(self, products, location, qty_type):
+        """Quantity per product.product id, defaulting to 0 with no quant.
+
+        Products that have never been received own no quant at all - they
+        still need a (zero) entry, otherwise they are indistinguishable from
+        "not a storable product" downstream.
+        """
+        if not products:
+            return {}
+
+        if not location:
+            field = {'on_hand': 'qty_available',
+                     'forecast': 'virtual_available'}.get(qty_type, 'free_qty')
+            return {p.id: p[field] for p in products}
+
+        result = dict.fromkeys(products.ids, 0.0)
+
+        groups = self.env['stock.quant']._read_group(
+            [('product_id', 'in', products.ids),
+             ('location_id', 'child_of', location.id)],
+            groupby=['product_id'],
+            aggregates=['quantity:sum', 'reserved_quantity:sum'],
+        )
+        for product, on_hand, reserved in groups:
+            result[product.id] = (on_hand or 0.0) if qty_type == 'on_hand' \
+                else (on_hand or 0.0) - (reserved or 0.0)
+
+        if qty_type == 'forecast':
+            base = [('product_id', 'in', products.ids),
+                    ('state', 'in', ('waiting', 'confirmed', 'assigned'))]
+            for field, sign in (('location_dest_id', 1), ('location_id', -1)):
+                moves = self.env['stock.move']._read_group(
+                    base + [(field, 'child_of', location.id)],
+                    groupby=['product_id'],
+                    aggregates=['product_qty:sum'],
+                )
+                for product, qty in moves:
+                    result[product.id] += sign * (qty or 0.0)
+
+        return result
+
+    # -- Frontend entry points ------------------------------------------
+
     @api.model
     def get_neg_stock_settings(self):
         """Return all negative stock settings for POS frontend."""
-        ICP = self.env['ir.config_parameter'].sudo()
         return {
-            'enabled': ICP.get_param(
-                'negative_stock_restriction.enabled', 'True') == 'True',
-            'pos_enabled': ICP.get_param(
-                'negative_stock_restriction.pos_enabled', 'True') == 'True',
-            'mode': ICP.get_param(
-                'negative_stock_restriction.mode', 'hard'),
-            'threshold': int(ICP.get_param(
-                'negative_stock_restriction.threshold', '5')),
-            'qty_type': ICP.get_param(
-                'negative_stock_restriction.qty_type', 'available'),
-            'show_in_pos': ICP.get_param(
-                'negative_stock_restriction.show_in_pos', 'True') == 'True',
-            'hide_out_of_stock': ICP.get_param(
-                'negative_stock_restriction.hide_out_of_stock', 'False') == 'True',
-            'refresh_interval': int(ICP.get_param(
-                'negative_stock_restriction.refresh_interval', '15')),
-            'manager_override': ICP.get_param(
-                'negative_stock_restriction.manager_override', 'False') == 'True',
+            'enabled': self._neg_stock_bool('enabled'),
+            'pos_enabled': self._neg_stock_bool('pos_enabled'),
+            'mode': self._neg_stock_param('mode', 'hard'),
+            'threshold': self._neg_stock_int('threshold', 5),
+            'qty_type': self._neg_stock_param('qty_type', 'available'),
+            'show_in_pos': self._neg_stock_bool('show_in_pos'),
+            'hide_out_of_stock': self._neg_stock_bool('hide_out_of_stock'),
+            'refresh_interval': self._neg_stock_int('refresh_interval', 15),
+            'manager_override': self._neg_stock_bool('manager_override'),
             'bypass': self.env.user.has_group(
                 'negative_stock_restriction.group_bypass_negative_stock'),
             'is_manager': self.env.user.has_group(
@@ -39,9 +112,7 @@ class PosSession(models.Model):
     @api.model
     def verify_manager_pin(self, pin):
         """Verify the manager override PIN."""
-        ICP = self.env['ir.config_parameter'].sudo()
-        stored_pin = ICP.get_param(
-            'negative_stock_restriction.manager_pin', '0000')
+        stored_pin = self._neg_stock_param('manager_pin', '0000')
         is_manager = self.env.user.has_group(
             'negative_stock_restriction.group_neg_stock_manager')
         return {
@@ -50,255 +121,89 @@ class PosSession(models.Model):
         }
 
     @api.model
-    def _get_product_qty(self, product, location, qty_type):
-        """Get product quantity based on configured type.
+    def get_stock_for_products(self, product_ids, location_id=False,
+                               config_id=False):
+        """Stock levels per product.product id, respecting every exception.
 
-        - on_hand: total physical stock (qty_available / quantity on quant)
-        - available: on hand minus reserved (_get_available_quantity)
-        - forecast: virtual_available (on hand - reserved + incoming - outgoing)
+        Keyed by variant because that is what an orderline carries:
+        ``orderline.getProduct()`` returns ``product_id``.
         """
-        if qty_type == 'on_hand':
-            if location:
-                quants = self.env['stock.quant'].search([
-                    ('product_id', '=', product.id),
-                    ('location_id', '=', location.id),
-                ])
-                return sum(quants.mapped('quantity'))
-            return product.qty_available
-        elif qty_type == 'forecast':
-            if location:
-                quants = self.env['stock.quant'].search([
-                    ('product_id', '=', product.id),
-                    ('location_id', '=', location.id),
-                ])
-                on_hand = sum(quants.mapped('quantity'))
-                reserved = sum(quants.mapped('reserved_quantity'))
-                incoming = sum(self.env['stock.move'].search([
-                    ('product_id', '=', product.id),
-                    ('location_dest_id', '=', location.id),
-                    ('state', 'in', ('waiting', 'confirmed', 'assigned')),
-                ]).mapped('product_uom_qty'))
-                outgoing = sum(self.env['stock.move'].search([
-                    ('product_id', '=', product.id),
-                    ('location_id', '=', location.id),
-                    ('state', 'in', ('waiting', 'confirmed', 'assigned')),
-                ]).mapped('product_uom_qty'))
-                return on_hand - reserved + incoming - outgoing
-            return product.virtual_available
-        else:
-            # Default: available (on hand - reserved)
-            if location:
-                return self.env['stock.quant']._get_available_quantity(
-                    product, location, strict=False)
-            return product.free_qty
+        base = {
+            'mode': self._neg_stock_param('mode', 'hard'),
+            'threshold': self._neg_stock_int('threshold', 5),
+            'qty_type': self._neg_stock_param('qty_type', 'available'),
+            'show_in_pos': self._neg_stock_bool('show_in_pos'),
+            'hide_out_of_stock': self._neg_stock_bool('hide_out_of_stock'),
+            'manager_override': self._neg_stock_bool('manager_override'),
+        }
+
+        if not self._neg_stock_bool('enabled') or \
+           not self._neg_stock_bool('pos_enabled'):
+            return dict(base, enabled=False, stock={}, exempt={})
+
+        location = self._neg_stock_location(location_id, config_id)
+        products = self.env['product.product'].browse(product_ids).exists()
+        storable = products.filtered('is_storable')
+        qty_map = self._neg_stock_qty_map(storable, location, base['qty_type'])
+
+        warehouse_exempt = bool(
+            location.warehouse_id and location.warehouse_id.allow_negative_stock
+        ) if location else False
+
+        stock, exempt = {}, {}
+        for product in products:
+            exempt[product.id] = bool(
+                warehouse_exempt
+                or product.allow_negative_stock
+                or product.categ_id.allow_negative_stock
+            )
+            # Anything not storable is never short of stock.
+            stock[product.id] = qty_map.get(product.id, 9999999)
+
+        return dict(
+            base,
+            enabled=True,
+            stock=stock,
+            exempt=exempt,
+            bypass=self.env.user.has_group(
+                'negative_stock_restriction.group_bypass_negative_stock'),
+            is_manager=self.env.user.has_group(
+                'negative_stock_restriction.group_neg_stock_manager'),
+        )
 
     @api.model
-    def get_stock_for_products(self, product_ids, location_id=False):
-        """Get stock levels for products, respecting all exception rules."""
-        _logger.info(
-            "[NegStock] get_stock_for_products called with "
-            "product_ids=%s, location_id=%s",
-            product_ids, location_id,
-        )
-        ICP = self.env['ir.config_parameter'].sudo()
-        enabled = ICP.get_param(
-            'negative_stock_restriction.enabled', 'True')
-        pos_enabled = ICP.get_param(
-            'negative_stock_restriction.pos_enabled', 'True')
-        mode = ICP.get_param(
-            'negative_stock_restriction.mode', 'hard')
-        threshold = int(ICP.get_param(
-            'negative_stock_restriction.threshold', '5'))
-        qty_type = ICP.get_param(
-            'negative_stock_restriction.qty_type', 'available')
-        show_in_pos = ICP.get_param(
-            'negative_stock_restriction.show_in_pos', 'True') == 'True'
-        hide_oos = ICP.get_param(
-            'negative_stock_restriction.hide_out_of_stock', 'False') == 'True'
-        manager_override = ICP.get_param(
-            'negative_stock_restriction.manager_override', 'False') == 'True'
+    def get_all_product_stock(self, location_id=False, config_id=False,
+                              product_tmpl_ids=None):
+        """Stock per product.template id, for the POS badges.
 
-        _logger.info(
-            "[NegStock] Settings: enabled=%s, pos_enabled=%s, mode=%s, "
-            "qty_type=%s",
-            enabled, pos_enabled, mode, qty_type,
-        )
+        Keyed by *template*, not variant: since Odoo 18 the product screen
+        renders product.template records and stamps data-product-id with the
+        template id, while stock lives on the variants. A template's badge
+        therefore shows the sum over its storable variants.
+        """
+        if not self._neg_stock_bool('enabled') or \
+           not self._neg_stock_bool('pos_enabled') or \
+           not self._neg_stock_bool('show_in_pos'):
+            return {}
 
-        if enabled != 'True' or pos_enabled != 'True':
-            _logger.info("[NegStock] DISABLED — returning enabled=False")
-            return {
-                'enabled': False, 'mode': mode, 'stock': {},
-                'threshold': threshold, 'show_in_pos': show_in_pos,
-                'hide_out_of_stock': hide_oos,
-                'manager_override': manager_override,
-            }
+        Template = self.env['product.template']
+        templates = Template.browse(product_tmpl_ids).exists() \
+            if product_tmpl_ids \
+            else Template.search([('available_in_pos', '=', True)])
+        templates = templates.filtered('is_storable')
+        if not templates:
+            return {}
 
-        # Determine source location
-        location = False
-        if location_id:
-            location = self.env['stock.location'].browse(location_id)
-        else:
-            sess = self.search([
-                ('state', '=', 'opened'),
-                ('user_id', '=', self.env.uid),
-            ], limit=1)
-            _logger.info(
-                "[NegStock] Session search: found=%s, config=%s, "
-                "picking_type=%s",
-                bool(sess),
-                sess.config_id.name if sess else 'N/A',
-                sess.config_id.picking_type_id.name
-                if sess and sess.config_id.picking_type_id else 'N/A',
-            )
-            if sess and sess.config_id.picking_type_id:
-                location = sess.config_id.picking_type_id \
-                    .default_location_src_id
-
-        _logger.info(
-            "[NegStock] Location resolved: %s (id=%s)",
-            location.complete_name if location else 'NONE',
-            location.id if location else False,
-        )
-
-        # Check warehouse-level exception
-        warehouse_exempt = False
-        if location and location.warehouse_id:
-            warehouse_exempt = location.warehouse_id.allow_negative_stock
-
-        result = {}
-        exempt = {}
-        products = self.env['product.product'].browse(product_ids)
-
-        for p in products:
-            # Check all exception levels
-            is_exempt = (
-                warehouse_exempt
-                or p.allow_negative_stock
-                or p.product_tmpl_id.allow_negative_stock
-                or (p.categ_id and p.categ_id.allow_negative_stock)
-            )
-            exempt[p.id] = bool(is_exempt)
-
-            # Odoo 18/19: use is_storable instead of type == 'product'
-            if not p.is_storable:
-                result[p.id] = 9999999
-                _logger.info(
-                    "[NegStock]   Product %s (id=%s): NOT storable → 9999999",
-                    p.display_name, p.id,
-                )
-                continue
-
-            qty = self._get_product_qty(p, location, qty_type)
-            result[p.id] = qty
-            _logger.info(
-                "[NegStock]   Product %s (id=%s): storable, "
-                "qty=%s, exempt=%s",
-                p.display_name, p.id, qty, is_exempt,
-            )
-
-        bypass = self.env.user.has_group(
-            'negative_stock_restriction.group_bypass_negative_stock')
-        is_manager = self.env.user.has_group(
-            'negative_stock_restriction.group_neg_stock_manager')
-
-        _logger.info(
-            "[NegStock] Result: stock=%s, bypass=%s, mode=%s",
-            result, bypass, mode,
+        qty_map = self._neg_stock_qty_map(
+            templates.product_variant_ids,
+            self._neg_stock_location(location_id, config_id),
+            self._neg_stock_param('qty_type', 'available'),
         )
 
         return {
-            'enabled': True,
-            'mode': mode,
-            'stock': result,
-            'exempt': exempt,
-            'bypass': bypass,
-            'is_manager': is_manager,
-            'threshold': threshold,
-            'qty_type': qty_type,
-            'show_in_pos': show_in_pos,
-            'hide_out_of_stock': hide_oos,
-            'manager_override': manager_override,
+            template.id: sum(
+                qty_map.get(variant.id, 0.0)
+                for variant in template.product_variant_ids
+            )
+            for template in templates
         }
-
-    @api.model
-    def get_all_product_stock(self, location_id=False):
-        """Get stock for ALL storable products — used for POS badge display."""
-        ICP = self.env['ir.config_parameter'].sudo()
-        enabled = ICP.get_param(
-            'negative_stock_restriction.enabled', 'True')
-        pos_enabled = ICP.get_param(
-            'negative_stock_restriction.pos_enabled', 'True')
-        show_in_pos = ICP.get_param(
-            'negative_stock_restriction.show_in_pos', 'True') == 'True'
-        qty_type = ICP.get_param(
-            'negative_stock_restriction.qty_type', 'available')
-
-        if enabled != 'True' or pos_enabled != 'True' or not show_in_pos:
-            return {}
-
-        # Determine source location
-        location = False
-        if location_id:
-            location = self.env['stock.location'].browse(location_id)
-        else:
-            sess = self.search([
-                ('state', '=', 'opened'),
-                ('user_id', '=', self.env.uid),
-            ], limit=1)
-            if sess and sess.config_id.picking_type_id:
-                location = sess.config_id.picking_type_id \
-                    .default_location_src_id
-
-        if not location:
-            return {}
-
-        # Get all quants at this location
-        quants = self.env['stock.quant'].search([
-            ('location_id', '=', location.id),
-        ])
-
-        result = {}
-
-        if qty_type == 'on_hand':
-            for q in quants:
-                pid = q.product_id.id
-                if pid not in result:
-                    result[pid] = 0
-                result[pid] += q.quantity
-
-        elif qty_type == 'forecast':
-            for q in quants:
-                pid = q.product_id.id
-                if pid not in result:
-                    result[pid] = 0
-                result[pid] += q.quantity - q.reserved_quantity
-
-            incoming_moves = self.env['stock.move'].search([
-                ('location_dest_id', '=', location.id),
-                ('state', 'in', ('waiting', 'confirmed', 'assigned')),
-            ])
-            for m in incoming_moves:
-                pid = m.product_id.id
-                if pid not in result:
-                    result[pid] = 0
-                result[pid] += m.product_uom_qty
-
-            outgoing_moves = self.env['stock.move'].search([
-                ('location_id', '=', location.id),
-                ('state', 'in', ('waiting', 'confirmed', 'assigned')),
-            ])
-            for m in outgoing_moves:
-                pid = m.product_id.id
-                if pid not in result:
-                    result[pid] = 0
-                result[pid] -= m.product_uom_qty
-
-        else:
-            # Default: available (on hand - reserved)
-            for q in quants:
-                pid = q.product_id.id
-                if pid not in result:
-                    result[pid] = 0
-                result[pid] += q.available_quantity
-
-        return result
