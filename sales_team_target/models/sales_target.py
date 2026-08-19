@@ -101,10 +101,10 @@ class SalesTarget(models.Model):
     )
 
     # ── Constraints ──
-    _sql_constraints = [
-        ('positive_target', 'CHECK(target_amount >= 0)',
-         'Target amount must be positive!'),
-    ]
+    _positive_target = models.Constraint(
+        'CHECK(target_amount >= 0)',
+        'Target amount must be positive!',
+    )
 
     @api.constrains('target_type', 'user_id', 'pos_config_id')
     def _check_target_owner(self):
