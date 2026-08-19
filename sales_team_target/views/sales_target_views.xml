@@ -217,11 +217,11 @@
                                     <div class="o_kanban_record_headings">
                                         <strong class="o_kanban_record_title">
                                             <t t-if="record.target_type.raw_value == 'salesperson'">
-                                                <i class="fa fa-user me-1"/>
+                                                <i class="fa fa-user me-1" role="img" aria-label="Salesperson" title="Salesperson"/>
                                                 <field name="user_id"/>
                                             </t>
                                             <t t-else="">
-                                                <i class="fa fa-shopping-cart me-1"/>
+                                                <i class="fa fa-shopping-cart me-1" role="img" aria-label="Point of Sale" title="Point of Sale"/>
                                                 <field name="pos_config_id"/>
                                             </t>
                                         </strong>
