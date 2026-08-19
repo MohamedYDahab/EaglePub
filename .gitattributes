@@ -1,0 +1,40 @@
+# Normalise line endings. Odoo runs on Linux containers, and the Apps Store
+# packages whatever is committed, so everything textual is stored and checked
+# out as LF regardless of the developer's platform.
+* text=auto eol=lf
+
+# Explicit types, so a file is never guessed wrong.
+*.py      text eol=lf
+*.xml     text eol=lf
+*.js      text eol=lf
+*.css     text eol=lf
+*.scss    text eol=lf
+*.html    text eol=lf
+*.csv     text eol=lf
+*.md      text eol=lf
+*.po      text eol=lf
+*.pot     text eol=lf
+*.yml     text eol=lf
+*.yaml    text eol=lf
+*.json    text eol=lf
+
+# Binaries must never be touched by EOL conversion.
+*.png     binary
+*.jpg     binary
+*.jpeg    binary
+*.gif     binary
+*.svg     binary
+*.ico     binary
+*.webp    binary
+*.pdf     binary
+*.zip     binary
+*.gz      binary
+*.xlsx    binary
+*.ods     binary
+*.otf     binary
+*.ttf     binary
+*.eot     binary
+*.woff    binary
+*.woff2   binary
+*.mp4     binary
+*.webm    binary
