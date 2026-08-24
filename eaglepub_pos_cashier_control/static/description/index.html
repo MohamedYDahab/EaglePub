@@ -194,11 +194,24 @@
     </div>
 
     <div style="border:1px solid #E5E7EB; border-left:5px solid #B45309; border-radius:10px; padding:22px 26px;">
-        <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 8px;">Employee-based cashiers are not supported yet</h3>
+        <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 8px;">One policy at a time</h3>
         <p style="margin:0; color:#4B5563;">
-            Policies attach to Odoo users. If you run <b>pos_hr</b> and switch cashiers by
-            badge inside the point of sale, the limits will not apply. Support for
-            employee cashiers is planned.
+            A cashier has one policy, with all four limits inside it. Scheduling a
+            different policy for weekends or night shifts is not supported.
+        </p>
+    </div>
+
+    <!-- ═══════════════ HR BRIDGE ═══════════════ -->
+    <div class="epc-pad" style="border:1px solid #E5E7EB; border-left:5px solid #714B67; border-radius:10px; padding:28px 32px; margin:44px 0;">
+        <h2 style="font-size:1.5rem; font-weight:800; color:#3B2436; margin:0 0 8px;">Cashiers log in with a badge?</h2>
+        <p style="margin:0 0 10px; color:#374151;">
+            Install <b>POS Cashier Control - Employee Cashiers</b>, a free companion that
+            appears by itself once you also have Employees in the Point of Sale. Policies
+            can then be set on the <b>employee</b> who actually served the customer,
+            rather than on whoever happened to open the till.
+        </p>
+        <p style="margin:0; color:#6B7280; font-size:14px;">
+            An employee with no policy of their own falls back to the one on their Odoo user.
         </p>
     </div>
 

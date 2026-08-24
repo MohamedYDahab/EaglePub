@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS Cashier Control - Employee Cashiers for Odoo 19</title>
+
+    <!--
+        NOTE ON STYLING - READ BEFORE EDITING
+
+        The Odoo Apps store sanitises this page. It drops `background`, `opacity` and
+        `position:absolute`, while keeping `color`, `border`, `padding` and
+        `border-radius`. Never let contrast depend on a background: light surfaces,
+        dark text, structure carried by borders and text colour.
+
+        This <style> block is enhancement only.
+    -->
+    <style>
+        .ech-card { transition: transform .18s ease, box-shadow .18s ease; }
+        .ech-card:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(16,24,40,.12) !important; }
+        @media (max-width: 760px) {
+            .ech-h1   { font-size: 1.7rem !important; }
+            .ech-pad  { padding: 24px 20px !important; }
+            .ech-col  { display: block !important; width: 100% !important; }
+            .ech-hero { padding: 46px 18px 40px !important; }
+        }
+    </style>
+</head>
+
+<body style="margin:0; padding:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; color:#1F2937; background:#F6F7F9; line-height:1.7; font-size:15px; -webkit-font-smoothing:antialiased;">
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<div class="ech-hero" style="background:#FAF5F9; border-bottom:4px solid #714B67; padding:64px 24px 54px; text-align:center;">
+    <div style="display:inline-block; border:2px solid #714B67; color:#714B67; padding:5px 16px; border-radius:999px; font-size:12px; font-weight:800; letter-spacing:.09em; text-transform:uppercase; margin-bottom:20px;">
+        Free Bridge for Odoo 19
+    </div>
+    <h1 class="ech-h1" style="font-size:2.4rem; font-weight:800; letter-spacing:-1px; line-height:1.18; margin:0 0 16px; color:#3B2436;">
+        POS Cashier Control &#8211; Employee Cashiers
+    </h1>
+    <p style="font-size:1.16rem; color:#4A2F43; max-width:680px; margin:0 auto;">
+        Policies should follow the person who served the customer, not whoever
+        happened to open the till that morning.
+    </p>
+</div>
+
+<div style="max-width:960px; margin:0 auto; padding:0 20px;">
+
+    <!-- ═══════════════ THE PROBLEM ═══════════════ -->
+    <div class="ech-pad" style="border:1px solid #E5E7EB; border-left:5px solid #B91C1C; border-radius:10px; padding:28px 32px; margin:40px 0;">
+        <h2 style="font-size:1.5rem; font-weight:800; color:#3B2436; margin:0 0 8px;">Why this exists</h2>
+        <p style="margin:0 0 10px; color:#374151;">
+            With badge login, the Odoo user behind a session is whoever opened the till -
+            frequently a supervisor who never touched the sale. The person who actually
+            served the customer is an <b>employee</b>, and a policy attached to an Odoo
+            user never reaches them.
+        </p>
+        <p style="margin:0; color:#374151;">
+            <b>That failure is silent.</b> The limits look configured on screen and quietly
+            enforce nothing, which is the worst way for a control to fail.
+        </p>
+    </div>
+
+    <!-- ═══════════════ WHAT IT ADDS ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:44px 0 22px;">What it adds</h2>
+
+    <table style="width:100%; border-collapse:separate; border-spacing:14px 0;">
+        <tr>
+            <td class="ech-col" style="width:50%; vertical-align:top;">
+                <div class="ech-card" style="border:1px solid #E5E7EB; border-top:4px solid #714B67; border-radius:10px; padding:22px 24px; height:100%;">
+                    <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 10px;">A policy on the employee</h3>
+                    <p style="margin:0; color:#4B5563;">
+                        <b>POS Policy</b> appears in the employee's HR settings. Set it there and
+                        every limit - discount ceiling, order ceiling, line deletion, price
+                        changes - applies to that person whichever till they badge into.
+                    </p>
+                </div>
+            </td>
+            <td class="ech-col" style="width:50%; vertical-align:top;">
+                <div class="ech-card" style="border:1px solid #E5E7EB; border-top:4px solid #714B67; border-radius:10px; padding:22px 24px; height:100%;">
+                    <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 10px;">Falls back, does not replace</h3>
+                    <p style="margin:0; color:#4B5563;">
+                        An employee with no policy of their own uses the one on their linked
+                        Odoo user. Set it in whichever place suits how you already organise
+                        people, and nothing has to be entered twice.
+                    </p>
+                </div>
+            </td>
+        </tr>
+        <tr><td colspan="2" style="height:14px;"></td></tr>
+        <tr>
+            <td class="ech-col" style="width:50%; vertical-align:top;">
+                <div class="ech-card" style="border:1px solid #E5E7EB; border-top:4px solid #714B67; border-radius:10px; padding:22px 24px; height:100%;">
+                    <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 10px;">Enforced in both places</h3>
+                    <p style="margin:0; color:#4B5563;">
+                        The till and the server both resolve the policy from the employee, so
+                        an order cannot be edited past it in transit any more than it could
+                        before.
+                    </p>
+                </div>
+            </td>
+            <td class="ech-col" style="width:50%; vertical-align:top;">
+                <div class="ech-card" style="border:1px solid #E5E7EB; border-top:4px solid #714B67; border-radius:10px; padding:22px 24px; height:100%;">
+                    <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 10px;">A bridge, not an app</h3>
+                    <p style="margin:0; color:#4B5563;">
+                        Nothing to open and nothing to configure beyond the field itself. Have
+                        POS Cashier Control and Employees in the Point of Sale, and this
+                        installs on its own. A correctness fix nobody remembers to install is
+                        not a fix.
+                    </p>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <!--
+        SCREENSHOTS GO HERE.
+        Capture from a running Odoo 19 and drop the files in this folder, then add the
+        <img> tags. Never ship <img> pointing at a file that does not exist - the store
+        renders a broken image.
+
+        Suggested set:
+          screenshot_employee_policy.png - POS Policy on the employee's HR settings
+          screenshot_badge_blocked.png   - a badged-in employee hitting their discount cap
+    -->
+
+    <!-- ═══════════════ REQUIREMENTS ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 22px;">Requirements</h2>
+    <table style="width:100%; border-collapse:collapse; border:1px solid #E5E7EB; border-radius:10px; overflow:hidden;">
+        <tr>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; width:34%; font-weight:700; color:#3B2436;">Odoo version</td>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">19.0 - Community and Enterprise</td>
+        </tr>
+        <tr>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; font-weight:700; color:#3B2436;">Depends on</td>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">
+                <b>POS Cashier Control</b> and Employees in the Point of Sale. Installs itself
+                once both are present.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:14px 20px; font-weight:700; color:#3B2436;">Licence</td>
+            <td style="padding:14px 20px; color:#374151;">LGPL-3 - free</td>
+        </tr>
+    </table>
+
+    <!-- ═══════════════ SUPPORT ═══════════════ -->
+    <div class="ech-pad" style="border:1px solid #E5E7EB; border-top:4px solid #714B67; border-radius:10px; padding:30px 32px; margin:44px 0 60px; text-align:center;">
+        <h2 style="font-size:1.5rem; font-weight:800; margin:0 0 8px; color:#3B2436;">A limit not applying as you expect?</h2>
+        <p style="margin:0 0 18px; color:#4B5563;">
+            Bugs and configuration problems are fixed promptly, on the free apps as
+            readily as the paid ones.
+        </p>
+        <a href="mailto:mohamed.yaseen.dahab@gmail.com"
+           style="display:inline-block; border:2px solid #714B67; color:#714B67; text-decoration:none; font-weight:800; padding:12px 30px; border-radius:999px;">
+            Contact the developer
+        </a>
+    </div>
+
+</div>
+</body>
+</html>
