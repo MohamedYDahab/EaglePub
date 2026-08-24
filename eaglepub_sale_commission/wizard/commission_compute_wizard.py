@@ -125,6 +125,17 @@ class EaglepubCommissionComputeWizard(models.TransientModel):
                 })
         return vals
 
+    def _collect_for(self, plan, user):
+        """Every commissionable line for one salesperson under one plan.
+
+        The single extension point for new sources: a bridge module overrides
+        this, calls super() and appends its own lines, rather than reimplementing
+        action_compute.
+        """
+        if plan.basis == 'so_confirm':
+            return self._collect_sale_orders(plan, user)
+        return self._collect_invoices(plan, user)
+
     # ──────────────────────────────────────────────────────────────
     # Generation
     # ──────────────────────────────────────────────────────────────
@@ -146,10 +157,7 @@ class EaglepubCommissionComputeWizard(models.TransientModel):
         created = Commission
         for user in users:
             plan = user.eaglepub_commission_plan_id
-            if plan.basis == 'so_confirm':
-                lines = self._collect_sale_orders(plan, user)
-            else:
-                lines = self._collect_invoices(plan, user)
+            lines = self._collect_for(plan, user)
             if not lines:
                 continue
 
