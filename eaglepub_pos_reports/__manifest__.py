@@ -33,7 +33,7 @@ expects - not an English sheet with translated words dropped into it.
     'website': 'https://www.speedy-world.com',
     'license': 'OPL-1',
     'price': 49.00,
-    'currency': 'EUR',
+    'currency': 'USD',
     'depends': ['eaglepub_pos_base'],
     'external_dependencies': {'python': ['xlsxwriter']},
     'data': [

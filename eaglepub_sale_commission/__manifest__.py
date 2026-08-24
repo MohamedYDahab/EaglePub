@@ -37,7 +37,7 @@ Credit notes subtract. A refunded sale does not stay commissioned.
     'website': 'https://www.speedy-world.com',
     'license': 'OPL-1',
     'price': 69.00,
-    'currency': 'EUR',
+    'currency': 'USD',
     'depends': ['sale_management', 'account'],
     'data': [
         'security/ir.model.access.csv',

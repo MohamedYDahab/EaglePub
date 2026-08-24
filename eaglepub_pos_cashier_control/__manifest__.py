@@ -33,7 +33,7 @@ server, so an order cannot be edited past its policy on the way through.
     'website': 'https://www.speedy-world.com',
     'license': 'OPL-1',
     'price': 59.00,
-    'currency': 'EUR',
+    'currency': 'USD',
     'depends': ['eaglepub_pos_base'],
     'data': [
         'security/ir.model.access.csv',

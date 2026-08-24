@@ -36,7 +36,7 @@ Features:
     'installable': True,
     'application': False,
     'auto_install': False,
-    'currency': 'EUR',
+    'currency': 'USD',
     'support': 'mohamed.yaseen.dahab@gmail.com',
     'phone': '+971559354935',
     'price': 49.00,
