@@ -39,6 +39,7 @@ Features:
     'currency': 'EUR',
     'support': 'mohamed.yaseen.dahab@gmail.com',
     'phone': '+971559354935',
+    'price': 49.00,
     'license': 'OPL-1',
 }
 
