@@ -163,20 +163,47 @@
         </tr>
     </table>
 
-    <!--
-        SCREENSHOTS GO HERE.
-        Capture from a running Odoo 19 POS and drop the files in this folder, then
-        uncomment. Do not ship this page with <img> tags pointing at files that do
-        not exist - the store renders a broken image.
+    <!-- ═══════════════ SCREENSHOTS ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 22px;">See it working</h2>
 
-        Suggested set:
-          screenshot_policy_form.png      - the Cashier Policies form, limits filled in
-          screenshot_user_assign.png      - the POS Policy tab on a user
-          screenshot_discount_clamped.png - a discount being capped at the till
-          screenshot_delete_blocked.png   - the "removing lines is not allowed" message
-          screenshot_pin_dialog.png       - the manager PIN keypad
-          screenshot_override_button.png  - Manager Override in the actions dialog
-          screenshot_settings_pin.png     - Settings > Point of Sale > EaglePub
+    <div style="border:1px solid #E5E7EB; border-radius:10px; padding:18px; margin-bottom:18px;">
+        <img src="screenshot_policy_form.png" alt="A cashier policy with a 25% discount ceiling, a 2,000 order ceiling, and line deletion and price changes both switched off"
+             style="width:100%; height:auto; display:block; border:1px solid #E5E7EB; border-radius:6px;"/>
+        <p style="margin:12px 4px 0; color:#4B5563; font-size:14px;">
+            <b style="color:#3B2436;">One policy, four limits.</b> A 25% discount ceiling, a
+            2,000 order ceiling, and both permissions switched off. The Cashiers tab is
+            read-only on purpose - people are assigned from the user form, so a half-made
+            user cannot be created here by accident.
+        </p>
+    </div>
+
+    <div style="border:1px solid #E5E7EB; border-radius:10px; padding:18px; margin-bottom:18px;">
+        <img src="screenshot_user_assign.png" alt="The POS Policy tab on a user record, set to the Junior Cashier policy"
+             style="width:100%; height:auto; display:block; border:1px solid #E5E7EB; border-radius:6px;"/>
+        <p style="margin:12px 4px 0; color:#4B5563; font-size:14px;">
+            <b style="color:#3B2436;">Assigning a cashier.</b> A <b>POS Policy</b> tab on the
+            user, and that is the whole configuration. One policy can cover as many
+            cashiers as you like.
+        </p>
+    </div>
+
+    <div style="border:1px solid #E5E7EB; border-radius:10px; padding:18px;">
+        <img src="screenshot_discount_clamped.png" alt="A point of sale order line showing a 25 percent discount, capped at the policy maximum"
+             style="width:100%; height:auto; display:block; border:1px solid #E5E7EB; border-radius:6px;"/>
+        <p style="margin:12px 4px 0; color:#4B5563; font-size:14px;">
+            <b style="color:#3B2436;">The ceiling doing its job.</b> The cashier asked for more
+            and the line settled at 25% - their maximum. No dialog to dismiss, no argument:
+            the discount they are entitled to is simply the one they get.
+        </p>
+    </div>
+
+    <!--
+        STILL TO CAPTURE - add a block above for each, matching the pattern:
+          screenshot_delete_blocked.png  - the "Line cannot be emptied" dialog
+          screenshot_pin_dialog.png      - the manager PIN keypad
+          screenshot_override_button.png - Manager Override in the actions dialog
+          screenshot_settings_pin.png    - Settings > Point of Sale > EaglePub
+        Never point <img> at a file that does not exist - the store renders a broken image.
     -->
 
     <!-- ═══════════════ SCOPE / HONESTY ═══════════════ -->
