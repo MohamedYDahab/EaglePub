@@ -35,8 +35,7 @@ class PosOrder(models.Model):
         if not isinstance(order, dict) or order.get('eaglepub_override_uid'):
             return
 
-        user = self.env['res.users'].browse(order.get('user_id')) or self.env.user
-        policy = user.sudo().eaglepub_pos_policy_id
+        policy = self._eaglepub_policy_for(order)
         if not policy:
             return
 
@@ -76,6 +75,18 @@ class PosOrder(models.Model):
         # legitimate orders. The till blocks the numpad; this limit is a
         # workflow control rather than a security boundary, and is documented
         # as such on the app page.
+
+    @api.model
+    def _eaglepub_policy_for(self, order):
+        """Whose policy governs an incoming order payload.
+
+        The single extension point for a different notion of "cashier": the
+        pos_hr bridge overrides this to prefer the employee who rang the order
+        up, since with badge login the Odoo user is whoever opened the session
+        rather than whoever served the customer.
+        """
+        user = self.env['res.users'].browse(order.get('user_id')) or self.env.user
+        return user.sudo().eaglepub_pos_policy_id
 
     @api.model
     def _eaglepub_iter_line_vals(self, order):

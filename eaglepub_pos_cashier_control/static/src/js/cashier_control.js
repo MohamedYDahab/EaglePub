@@ -7,17 +7,33 @@ import { patch } from "@web/core/utils/patch";
 import { _t } from "@web/core/l10n/translation";
 
 /**
- * Policy lookup lives on the order rather than the store, because POS model
- * records reach data through this.models and have no handle on the store.
- * Reading it off order.user_id keeps the rule enforceable from inside the
- * model, which is the one place every edit has to pass through.
+ * Read the policy off an order, honouring an active override.
+ *
+ * Resolution itself sits on the order as eaglepubPolicySource, so a bridge can
+ * patch that one getter instead of every rule that consults it.
  */
 function policyOf(order) {
     if (!order || order.eaglepubOverridden) {
         return null;
     }
-    return order.user_id?.eaglepub_pos_policy_id || null;
+    return order.eaglepubPolicySource;
 }
+
+patch(PosOrder.prototype, {
+    /**
+     * Whose policy governs this order.
+     *
+     * Lives on the order rather than the store because POS model records reach
+     * data through this.models and have no handle on the store - and the model
+     * is the one place every edit has to pass through.
+     *
+     * The single extension point for a different notion of "cashier": the
+     * pos_hr bridge overrides this to prefer the employee at the till.
+     */
+    get eaglepubPolicySource() {
+        return this.user_id?.eaglepub_pos_policy_id || null;
+    },
+});
 
 patch(PosStore.prototype, {
     /** Policy of whoever is at the till, or null when unrestricted. */
