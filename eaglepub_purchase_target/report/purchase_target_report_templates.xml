@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_purchase_target">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <div class="page">
+
+                    <h2 class="text-center mb-1">Purchase Target Report</h2>
+                    <p class="text-center text-muted mb-4">
+                        <span t-esc="data.get('date_from')"/> &#8594;
+                        <span t-esc="data.get('date_to')"/>
+                    </p>
+
+                    <table class="table table-sm table-borderless mb-4"
+                           style="width:60%;">
+                        <tr>
+                            <td class="text-muted" style="width:110px;">Vendors</td>
+                            <td><span t-esc="data.get('vendor_filter')"/></td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted">Products</td>
+                            <td><span t-esc="data.get('product_filter')"/></td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted">Company</td>
+                            <td><span t-esc="data.get('company')"/></td>
+                        </tr>
+                    </table>
+
+                    <table class="table table-sm o_main_table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Period</th>
+                                <th class="text-end">Target Qty</th>
+                                <th class="text-end">Received Qty</th>
+                                <th class="text-end">Var. Qty</th>
+                                <th class="text-end">Target Value</th>
+                                <th class="text-end">Received Value</th>
+                                <th class="text-end">Var. Value</th>
+                                <th class="text-end">Achieved %</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="data.get('vendors', [])" t-as="vendor">
+                                <tr>
+                                    <td colspan="9"
+                                        style="background-color:#dfe6e9;">
+                                        <strong t-esc="vendor['vendor']"/>
+                                    </td>
+                                </tr>
+
+                                <tr t-foreach="vendor['lines']" t-as="line">
+                                    <td><span t-esc="line['product']"/></td>
+                                    <td><span t-esc="line['period']"/></td>
+                                    <td class="text-end">
+                                        <span t-esc="line['target_qty']"
+                                              t-options='{"widget": "float", "precision": 2}'/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-esc="line['achieved_qty']"
+                                              t-options='{"widget": "float", "precision": 2}'/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-esc="line['variance_qty']"
+                                              t-options='{"widget": "float", "precision": 2}'/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-esc="line['target_amount']"
+                                              t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-esc="line['achieved_amount']"
+                                              t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-esc="line['variance_amount']"
+                                              t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-esc="line['percentage']"
+                                              t-options='{"widget": "float", "precision": 1}'/>%
+                                    </td>
+                                </tr>
+
+                                <tr style="background-color:#f1f3f5;">
+                                    <td colspan="2">
+                                        <strong>Subtotal <span t-esc="vendor['vendor']"/></strong>
+                                    </td>
+                                    <td class="text-end">
+                                        <strong t-esc="vendor['target_qty']"
+                                                t-options='{"widget": "float", "precision": 2}'/>
+                                    </td>
+                                    <td class="text-end">
+                                        <strong t-esc="vendor['achieved_qty']"
+                                                t-options='{"widget": "float", "precision": 2}'/>
+                                    </td>
+                                    <td class="text-end">
+                                        <strong t-esc="vendor['variance_qty']"
+                                                t-options='{"widget": "float", "precision": 2}'/>
+                                    </td>
+                                    <td class="text-end">
+                                        <strong t-esc="vendor['target_amount']"
+                                                t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <strong t-esc="vendor['achieved_amount']"
+                                                t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <strong t-esc="vendor['variance_amount']"
+                                                t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <strong t-esc="vendor['percentage']"
+                                                t-options='{"widget": "float", "precision": 1}'/>%
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                        <tfoot>
+                            <tr style="background-color:#2c3e50; color:#ffffff;">
+                                <td colspan="2"><strong>Grand Total</strong></td>
+                                <td class="text-end">
+                                    <strong t-esc="data['total']['target_qty']"
+                                            t-options='{"widget": "float", "precision": 2}'/>
+                                </td>
+                                <td class="text-end">
+                                    <strong t-esc="data['total']['achieved_qty']"
+                                            t-options='{"widget": "float", "precision": 2}'/>
+                                </td>
+                                <td class="text-end">
+                                    <strong t-esc="data['total']['variance_qty']"
+                                            t-options='{"widget": "float", "precision": 2}'/>
+                                </td>
+                                <td class="text-end">
+                                    <strong t-esc="data['total']['target_amount']"
+                                            t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/>
+                                </td>
+                                <td class="text-end">
+                                    <strong t-esc="data['total']['achieved_amount']"
+                                            t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/>
+                                </td>
+                                <td class="text-end">
+                                    <strong t-esc="data['total']['variance_amount']"
+                                            t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/>
+                                </td>
+                                <td class="text-end">
+                                    <strong t-esc="data['total']['percentage']"
+                                            t-options='{"widget": "float", "precision": 1}'/>%
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

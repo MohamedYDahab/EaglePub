@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Targets for Odoo 19</title>
+
+    <!--
+        NOTE ON STYLING - READ BEFORE EDITING
+
+        The Odoo Apps store sanitises this page. Observed on a live listing, it drops
+        `background` (solid and gradient alike), `opacity`, and `position:absolute`,
+        while keeping `color`, `border`, `padding` and `border-radius`.
+
+        So: never let contrast depend on a background. Light surfaces, dark text,
+        structure carried by borders and text colour. Every text colour clears 3:1
+        against plain white.
+
+        This <style> block is enhancement only.
+    -->
+    <style>
+        .ept-card { transition: transform .18s ease, box-shadow .18s ease; }
+        .ept-card:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(16,24,40,.12) !important; }
+        .ept-cta { transition: transform .18s ease, box-shadow .18s ease; }
+        .ept-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(113,75,103,.34) !important; }
+        @media (max-width: 760px) {
+            .ept-h1     { font-size: 1.85rem !important; }
+            .ept-pad    { padding: 24px 20px !important; }
+            .ept-col    { display: block !important; width: 100% !important; }
+            .ept-hero   { padding: 46px 18px 40px !important; }
+            .ept-scroll { overflow-x: auto !important; }
+        }
+    </style>
+</head>
+
+<body style="margin:0; padding:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; color:#1F2937; background:#F6F7F9; line-height:1.7; font-size:15px; -webkit-font-smoothing:antialiased;">
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<div class="ept-hero" style="background:#FAF5F9; border-bottom:4px solid #714B67; padding:64px 24px 54px; text-align:center;">
+    <div style="display:inline-block; border:2px solid #714B67; color:#714B67; padding:5px 16px; border-radius:999px; font-size:12px; font-weight:800; letter-spacing:.09em; text-transform:uppercase; margin-bottom:20px;">
+        Procurement Targets for Odoo 19
+    </div>
+    <h1 class="ept-h1" style="font-size:2.7rem; font-weight:800; letter-spacing:-1px; line-height:1.18; margin:0 0 16px; color:#3B2436;">
+        Purchase Targets
+    </h1>
+    <p style="font-size:1.16rem; color:#4A2F43; max-width:680px; margin:0 auto;">
+        Set what you intend to buy from each vendor - and measure it on what
+        actually turned up, not what somebody ordered.
+    </p>
+</div>
+
+<div style="max-width:960px; margin:0 auto; padding:0 20px;">
+
+    <!-- ═══════════════ THE IDEA ═══════════════ -->
+    <div class="ept-pad" style="border:1px solid #E5E7EB; border-left:5px solid #714B67; border-radius:10px; padding:28px 32px; margin:40px 0;">
+        <h2 style="font-size:1.5rem; font-weight:800; color:#3B2436; margin:0 0 8px;">Ordered is not received</h2>
+        <p style="margin:0; color:#374151;">
+            A purchase order is a statement of intent. Goods that never arrived, arrived
+            late, or came back as a return are not procurement you should be credited
+            with. Achievement here is read from <b>done stock moves</b> on confirmed
+            purchase orders, so a target reflects what is actually on your shelves.
+        </p>
+    </div>
+
+    <!-- ═══════════════ WHAT IT DOES ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:44px 0 22px;">What it does</h2>
+
+    <div class="ept-scroll">
+    <table style="width:100%; border-collapse:collapse; border:1px solid #E5E7EB; border-radius:10px; overflow:hidden;">
+        <tr>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; width:32%; font-weight:700; color:#3B2436;">Per vendor, per product</td>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">
+                Targets are set against a specific vendor and the products you actually
+                buy from them, rather than one blanket number for the department.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; font-weight:700; color:#3B2436;">Amount or quantity</td>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">
+                Measure in money or in units. For commodities where the price moves week
+                to week, quantity is usually the honest measure.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; font-weight:700; color:#3B2436;">Counted when it arrives</td>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">
+                Receipts are attributed to <b>the period the goods arrived in</b>, not the
+                period the order was raised. A December order landing in January counts
+                for January.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; font-weight:700; color:#3B2436;">Returns net off</td>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">
+                Goods sent back to the vendor come off the achievement. Stock that did not
+                stay is not stock you received.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:16px 20px; font-weight:700; color:#3B2436;">Periods that keep themselves</td>
+            <td style="padding:16px 20px; color:#374151;">
+                Monthly, quarterly, yearly or custom, with dates computed for you - and
+                auto-renew into the next period so nobody has to remember on the first of
+                the month.
+            </td>
+        </tr>
+    </table>
+    </div>
+
+    <!--
+        SCREENSHOTS GO HERE.
+        Capture from a running Odoo 19 and drop the files in this folder, then add the
+        <img> tags. Never ship <img> pointing at a file that does not exist - the store
+        renders a broken image.
+
+        Suggested set:
+          screenshot_target_list.png  - targets with their progress
+          screenshot_target_form.png  - one target, vendor and product filled in
+          screenshot_report.png       - the printed achievement report
+    -->
+
+    <!-- ═══════════════ REQUIREMENTS ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 22px;">Requirements</h2>
+    <table style="width:100%; border-collapse:collapse; border:1px solid #E5E7EB; border-radius:10px; overflow:hidden;">
+        <tr>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; width:34%; font-weight:700; color:#3B2436;">Odoo version</td>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">19.0 - Community and Enterprise</td>
+        </tr>
+        <tr>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; font-weight:700; color:#3B2436;">Depends on</td>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">Purchase, Purchase Stock and Inventory - all standard</td>
+        </tr>
+        <tr>
+            <td style="padding:14px 20px; font-weight:700; color:#3B2436;">Pairs with</td>
+            <td style="padding:14px 20px; color:#374151;"><b>Sales Targets</b>, the same idea on the selling side</td>
+        </tr>
+    </table>
+
+    <!-- ═══════════════ SUPPORT ═══════════════ -->
+    <div class="ept-pad" style="border:1px solid #E5E7EB; border-top:4px solid #714B67; border-radius:10px; padding:30px 32px; margin:44px 0 60px; text-align:center;">
+        <h2 style="font-size:1.5rem; font-weight:800; margin:0 0 8px; color:#3B2436;">Need a hand?</h2>
+        <p style="margin:0 0 26px; color:#4B5563; font-size:14.5px;">
+            Questions, bug reports and feature requests are welcome - usually answered
+            the same day.
+        </p>
+
+        <table style="margin:0 auto; border-collapse:separate; border-spacing:10px 0;">
+            <tr>
+                <td class="ept-col" style="vertical-align:top;">
+                    <a class="ept-cta" href="https://wa.me/201007802335" target="_blank" rel="noopener"
+                       style="display:inline-block; border:2px solid #16A34A; color:#15803D; text-decoration:none; font-weight:800; font-size:14.5px; padding:13px 28px; border-radius:999px;">
+                        <span style="margin-right:8px;">&#128172;</span>WhatsApp &nbsp;+20 100 780 2335
+                    </a>
+                </td>
+                <td class="ept-col" style="vertical-align:top;">
+                    <a class="ept-cta" href="mailto:mohamed.yaseen.dahab@gmail.com"
+                       style="display:inline-block; border:2px solid #714B67; color:#714B67; text-decoration:none; font-weight:800; font-size:14.5px; padding:13px 28px; border-radius:999px;">
+                        <span style="margin-right:8px;">&#9993;&#65039;</span>Email Support
+                    </a>
+                </td>
+            </tr>
+        </table>
+
+        <p style="margin:20px 0 0; font-size:13px; color:#6B7280;">
+            mohamed.yaseen.dahab@gmail.com &nbsp;&#183;&nbsp; +20 100 780 2335
+        </p>
+    </div>
+
+</div>
+</body>
+</html>

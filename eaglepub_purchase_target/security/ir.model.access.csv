@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_purchase_target_manager,purchase.target.manager,model_purchase_target,purchase.group_purchase_manager,1,1,1,1
+access_purchase_target_user,purchase.target.user,model_purchase_target,purchase.group_purchase_user,1,0,0,0
+access_purchase_target_line_manager,purchase.target.line.manager,model_purchase_target_line,purchase.group_purchase_manager,1,1,1,1
+access_purchase_target_line_user,purchase.target.line.user,model_purchase_target_line,purchase.group_purchase_user,1,0,0,0
+access_purchase_target_report_wizard,purchase.target.report.wizard,model_purchase_target_report_wizard,purchase.group_purchase_user,1,1,1,1
+access_purchase_target_report_line,purchase.target.report.line,model_purchase_target_report_line,purchase.group_purchase_user,1,1,1,1

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Demo targets paired against Odoo's own demo purchase history, so
+        achievement is genuine rather than zero. Purchase achievement is
+        measured on goods actually received, so the pairings below follow the
+        done receipts:
+          - Ready Mat received Two-Seat Sofa
+          - Gemini Furniture received Customizable Desk
+        The Acoustic Bloc Screens line is deliberately ordered-but-not-received,
+        to show the difference between an order placed and stock arrived.
+    -->
+
+    <!-- ═══════ Ready Mat, current year ═══════ -->
+    <record id="demo_purchase_target_ready_mat" model="purchase.target">
+        <field name="partner_id" ref="base.res_partner_4"/>
+        <field name="period_type">yearly</field>
+        <field name="date_start"
+               eval="DateTime.today().replace(month=1, day=1).strftime('%Y-%m-%d')"/>
+        <field name="date_end"
+               eval="DateTime.today().replace(month=12, day=31).strftime('%Y-%m-%d')"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="auto_renew" eval="True"/>
+    </record>
+
+    <record id="demo_purchase_target_ready_mat_line_1" model="purchase.target.line">
+        <field name="target_id" ref="demo_purchase_target_ready_mat"/>
+        <field name="product_id" ref="product.consu_delivery_01"/>
+        <field name="target_qty">20</field>
+    </record>
+
+    <record id="demo_purchase_target_ready_mat_line_2" model="purchase.target.line">
+        <field name="target_id" ref="demo_purchase_target_ready_mat"/>
+        <field name="product_id" ref="product.product_product_25"/>
+        <field name="target_qty">30</field>
+    </record>
+
+    <!-- ═══════ Gemini Furniture, current year ═══════ -->
+    <record id="demo_purchase_target_gemini" model="purchase.target">
+        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="period_type">yearly</field>
+        <field name="date_start"
+               eval="DateTime.today().replace(month=1, day=1).strftime('%Y-%m-%d')"/>
+        <field name="date_end"
+               eval="DateTime.today().replace(month=12, day=31).strftime('%Y-%m-%d')"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="demo_purchase_target_gemini_line_1" model="purchase.target.line">
+        <field name="target_id" ref="demo_purchase_target_gemini"/>
+        <field name="product_id" ref="product.product_product_4e"/>
+        <field name="target_qty">10</field>
+    </record>
+
+    <record id="demo_purchase_target_gemini_line_2" model="purchase.target.line">
+        <field name="target_id" ref="demo_purchase_target_gemini"/>
+        <field name="product_id" ref="product.product_product_8"/>
+        <field name="target_qty">30</field>
+    </record>
+
+    <!-- ═══════ Wood Corner, current quarter ═══════ -->
+    <record id="demo_purchase_target_wood_corner" model="purchase.target">
+        <field name="partner_id" ref="base.res_partner_1"/>
+        <field name="period_type">quarterly</field>
+        <field name="date_start"
+               eval="DateTime.today().replace(month=((DateTime.today().month - 1) // 3) * 3 + 1, day=1).strftime('%Y-%m-%d')"/>
+        <field name="date_end"
+               eval="(DateTime.today().replace(month=((DateTime.today().month - 1) // 3) * 3 + 1, day=1) + relativedelta(months=3, days=-1)).strftime('%Y-%m-%d')"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="demo_purchase_target_wood_corner_line_1" model="purchase.target.line">
+        <field name="target_id" ref="demo_purchase_target_wood_corner"/>
+        <field name="product_id" ref="product.product_product_20"/>
+        <field name="target_qty">25</field>
+    </record>
+
+</odoo>

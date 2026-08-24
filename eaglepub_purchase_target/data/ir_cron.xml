@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="ir_cron_update_expired_purchase_targets" model="ir.cron">
+            <field name="name">Purchase Targets: Update Expired</field>
+            <field name="model_id" ref="model_purchase_target"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_update_expired_targets()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="ir_cron_refresh_purchase_targets" model="ir.cron">
+            <field name="name">Purchase Targets: Refresh Achievement</field>
+            <field name="model_id" ref="model_purchase_target"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_refresh_targets()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="ir_cron_notify_replenishment" model="ir.cron">
+            <field name="name">Purchase Targets: Replenishment Alerts</field>
+            <field name="model_id" ref="model_purchase_target"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_notify_replenishment()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="active" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

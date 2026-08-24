@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ═══════════ Result Lines ═══════════ -->
+
+    <record id="sale_target_report_line_view_list" model="ir.ui.view">
+        <field name="name">sale.target.report.line.list</field>
+        <field name="model">sale.target.report.line</field>
+        <field name="arch" type="xml">
+            <list string="Sales Target Report" create="false" delete="false"
+                  decoration-success="percentage &gt;= 100"
+                  decoration-warning="percentage &gt;= 50 and percentage &lt; 100"
+                  decoration-danger="percentage &lt; 50">
+                <field name="currency_id" column_invisible="True"/>
+                <field name="user_id"/>
+                <field name="team_id" optional="show"/>
+                <field name="product_id"/>
+                <field name="measured_on"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="target_qty" sum="Target Qty"/>
+                <field name="achieved_qty" sum="Achieved Qty"/>
+                <field name="variance_qty" sum="Variance Qty"/>
+                <field name="target_amount" sum="Target Value"/>
+                <field name="achieved_amount" sum="Achieved Value"/>
+                <field name="variance_amount" sum="Variance Value" optional="hide"/>
+                <field name="percentage" widget="progressbar"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="sale_target_report_line_view_pivot" model="ir.ui.view">
+        <field name="name">sale.target.report.line.pivot</field>
+        <field name="model">sale.target.report.line</field>
+        <field name="arch" type="xml">
+            <pivot string="Sales Target Report">
+                <field name="user_id" type="row"/>
+                <field name="product_id" type="row"/>
+                <field name="target_qty" type="measure"/>
+                <field name="achieved_qty" type="measure"/>
+                <field name="target_amount" type="measure"/>
+                <field name="achieved_amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="sale_target_report_line_view_graph" model="ir.ui.view">
+        <field name="name">sale.target.report.line.graph</field>
+        <field name="model">sale.target.report.line</field>
+        <field name="arch" type="xml">
+            <graph string="Sales Target Report" type="bar">
+                <field name="user_id"/>
+                <field name="target_qty" type="measure"/>
+                <field name="achieved_qty" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="sale_target_report_line_view_search" model="ir.ui.view">
+        <field name="name">sale.target.report.line.search</field>
+        <field name="model">sale.target.report.line</field>
+        <field name="arch" type="xml">
+            <search string="Search Results">
+                <field name="user_id"/>
+                <field name="team_id"/>
+                <field name="product_id"/>
+                <filter name="below_target" string="Below Target"
+                        domain="[('percentage', '&lt;', 100)]"/>
+                <filter name="on_target" string="On Target"
+                        domain="[('percentage', '&gt;=', 100)]"/>
+                <separator/>
+                <filter name="from_orders" string="Measured on Orders"
+                        domain="[('measured_on', '=', 'sale_order')]"/>
+                <filter name="from_invoices" string="Measured on Invoices"
+                        domain="[('measured_on', '=', 'invoice')]"/>
+                <group>
+                    <filter name="group_user" string="Salesperson"
+                            context="{'group_by': 'user_id'}"/>
+                    <filter name="group_team" string="Sales Team"
+                            context="{'group_by': 'team_id'}"/>
+                    <filter name="group_product" string="Product"
+                            context="{'group_by': 'product_id'}"/>
+                    <filter name="group_measured" string="Measured On"
+                            context="{'group_by': 'measured_on'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="sale_target_report_line_action" model="ir.actions.act_window">
+        <field name="name">Sales Target Report</field>
+        <field name="res_model">sale.target.report.line</field>
+        <field name="view_mode">list,pivot,graph</field>
+        <field name="search_view_id" ref="sale_target_report_line_view_search"/>
+        <field name="context">{}</field>
+    </record>
+
+    <!-- ═══════════ Wizard ═══════════ -->
+
+    <record id="sale_target_report_wizard_view_form" model="ir.ui.view">
+        <field name="name">sale.target.report.wizard.form</field>
+        <field name="model">sale.target.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Sales Target Report">
+                <group>
+                    <group string="Period">
+                        <field name="period_type" widget="radio"/>
+                        <field name="year"
+                               invisible="period_type == 'custom'"/>
+                        <field name="quarter"
+                               invisible="period_type != 'quarterly'"
+                               required="period_type == 'quarterly'"/>
+                        <field name="date_from"
+                               readonly="period_type != 'custom'"/>
+                        <field name="date_to"
+                               readonly="period_type != 'custom'"/>
+                    </group>
+                    <group string="Filters">
+                        <field name="salesperson_ids" widget="many2many_tags"
+                               options="{'no_create': True}"
+                               placeholder="All salespeople"/>
+                        <field name="team_ids" widget="many2many_tags"
+                               options="{'no_create': True}"
+                               placeholder="All teams"/>
+                        <field name="product_ids" widget="many2many_tags"
+                               options="{'no_create': True}"
+                               placeholder="All products"/>
+                        <field name="measured_on"/>
+                        <field name="target_scope" readonly="1"/>
+                        <field name="company_id"
+                               groups="base.group_multi_company"/>
+                    </group>
+                </group>
+                <div class="text-muted mt-2">
+                    <i class="fa fa-info-circle me-1"/>
+                    Only targets whose period falls entirely inside the selected
+                    range are included. Choosing both salespeople and teams
+                    widens the result &#8212; the two kinds of target are
+                    alternatives, not a combined filter.
+                </div>
+                <footer>
+                    <button name="action_view" type="object"
+                            string="View" class="btn-primary"
+                            icon="fa-table"/>
+                    <button name="action_print_pdf" type="object"
+                            string="Print PDF" class="btn-secondary"
+                            icon="fa-file-pdf-o"/>
+                    <button name="action_export_xlsx" type="object"
+                            string="Export XLSX" class="btn-secondary"
+                            icon="fa-file-excel-o"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="sale_target_report_wizard_action" model="ir.actions.act_window">
+        <field name="name">Sales Target Report</field>
+        <field name="res_model">sale.target.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_target_scope': 'sales'}</field>
+    </record>
+
+    <menuitem id="sale_target_report_menu"
+              name="Target Report"
+              parent="sale.sale_menu_root"
+              action="sale_target_report_wizard_action"
+              sequence="31"/>
+
+    <record id="material_target_report_wizard_action"
+            model="ir.actions.act_window">
+        <field name="name">Material Movement Report</field>
+        <field name="res_model">sale.target.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_target_scope': 'material'}</field>
+    </record>
+
+    <menuitem id="material_target_report_menu"
+              name="Report"
+              parent="menu_material_movement_root"
+              action="material_target_report_wizard_action"
+              sequence="20"/>
+
+</odoo>

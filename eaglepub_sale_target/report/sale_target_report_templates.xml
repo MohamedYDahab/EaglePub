@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_sales">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <div class="page" style="font-size:9px;">
+
+                    <h2 class="text-center mb-1" style="font-size:16px;">
+                        Target Report &#8212;
+                        <span t-esc="data.get('scope_filter')"/>
+                    </h2>
+                    <p class="text-center text-muted mb-3">
+                        <span t-esc="data.get('date_from')"/> &#8594;
+                        <span t-esc="data.get('date_to')"/>
+                    </p>
+
+                    <table class="table table-sm table-borderless mb-3"
+                           style="width:70%; font-size:9px;">
+                        <tr>
+                            <td class="text-muted" style="width:95px;">Salespeople</td>
+                            <td><span t-esc="data.get('salesperson_filter')"/></td>
+                            <td class="text-muted" style="width:85px;">Teams</td>
+                            <td><span t-esc="data.get('team_filter')"/></td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted">Products</td>
+                            <td><span t-esc="data.get('product_filter')"/></td>
+                            <td class="text-muted">Measured on</td>
+                            <td><span t-esc="data.get('measured_filter')"/></td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted">Company</td>
+                            <td colspan="3"><span t-esc="data.get('company')"/></td>
+                        </tr>
+                    </table>
+
+                    <table class="table table-sm o_main_table"
+                           style="font-size:8.5px;">
+                        <thead>
+                            <tr style="background-color:#1e5128; color:#ffffff;">
+                                <th>Product</th>
+                                <th>Measured On</th>
+                                <th>Period</th>
+                                <th class="text-end">Target Qty</th>
+                                <th class="text-end">Achieved Qty</th>
+                                <th class="text-end">Var. Qty</th>
+                                <th class="text-end">Target Value</th>
+                                <th class="text-end">Achieved Value</th>
+                                <th class="text-end">Var. Value</th>
+                                <th class="text-end">Achieved %</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="data.get('groups', [])" t-as="group">
+                                <tr>
+                                    <td colspan="10"
+                                        style="background-color:#dfe6e9;">
+                                        <strong t-esc="group['assignee']"/>
+                                    </td>
+                                </tr>
+
+                                <tr t-foreach="group['lines']" t-as="line">
+                                    <td><span t-esc="line['product']"/></td>
+                                    <td><span t-esc="line['measured_label']"/></td>
+                                    <td><span t-esc="line['period']"/></td>
+                                    <td class="text-end">
+                                        <span t-esc="line['target_qty']"
+                                              t-options='{"widget": "float", "precision": 2}'/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-esc="line['achieved_qty']"
+                                              t-options='{"widget": "float", "precision": 2}'/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-esc="line['variance_qty']"
+                                              t-options='{"widget": "float", "precision": 2}'/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-esc="line['target_amount']"
+                                              t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-esc="line['achieved_amount']"
+                                              t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-esc="line['variance_amount']"
+                                              t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-esc="line['percentage']"
+                                              t-options='{"widget": "float", "precision": 1}'/>%
+                                    </td>
+                                </tr>
+
+                                <tr style="background-color:#f1f3f5;">
+                                    <td colspan="3">
+                                        <strong>Subtotal <span t-esc="group['assignee']"/></strong>
+                                    </td>
+                                    <td class="text-end">
+                                        <strong t-esc="group['target_qty']"
+                                                t-options='{"widget": "float", "precision": 2}'/>
+                                    </td>
+                                    <td class="text-end">
+                                        <strong t-esc="group['achieved_qty']"
+                                                t-options='{"widget": "float", "precision": 2}'/>
+                                    </td>
+                                    <td class="text-end">
+                                        <strong t-esc="group['variance_qty']"
+                                                t-options='{"widget": "float", "precision": 2}'/>
+                                    </td>
+                                    <td class="text-end">
+                                        <strong t-esc="group['target_amount']"
+                                                t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <strong t-esc="group['achieved_amount']"
+                                                t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <strong t-esc="group['variance_amount']"
+                                                t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <strong t-esc="group['percentage']"
+                                                t-options='{"widget": "float", "precision": 1}'/>%
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                        <tfoot>
+                            <tr style="background-color:#1e5128; color:#ffffff;">
+                                <td colspan="3"><strong>Grand Total</strong></td>
+                                <td class="text-end">
+                                    <strong t-esc="data['total']['target_qty']"
+                                            t-options='{"widget": "float", "precision": 2}'/>
+                                </td>
+                                <td class="text-end">
+                                    <strong t-esc="data['total']['achieved_qty']"
+                                            t-options='{"widget": "float", "precision": 2}'/>
+                                </td>
+                                <td class="text-end">
+                                    <strong t-esc="data['total']['variance_qty']"
+                                            t-options='{"widget": "float", "precision": 2}'/>
+                                </td>
+                                <td class="text-end">
+                                    <strong t-esc="data['total']['target_amount']"
+                                            t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/>
+                                </td>
+                                <td class="text-end">
+                                    <strong t-esc="data['total']['achieved_amount']"
+                                            t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/>
+                                </td>
+                                <td class="text-end">
+                                    <strong t-esc="data['total']['variance_amount']"
+                                            t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/>
+                                </td>
+                                <td class="text-end">
+                                    <strong t-esc="data['total']['percentage']"
+                                            t-options='{"widget": "float", "precision": 1}'/>%
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <p class="text-muted mt-3" style="font-size:8px;">
+                        Targets are set in quantity, so the achievement
+                        percentage is quantity based throughout. Values are
+                        excluding tax: target value is the target quantity at
+                        the line price, achieved value is what was actually
+                        sold.
+                    </p>
+
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Demo targets built on Odoo's own demo records, so they report genuine
+        achievement rather than zeros:
+          - Marc Demo carries 15 confirmed sale orders
+          - Acoustic Bloc Screens, Office Chair Black, Cabinet with Doors and
+            Office Lamp all appear on those orders
+        Periods are derived from the install date so the data stays current
+        whenever demo is loaded.
+    -->
+
+    <!-- ═══════ Salesperson, current year ═══════ -->
+    <record id="demo_sale_target_year" model="sale.target">
+        <field name="assign_to">salesperson</field>
+        <field name="salesperson_id" ref="base.user_demo"/>
+        <field name="period_type">yearly</field>
+        <field name="date_start"
+               eval="DateTime.today().replace(month=1, day=1).strftime('%Y-%m-%d')"/>
+        <field name="date_end"
+               eval="DateTime.today().replace(month=12, day=31).strftime('%Y-%m-%d')"/>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="auto_renew" eval="True"/>
+    </record>
+
+    <record id="demo_sale_target_year_line_1" model="sale.target.line">
+        <field name="target_id" ref="demo_sale_target_year"/>
+        <field name="product_id" ref="product.product_product_25"/>
+        <field name="measured_on">sale_order</field>
+        <field name="target_qty">60</field>
+    </record>
+
+    <record id="demo_sale_target_year_line_2" model="sale.target.line">
+        <field name="target_id" ref="demo_sale_target_year"/>
+        <field name="product_id" ref="product.product_product_12"/>
+        <field name="measured_on">sale_order</field>
+        <field name="target_qty">40</field>
+    </record>
+
+    <!-- ═══════ Salesperson, current month, measured on invoices ═══════ -->
+    <record id="demo_sale_target_month" model="sale.target">
+        <field name="assign_to">salesperson</field>
+        <field name="salesperson_id" ref="base.user_demo"/>
+        <field name="period_type">monthly</field>
+        <field name="date_start"
+               eval="DateTime.today().replace(day=1).strftime('%Y-%m-%d')"/>
+        <field name="date_end"
+               eval="(DateTime.today().replace(day=1) + relativedelta(months=1, days=-1)).strftime('%Y-%m-%d')"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="demo_sale_target_month_line_1" model="sale.target.line">
+        <field name="target_id" ref="demo_sale_target_month"/>
+        <field name="product_id" ref="product.product_delivery_02"/>
+        <field name="measured_on">invoice</field>
+        <field name="target_qty">20</field>
+    </record>
+
+    <!-- ═══════ Sales team, current quarter ═══════ -->
+    <record id="demo_sale_target_team_quarter" model="sale.target">
+        <field name="assign_to">team</field>
+        <field name="team_id" ref="sales_team.team_sales_department"/>
+        <field name="period_type">quarterly</field>
+        <field name="date_start"
+               eval="DateTime.today().replace(month=((DateTime.today().month - 1) // 3) * 3 + 1, day=1).strftime('%Y-%m-%d')"/>
+        <field name="date_end"
+               eval="(DateTime.today().replace(month=((DateTime.today().month - 1) // 3) * 3 + 1, day=1) + relativedelta(months=3, days=-1)).strftime('%Y-%m-%d')"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="demo_sale_target_team_quarter_line_1" model="sale.target.line">
+        <field name="target_id" ref="demo_sale_target_team_quarter"/>
+        <field name="product_id" ref="product.product_product_10"/>
+        <field name="measured_on">sale_order</field>
+        <field name="target_qty">25</field>
+    </record>
+
+    <record id="demo_sale_target_team_quarter_line_2" model="sale.target.line">
+        <field name="target_id" ref="demo_sale_target_team_quarter"/>
+        <field name="product_id" ref="product.product_product_5"/>
+        <field name="measured_on">sale_order</field>
+        <field name="target_qty">12</field>
+    </record>
+
+    <!-- ═══════ Material Movement scope ═══════ -->
+    <record id="demo_material_target_quarter" model="sale.target">
+        <field name="target_scope">material</field>
+        <field name="assign_to">salesperson</field>
+        <field name="salesperson_id" ref="base.user_admin"/>
+        <field name="period_type">quarterly</field>
+        <field name="date_start"
+               eval="DateTime.today().replace(month=((DateTime.today().month - 1) // 3) * 3 + 1, day=1).strftime('%Y-%m-%d')"/>
+        <field name="date_end"
+               eval="(DateTime.today().replace(month=((DateTime.today().month - 1) // 3) * 3 + 1, day=1) + relativedelta(months=3, days=-1)).strftime('%Y-%m-%d')"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="demo_material_target_quarter_line_1" model="sale.target.line">
+        <field name="target_id" ref="demo_material_target_quarter"/>
+        <field name="product_id" ref="product.consu_delivery_01"/>
+        <field name="measured_on">sale_order</field>
+        <field name="target_qty">10</field>
+    </record>
+
+    <record id="demo_material_target_quarter_line_2" model="sale.target.line">
+        <field name="target_id" ref="demo_material_target_quarter"/>
+        <field name="product_id" ref="product.product_product_12"/>
+        <field name="measured_on">invoice</field>
+        <field name="target_qty">15</field>
+    </record>
+
+</odoo>

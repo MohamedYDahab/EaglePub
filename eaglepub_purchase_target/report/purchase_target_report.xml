@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Ten columns need the extra width -->
+    <record id="paperformat_purchase_target" model="report.paperformat">
+        <field name="name">Purchase Target Report (A4 Landscape)</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">28</field>
+        <field name="margin_bottom">20</field>
+        <field name="margin_left">6</field>
+        <field name="margin_right">6</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">20</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_purchase_target" model="ir.actions.report">
+        <field name="name">Purchase Target Report</field>
+        <field name="model">purchase.target.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">eaglepub_purchase_target.report_purchase_target</field>
+        <field name="report_file">eaglepub_purchase_target.report_purchase_target</field>
+        <field name="print_report_name">'Purchase Target Report'</field>
+        <field name="paperformat_id" ref="paperformat_purchase_target"/>
+    </record>
+
+</odoo>

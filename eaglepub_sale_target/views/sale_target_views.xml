@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- List View -->
+    <record id="sale_target_view_list" model="ir.ui.view">
+        <field name="name">sale.target.list</field>
+        <field name="model">sale.target</field>
+        <field name="arch" type="xml">
+            <list decoration-muted="state == 'expired'"
+                  decoration-success="state != 'expired' and progress &gt;= 100"
+                  decoration-warning="state != 'expired' and progress &gt;= 75 and progress &lt; 100"
+                  decoration-danger="state != 'expired' and progress &lt; 50">
+                <field name="state" column_invisible="True"/>
+                <field name="name"/>
+                <field name="assign_to"/>
+                <field name="salesperson_id" optional="show"/>
+                <field name="team_id" optional="show"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="total_target_qty"/>
+                <field name="total_achieved_qty"/>
+                <field name="total_amount_untaxed" optional="show"/>
+                <field name="total_achieved" optional="hide"/>
+                <field name="period_type"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="progress" widget="progressbar"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="sale_target_view_form" model="ir.ui.view">
+        <field name="name">sale.target.form</field>
+        <field name="model">sale.target</field>
+        <field name="arch" type="xml">
+            <form string="Sales Target">
+                <header>
+                    <field name="state" invisible="True"/>
+                    <button name="action_refresh"
+                            type="object"
+                            string="Refresh"
+                            class="oe_highlight"
+                            icon="fa-refresh"/>
+                    <button name="action_next_period"
+                            type="object"
+                            string="Next Period"
+                            icon="fa-forward"/>
+                </header>
+                <sheet>
+                    <!-- Stat Buttons -->
+                    <div class="oe_button_box" name="button_box">
+                        <div class="oe_stat_button" icon="fa-line-chart">
+                            <div class="o_stat_info">
+                                <field name="progress" widget="progressbar"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning" role="alert"
+                         invisible="state != 'expired'">
+                        This target period has ended. Use <b>Next Period</b> to create a new target.
+                    </div>
+
+                    <group>
+                        <group string="Assignment">
+                            <field name="target_scope" readonly="1"/>
+                            <field name="assign_to" readonly="state == 'expired'"
+                                   widget="radio"/>
+                            <field name="salesperson_id"
+                                   readonly="state == 'expired'"
+                                   invisible="assign_to != 'salesperson'"
+                                   required="assign_to == 'salesperson'"/>
+                            <field name="team_id"
+                                   readonly="state == 'expired'"
+                                   invisible="assign_to != 'team'"
+                                   required="assign_to == 'team'"/>
+                            <field name="currency_id" groups="base.group_multi_currency"
+                                   readonly="state == 'expired'"/>
+                            <field name="company_id" groups="base.group_multi_company"
+                                   readonly="state == 'expired'"/>
+                        </group>
+                        <group string="Period">
+                            <field name="period_type" readonly="state == 'expired'"/>
+                            <field name="date_start" readonly="state == 'expired'"/>
+                            <field name="date_end" readonly="state == 'expired'"/>
+                            <field name="auto_renew"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Target Lines" name="lines">
+                            <field name="line_ids" readonly="state == 'expired'">
+                                <list editable="bottom">
+                                    <field name="currency_id" column_invisible="True"/>
+                                    <field name="product_id"/>
+                                    <field name="measured_on"/>
+                                    <field name="target_qty"/>
+                                    <field name="uom_id" string="Unit"/>
+                                    <field name="price_unit"/>
+                                    <field name="amount_untaxed" sum="Target Value"/>
+                                    <field name="current_stock_qty"
+                                           string="Current Stock"/>
+                                    <field name="achieved_qty"/>
+                                    <field name="achieved_amount" optional="show"
+                                           sum="Achieved Value"/>
+                                    <field name="achieved_percentage" string="Achieved %"/>
+                                    <field name="remaining"/>
+                                    <button name="action_view_source_documents"
+                                            type="object"
+                                            icon="fa-external-link"
+                                            title="Open the sale orders or invoices behind this figure"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Summary" name="summary">
+                            <group>
+                                <group string="Quantity">
+                                    <field name="total_target_qty"/>
+                                    <field name="total_achieved_qty"/>
+                                    <field name="remaining_qty_total"/>
+                                    <field name="progress" widget="progressbar"/>
+                                </group>
+                                <group string="Value (excl. tax)">
+                                    <field name="total_amount_untaxed"/>
+                                    <field name="total_achieved"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Graph View -->
+    <record id="sale_target_view_graph" model="ir.ui.view">
+        <field name="name">sale.target.graph</field>
+        <field name="model">sale.target</field>
+        <field name="arch" type="xml">
+            <graph string="Sales Targets" type="bar" sample="1">
+                <field name="salesperson_id"/>
+                <field name="total_target_qty" type="measure"/>
+                <field name="total_achieved_qty" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Pivot View -->
+    <record id="sale_target_view_pivot" model="ir.ui.view">
+        <field name="name">sale.target.pivot</field>
+        <field name="model">sale.target</field>
+        <field name="arch" type="xml">
+            <pivot string="Sales Targets" sample="1">
+                <field name="salesperson_id" type="row"/>
+                <field name="period_type" type="col"/>
+                <field name="total_target_qty" type="measure"/>
+                <field name="total_achieved_qty" type="measure"/>
+                <field name="total_amount_untaxed" type="measure"/>
+                <field name="total_achieved" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="sale_target_view_search" model="ir.ui.view">
+        <field name="name">sale.target.search</field>
+        <field name="model">sale.target</field>
+        <field name="arch" type="xml">
+            <search string="Search Sales Targets">
+                <field name="salesperson_id"/>
+                <field name="team_id"/>
+                <filter name="my_targets"
+                        string="My Targets"
+                        domain="[('salesperson_id', '=', uid)]"/>
+                <separator/>
+                <filter name="filter_active" string="Active" domain="[('state', '=', 'active')]"/>
+                <filter name="filter_expired" string="Expired" domain="[('state', '=', 'expired')]"/>
+                <separator/>
+                <filter name="period_monthly" string="Monthly" domain="[('period_type', '=', 'monthly')]"/>
+                <filter name="period_quarterly" string="Quarterly" domain="[('period_type', '=', 'quarterly')]"/>
+                <filter name="period_yearly" string="Yearly" domain="[('period_type', '=', 'yearly')]"/>
+                <filter name="period_custom" string="Custom" domain="[('period_type', '=', 'custom')]"/>
+                <group>
+                    <filter name="group_salesperson" string="Salesperson" context="{'group_by': 'salesperson_id'}"/>
+                    <filter name="group_team" string="Sales Team" context="{'group_by': 'team_id'}"/>
+                    <filter name="group_period" string="Period Type" context="{'group_by': 'period_type'}"/>
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <!-- Each scope gets its own action. The domain lives on the action rather
+         than as a search default, so it is always applied and a user cannot
+         clear it from the search box to see the other set. -->
+    <record id="sale_target_action" model="ir.actions.act_window">
+        <field name="name">Sales Targets</field>
+        <field name="res_model">sale.target</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+        <field name="search_view_id" ref="sale_target_view_search"/>
+        <field name="domain">[('target_scope', '=', 'sales')]</field>
+        <field name="context">{'search_default_filter_active': 1,
+                               'default_target_scope': 'sales'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first sales target
+            </p>
+            <p>
+                Set quantity targets for salespeople or sales teams
+                on specific products and track their progress in real time.
+            </p>
+        </field>
+    </record>
+
+    <record id="material_target_action" model="ir.actions.act_window">
+        <field name="name">Material Movement Targets</field>
+        <field name="res_model">sale.target</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+        <field name="search_view_id" ref="sale_target_view_search"/>
+        <field name="domain">[('target_scope', '=', 'material')]</field>
+        <field name="context">{'search_default_filter_active': 1,
+                               'default_target_scope': 'material'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first material movement target
+            </p>
+            <p>
+                Same fields and the same achievement logic as a sales target,
+                kept as a separate set of records.
+            </p>
+        </field>
+    </record>
+
+    <!-- Cron: Update expired targets daily -->
+    <record id="ir_cron_update_expired_targets" model="ir.cron">
+        <field name="name">Sales Targets: Update Expired</field>
+        <field name="model_id" ref="model_sale_target"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="code">model._cron_update_expired_targets()</field>
+    </record>
+
+    <record id="ir_cron_refresh_sale_targets" model="ir.cron">
+        <field name="name">Sales Targets: Refresh Achievement</field>
+        <field name="model_id" ref="model_sale_target"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_refresh_targets()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Menu: Sales > Sales Targets
+
+         Deliberately not under Configuration: that menu is restricted to
+         sales managers, so salespeople could never reach their own targets
+         or the "My Targets" filter. -->
+    <menuitem id="sale_target_menu"
+              name="Sales Targets"
+              parent="sale.sale_menu_root"
+              action="sale_target_action"
+              sequence="30"/>
+
+    <!-- Material Movement Monitor sits under Sales, as a submenu holding its
+         own targets and report. The two scopes stay separate through the
+         action domains rather than through menu placement. -->
+    <menuitem id="menu_material_movement_root"
+              name="Material Movement Monitor"
+              parent="sale.sale_menu_root"
+              sequence="32"/>
+
+    <menuitem id="material_target_menu"
+              name="Targets"
+              parent="menu_material_movement_root"
+              action="material_target_action"
+              sequence="10"/>
+
+</odoo>
