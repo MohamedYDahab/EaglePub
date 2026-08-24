@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-inherit="point_of_sale.ControlButtons" t-inherit-mode="extension">
+        <xpath expr="//t[@t-if='props.showRemainingButtons']//div[hasclass('control-buttons')]" position="inside">
+            <button t-if="eaglepubShowOverride"
+                    class="btn eaglepub-override-btn"
+                    t-att-class="buttonClass"
+                    t-att-disabled="eaglepubOverridden"
+                    t-on-click="() => this.eaglepubClickOverride()">
+                <i class="fa fa-unlock-alt me-1" role="img" aria-label="Manager override" title="Manager override"/>
+                <t t-if="eaglepubOverridden">Override Active</t>
+                <t t-else="">Manager Override</t>
+            </button>
+        </xpath>
+    </t>
+
+</templates>

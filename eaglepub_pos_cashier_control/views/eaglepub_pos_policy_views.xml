@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="eaglepub_pos_policy_view_list" model="ir.ui.view">
+        <field name="name">eaglepub.pos.policy.list</field>
+        <field name="model">eaglepub.pos.policy</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="max_discount"/>
+                <field name="allow_line_delete"/>
+                <field name="allow_price_change"/>
+                <field name="max_order_amount"/>
+                <field name="user_count" string="Cashiers"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="eaglepub_pos_policy_view_form" model="ir.ui.view">
+        <field name="name">eaglepub.pos.policy.form</field>
+        <field name="model">eaglepub.pos.policy</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Junior Cashier"/></h1>
+                    </div>
+                    <group>
+                        <group string="Limits">
+                            <field name="max_discount"/>
+                            <field name="max_order_amount"/>
+                        </group>
+                        <group string="Permissions">
+                            <field name="allow_line_delete"/>
+                            <field name="allow_price_change"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Cashiers" name="cashiers">
+                            <!--
+                                Read-only on purpose. This is a one2many onto
+                                res.users, so an editable list would create half
+                                a user - no password, no POS access - instead of
+                                linking an existing one. Assignment belongs on
+                                the user form.
+                            -->
+                            <div class="alert alert-info" role="status">
+                                Assign a cashier from
+                                <b>Settings &#8594; Users &amp; Companies &#8594; Users</b>,
+                                on the <b>POS Policy</b> tab of the user.
+                            </div>
+                            <field name="user_ids" readonly="1" nolabel="1">
+                                <list create="false" edit="false" delete="false">
+                                    <field name="name"/>
+                                    <field name="login"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                    <field name="active" invisible="1"/>
+                    <field name="sequence" invisible="1"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="eaglepub_pos_policy_action" model="ir.actions.act_window">
+        <field name="name">Cashier Policies</field>
+        <field name="res_model">eaglepub.pos.policy</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Set up your first cashier policy
+            </p>
+            <p>
+                A policy caps what a cashier may do at the till - how much they can
+                discount, whether they can delete lines - and is then assigned to as
+                many cashiers as you like.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_eaglepub_pos_policy"
+              name="Cashier Policies"
+              parent="point_of_sale.menu_point_config_product"
+              action="eaglepub_pos_policy_action"
+              sequence="25"/>
+
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_users_view_form_eaglepub_pos" model="ir.ui.view">
+        <field name="name">res.users.form.inherit.eaglepub.pos</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='access_rights']" position="after">
+                <page string="POS Policy" name="eaglepub_pos_policy">
+                    <group>
+                        <field name="eaglepub_pos_policy_id"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
