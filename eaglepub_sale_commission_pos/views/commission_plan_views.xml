@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="commission_plan_view_form_pos" model="ir.ui.view">
+        <field name="name">eaglepub.commission.plan.form.inherit.pos</field>
+        <field name="model">eaglepub.commission.plan</field>
+        <field name="inherit_id" ref="eaglepub_sale_commission.commission_plan_view_form"/>
+        <field name="arch" type="xml">
+            <field name="base_on" position="after">
+                <field name="include_pos"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="commission_plan_view_list_pos" model="ir.ui.view">
+        <field name="name">eaglepub.commission.plan.list.inherit.pos</field>
+        <field name="model">eaglepub.commission.plan</field>
+        <field name="inherit_id" ref="eaglepub_sale_commission.commission_plan_view_list"/>
+        <field name="arch" type="xml">
+            <field name="base_on" position="after">
+                <field name="include_pos" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
