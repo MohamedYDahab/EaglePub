@@ -175,20 +175,78 @@
         </p>
     </div>
 
-    <!--
-        SCREENSHOTS GO HERE.
-        Capture from a running Odoo 19 and drop the files in this folder, then add the
-        <img> tags. Never ship <img> pointing at a file that does not exist - the store
-        renders a broken image.
+    <!-- ═══════════════ SCREENSHOTS ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 6px;">The actual output</h2>
+    <p style="color:#6B7280; margin:0 0 22px;">Every one of these is a real PDF straight out of the app.</p>
 
-        Suggested set:
-          screenshot_wizard.png          - the report picker with the five options
-          screenshot_shift_pdf.png       - the Z-report PDF
-          screenshot_cashier_pdf.png     - cashier performance, showing discount given
-          screenshot_hourly_pdf.png      - hourly sales
-          screenshot_payment_pdf.png     - payment breakdown
-          screenshot_excel.png           - an exported sheet open in Excel
-          screenshot_arabic_pdf.png      - the same report in Arabic, right to left
+    <div style="border:1px solid #E5E7EB; border-radius:10px; padding:18px; margin-bottom:18px;">
+        <img src="screenshot_shift_pdf.png" alt="Shift Z-report listing each till session with opened and closed times, orders, sales, tax and average ticket"
+             style="width:100%; height:auto; display:block; border:1px solid #E5E7EB; border-radius:6px;"/>
+        <p style="margin:12px 4px 0; color:#4B5563; font-size:14px;">
+            <b style="color:#3B2436;">Shift / Z-report.</b> Every session in the period with
+            when it opened, when it closed, who ran it, and what came through it. The one
+            you reconcile the drawer against.
+        </p>
+    </div>
+
+    <div style="border:1px solid #E5E7EB; border-radius:10px; padding:18px; margin-bottom:18px;">
+        <img src="screenshot_cashier_pdf.png" alt="Cashier performance report with orders, sales, tax, discount given, average ticket and share per cashier"
+             style="width:100%; height:auto; display:block; border:1px solid #E5E7EB; border-radius:6px;"/>
+        <p style="margin:12px 4px 0; color:#4B5563; font-size:14px;">
+            <b style="color:#3B2436;">Cashier performance.</b> Note the <b>Discount Given</b>
+            column - what each person handed away in money, not percentages. Shares add to
+            100%, and the totals row leaves averages blank rather than summing something
+            meaningless.
+        </p>
+    </div>
+
+    <div style="border:1px solid #E5E7EB; border-radius:10px; padding:18px; margin-bottom:18px;">
+        <img src="screenshot_arabic_pdf.png" alt="The same cashier performance report in Arabic, laid out right to left with mirrored columns"
+             style="width:100%; height:auto; display:block; border:1px solid #E5E7EB; border-radius:6px;"/>
+        <p style="margin:12px 4px 0; color:#4B5563; font-size:14px;">
+            <b style="color:#3B2436;">The same report in Arabic.</b> The whole page turns
+            around - headings, column order and alignment. This is not an English layout
+            with translated words dropped into it.
+        </p>
+    </div>
+
+    <table style="width:100%; border-collapse:separate; border-spacing:14px 0;">
+        <tr>
+            <td class="epr-col" style="width:50%; vertical-align:top;">
+                <div style="border:1px solid #E5E7EB; border-radius:10px; padding:16px; height:100%;">
+                    <img src="screenshot_hourly_pdf.png" alt="Hourly sales report showing orders, sales and average ticket for each hour of trading"
+                         style="width:100%; height:auto; display:block; border:1px solid #E5E7EB; border-radius:6px;"/>
+                    <p style="margin:10px 2px 0; color:#4B5563; font-size:14px;">
+                        <b style="color:#3B2436;">Hourly sales</b>, in your timezone rather than UTC.
+                    </p>
+                </div>
+            </td>
+            <td class="epr-col" style="width:50%; vertical-align:top;">
+                <div style="border:1px solid #E5E7EB; border-radius:10px; padding:16px; height:100%;">
+                    <img src="screenshot_payment_pdf.png" alt="Payment breakdown report showing count, amount and share for each payment method"
+                         style="width:100%; height:auto; display:block; border:1px solid #E5E7EB; border-radius:6px;"/>
+                    <p style="margin:10px 2px 0; color:#4B5563; font-size:14px;">
+                        <b style="color:#3B2436;">Payment breakdown</b> - cash against card against the rest.
+                    </p>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <div style="border:1px solid #E5E7EB; border-radius:10px; padding:18px; margin-top:18px;">
+        <img src="screenshot_product_pdf.png" alt="Product mix report ranked by revenue, with quantity, sales, orders and share"
+             style="width:100%; height:auto; display:block; border:1px solid #E5E7EB; border-radius:6px;"/>
+        <p style="margin:12px 4px 0; color:#4B5563; font-size:14px;">
+            <b style="color:#3B2436;">Product mix</b>, ranked by revenue rather than
+            alphabetically, with the number of orders each product turned up in.
+        </p>
+    </div>
+
+    <!--
+        STILL TO CAPTURE - add a block above for each, matching the pattern:
+          screenshot_wizard.png - the report picker with the five options
+          screenshot_excel.png  - an exported sheet open in Excel
+        Never point <img> at a file that does not exist - the store renders a broken image.
     -->
 
     <!-- ═══════════════ SCOPE / HONESTY ═══════════════ -->
