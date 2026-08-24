@@ -29,7 +29,10 @@ export class ManagerPinDialog extends Component {
     }
 
     press(digit) {
-        this.state.pin += digit;
+        // Coerced here rather than in the template: QWeb compiles expressions
+        // in a restricted scope where String is not defined, so String(d) in a
+        // t-on-click throws on every keypress.
+        this.state.pin += String(digit);
     }
 
     backspace() {
