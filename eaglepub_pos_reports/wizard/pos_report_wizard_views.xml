@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="eaglepub_pos_report_wizard_view_form" model="ir.ui.view">
+        <field name="name">eaglepub.pos.report.wizard.form</field>
+        <field name="model">eaglepub.pos.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="POS Reports">
+                <group>
+                    <group>
+                        <field name="report_type" widget="radio"/>
+                    </group>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="config_ids" widget="many2many_tags"
+                               options="{'no_create': True}"
+                               placeholder="All points of sale"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_print_pdf" string="Print PDF"
+                            type="object" class="btn-primary"/>
+                    <button name="action_export_excel" string="Export Excel"
+                            type="object" class="btn-secondary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="eaglepub_pos_report_wizard_action" model="ir.actions.act_window">
+        <field name="name">POS Reports</field>
+        <field name="res_model">eaglepub.pos.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

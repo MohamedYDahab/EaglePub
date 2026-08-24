@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS Reports Pack for Odoo 19</title>
+
+    <!--
+        NOTE ON STYLING - READ BEFORE EDITING
+
+        The Odoo Apps store sanitises this page. Observed on a live listing, it drops
+        `background` (solid and gradient alike), `opacity`, and `position:absolute`,
+        while keeping `color`, `border`, `padding` and `border-radius`.
+
+        So: never let contrast depend on a background. Light surfaces, dark text,
+        structure carried by borders and text colour. Backgrounds stay in the markup
+        because they look good when they survive, but nothing depends on them.
+        Every text colour clears 3:1 against plain white.
+
+        This <style> block is enhancement only. If it is stripped the page still
+        renders as intended, minus the motion.
+    -->
+    <style>
+        .epr-card { transition: transform .18s ease, box-shadow .18s ease; }
+        .epr-card:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(16,24,40,.12) !important; }
+        .epr-cta { transition: transform .18s ease, box-shadow .18s ease; }
+        .epr-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(113,75,103,.34) !important; }
+        @media (max-width: 760px) {
+            .epr-h1   { font-size: 1.85rem !important; }
+            .epr-pad  { padding: 24px 20px !important; }
+            .epr-col  { display: block !important; width: 100% !important; }
+            .epr-hero { padding: 46px 18px 40px !important; }
+            .epr-scroll { overflow-x: auto !important; }
+        }
+    </style>
+</head>
+
+<body style="margin:0; padding:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; color:#1F2937; background:#F6F7F9; line-height:1.7; font-size:15px; -webkit-font-smoothing:antialiased;">
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<div class="epr-hero" style="background:#FAF5F9; border-bottom:4px solid #714B67; padding:64px 24px 54px; text-align:center;">
+    <div style="display:inline-block; border:2px solid #714B67; color:#714B67; padding:5px 16px; border-radius:999px; font-size:12px; font-weight:800; letter-spacing:.09em; text-transform:uppercase; margin-bottom:20px;">
+        Till Reporting for Odoo 19
+    </div>
+    <h1 class="epr-h1" style="font-size:2.7rem; font-weight:800; letter-spacing:-1px; line-height:1.18; margin:0 0 16px; color:#3B2436;">
+        POS Reports Pack
+    </h1>
+    <p style="font-size:1.16rem; color:#4A2F43; max-width:680px; margin:0 auto;">
+        Odoo tells you what a point of sale sold. It is far less forthcoming about
+        which cashier sold it, at what hour, and through which payment method.
+    </p>
+</div>
+
+<div style="max-width:960px; margin:0 auto; padding:0 20px;">
+
+    <!-- ═══════════════ THE FIVE REPORTS ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:44px 0 6px;">Five reports, one screen</h2>
+    <p style="color:#6B7280; margin:0 0 22px;">Pick a period, pick the tills, pick a report. Every one exports to PDF and to Excel.</p>
+
+    <div class="epr-scroll">
+    <table style="width:100%; border-collapse:collapse; border:1px solid #E5E7EB; border-radius:10px; overflow:hidden;">
+        <tr>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; width:30%; font-weight:700; color:#3B2436;">Shift / Z-Report</td>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">
+                Every session in the period - opened, closed, cashier, orders, sales,
+                tax and average ticket. The report you reconcile the drawer against.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; font-weight:700; color:#3B2436;">Cashier Performance</td>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">
+                Orders, sales, tax, average ticket and share of the total, per cashier -
+                plus <b>how much each one gave away in discounts</b>, in money rather
+                than percentages.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; font-weight:700; color:#3B2436;">Product Mix</td>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">
+                What actually moved, by quantity and by value, with the number of orders
+                each product appeared in. Ranked by revenue, not alphabetically.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; font-weight:700; color:#3B2436;">Hourly Sales</td>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">
+                Where the day's takings really come from - <b>in your own timezone</b>.
+                An hourly report in UTC is worse than none: a shop in Riyadh would see
+                its evening peak land at lunchtime.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:16px 20px; font-weight:700; color:#3B2436;">Payment Breakdown</td>
+            <td style="padding:16px 20px; color:#374151;">
+                Cash against card against customer account against everything else,
+                by count and by amount.
+            </td>
+        </tr>
+    </table>
+    </div>
+
+    <!-- ═══════════════ ARABIC ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 6px;">Arabic, done properly</h2>
+    <p style="color:#6B7280; margin:0 0 22px;">Not an English sheet with translated words dropped into it.</p>
+
+    <table style="width:100%; border-collapse:separate; border-spacing:14px 0;">
+        <tr>
+            <td class="epr-col" style="width:50%; vertical-align:top;">
+                <div class="epr-card" style="border:1px solid #E5E7EB; border-top:4px solid #714B67; border-radius:10px; padding:22px 24px; height:100%;">
+                    <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 10px;">The whole page turns around</h3>
+                    <p style="margin:0; color:#4B5563;">
+                        Headings, column labels and alignment all flip for Arabic users. The
+                        Excel sheet itself is set right-to-left, with text right-aligned and
+                        figures left-aligned - the way an Arabic reader expects to see a
+                        column of numbers.
+                    </p>
+                </div>
+            </td>
+            <td class="epr-col" style="width:50%; vertical-align:top;">
+                <div class="epr-card" style="border:1px solid #E5E7EB; border-top:4px solid #714B67; border-radius:10px; padding:22px 24px; height:100%;">
+                    <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 10px;">Cashier Performance, in Arabic</h3>
+                    <p dir="rtl" style="margin:0 0 8px; color:#3B2436; font-weight:700; text-align:right;">
+                        أداء أمناء الصندوق
+                    </p>
+                    <p dir="rtl" style="margin:0; color:#4B5563; font-size:14px; text-align:right;">
+                        أمين الصندوق | عدد الطلبات | المبيعات | الضريبة | الخصم الممنوح | متوسط الفاتورة | النسبة
+                    </p>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <!-- ═══════════════ DETAILS THAT MATTER ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 22px;">The details that decide whether you trust a report</h2>
+
+    <table style="width:100%; border-collapse:separate; border-spacing:14px 0;">
+        <tr>
+            <td class="epr-col" style="width:33%; vertical-align:top;">
+                <div class="epr-card" style="border:1px solid #E5E7EB; border-left:4px solid #714B67; border-radius:10px; padding:20px 22px; height:100%;">
+                    <h3 style="font-size:1rem; font-weight:700; color:#374151; margin:0 0 8px;">What counts as a sale</h3>
+                    <p style="margin:0; color:#4B5563; font-size:14px;">
+                        Paid and posted orders only. An unfinished ticket is not revenue and
+                        a cancelled order never happened, so neither is counted.
+                    </p>
+                </div>
+            </td>
+            <td class="epr-col" style="width:33%; vertical-align:top;">
+                <div class="epr-card" style="border:1px solid #E5E7EB; border-left:4px solid #714B67; border-radius:10px; padding:20px 22px; height:100%;">
+                    <h3 style="font-size:1rem; font-weight:700; color:#374151; margin:0 0 8px;">Shares that add up</h3>
+                    <p style="margin:0; color:#4B5563; font-size:14px;">
+                        Every percentage column is computed against the report's own total,
+                        so the shares sum to exactly 100% rather than nearly.
+                    </p>
+                </div>
+            </td>
+            <td class="epr-col" style="width:33%; vertical-align:top;">
+                <div class="epr-card" style="border:1px solid #E5E7EB; border-left:4px solid #714B67; border-radius:10px; padding:20px 22px; height:100%;">
+                    <h3 style="font-size:1rem; font-weight:700; color:#374151; margin:0 0 8px;">Totals that mean something</h3>
+                    <p style="margin:0; color:#4B5563; font-size:14px;">
+                        Only columns worth summing are summed. Averages and percentages are
+                        left blank in the totals row instead of adding a meaningless figure.
+                    </p>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <!-- ═══════════════ WHERE TO FIND IT ═══════════════ -->
+    <div class="epr-pad" style="border:1px solid #E5E7EB; border-left:5px solid #714B67; border-radius:10px; padding:28px 32px; margin:44px 0;">
+        <h2 style="font-size:1.5rem; font-weight:800; color:#3B2436; margin:0 0 8px;">Where to find it</h2>
+        <p style="margin:0; color:#374151;">
+            <b>Point of Sale &#8594; Reporting &#8594; POS Reports Pack.</b> Choose a date range,
+            optionally narrow it to particular points of sale, pick a report, then
+            <b>Print PDF</b> or <b>Export Excel</b>. There is nothing to configure first.
+        </p>
+    </div>
+
+    <!--
+        SCREENSHOTS GO HERE.
+        Capture from a running Odoo 19 and drop the files in this folder, then add the
+        <img> tags. Never ship <img> pointing at a file that does not exist - the store
+        renders a broken image.
+
+        Suggested set:
+          screenshot_wizard.png          - the report picker with the five options
+          screenshot_shift_pdf.png       - the Z-report PDF
+          screenshot_cashier_pdf.png     - cashier performance, showing discount given
+          screenshot_hourly_pdf.png      - hourly sales
+          screenshot_payment_pdf.png     - payment breakdown
+          screenshot_excel.png           - an exported sheet open in Excel
+          screenshot_arabic_pdf.png      - the same report in Arabic, right to left
+    -->
+
+    <!-- ═══════════════ SCOPE / HONESTY ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 6px;">What this app does not do</h2>
+    <p style="color:#6B7280; margin:0 0 22px;">Worth knowing before you buy.</p>
+
+    <div style="border:1px solid #E5E7EB; border-left:5px solid #B45309; border-radius:10px; padding:22px 26px; margin-bottom:14px;">
+        <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 8px;">Tables, not charts</h3>
+        <p style="margin:0; color:#4B5563;">
+            The PDFs are figures you can reconcile against, not dashboards. If you want
+            graphs on a screen, Odoo's own POS dashboard already does that.
+        </p>
+    </div>
+
+    <div style="border:1px solid #E5E7EB; border-left:5px solid #B45309; border-radius:10px; padding:22px 26px; margin-bottom:14px;">
+        <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 8px;">Built for days, weeks and months</h3>
+        <p style="margin:0; color:#4B5563;">
+            Figures are assembled in Python rather than by a database query, which keeps
+            the code readable and the numbers auditable. Reporting across a year of a
+            very busy chain will be slower than a single-shop month.
+        </p>
+    </div>
+
+    <div style="border:1px solid #E5E7EB; border-left:5px solid #B45309; border-radius:10px; padding:22px 26px;">
+        <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 8px;">Run on demand</h3>
+        <p style="margin:0; color:#4B5563;">
+            There is no scheduled email delivery yet. You open the wizard and print.
+        </p>
+    </div>
+
+    <!-- ═══════════════ REQUIREMENTS ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 22px;">Requirements</h2>
+    <table style="width:100%; border-collapse:collapse; border:1px solid #E5E7EB; border-radius:10px; overflow:hidden;">
+        <tr>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; width:34%; font-weight:700; color:#3B2436;">Odoo version</td>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">19.0 - Community and Enterprise</td>
+        </tr>
+        <tr>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; font-weight:700; color:#3B2436;">Depends on</td>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; color:#374151;"><b>EaglePub POS Base</b> (free) and Point of Sale</td>
+        </tr>
+        <tr>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; font-weight:700; color:#3B2436;">Python library</td>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">
+                <code style="color:#3B2436; font-weight:700;">xlsxwriter</code> for Excel export -
+                already present on Odoo Online and most installations. Without it the PDFs still work.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:14px 20px; font-weight:700; color:#3B2436;">Works alongside</td>
+            <td style="padding:14px 20px; color:#374151;">The rest of the EaglePub POS suite, installed in any combination</td>
+        </tr>
+    </table>
+
+    <!-- ═══════════════ SUPPORT ═══════════════ -->
+    <div class="epr-pad" style="border:1px solid #E5E7EB; border-top:4px solid #714B67; border-radius:10px; padding:30px 32px; margin:44px 0 60px; text-align:center;">
+        <h2 style="font-size:1.5rem; font-weight:800; margin:0 0 8px; color:#3B2436;">Need a report that is not here?</h2>
+        <p style="margin:0 0 18px; color:#4B5563;">
+            Bugs and configuration problems are fixed promptly, and the report list is
+            still growing. Tell me what you reconcile every morning.
+        </p>
+        <a class="epr-cta" href="mailto:mohamed.yaseen.dahab@gmail.com"
+           style="display:inline-block; border:2px solid #714B67; color:#714B67; text-decoration:none; font-weight:800; padding:12px 30px; border-radius:999px;">
+            Contact the developer
+        </a>
+    </div>
+
+</div>
+</body>
+</html>

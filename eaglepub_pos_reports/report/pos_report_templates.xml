@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_pos">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <div class="page" t-att-dir="tr['is_rtl'] and 'rtl' or 'ltr'"
+                     t-att-style="tr['is_rtl'] and 'text-align:right;' or ''">
+
+                    <h2 style="margin-bottom:4px;">
+                        <t t-esc="tr['titles'][wiz.report_type]"/>
+                    </h2>
+                    <p style="margin:0 0 2px; color:#666;">
+                        <t t-esc="tr['company']"/>: <t t-esc="wiz.company_id.name"/>
+                    </p>
+                    <p style="margin:0 0 2px; color:#666;">
+                        <t t-esc="tr['period']"/>: <t t-esc="wiz.date_from"/>
+                        <t t-esc="tr['to']"/> <t t-esc="wiz.date_to"/>
+                    </p>
+                    <p t-if="wiz.config_ids" style="margin:0 0 12px; color:#666;">
+                        <t t-esc="tr['point_of_sale']"/>:
+                        <t t-esc="', '.join(wiz.config_ids.mapped('name'))"/>
+                    </p>
+
+                    <table class="table table-sm o_main_table" style="margin-top:10px;">
+                        <thead>
+                            <tr>
+                                <th t-foreach="columns" t-as="col" t-key="col_index"
+                                    style="background-color:#714B67; color:#FFFFFF; border:1px solid #714B67;"
+                                    t-att-class="col[2] in ('money','float','int','percent') and 'text-end' or ''">
+                                    <t t-esc="col[1]"/>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-if="not report_data['rows']">
+                                <td t-att-colspan="len(columns)" class="text-center">
+                                    <t t-esc="tr['no_data']"/>
+                                </td>
+                            </tr>
+                            <tr t-foreach="report_data['rows']" t-as="line" t-key="line_index">
+                                <td t-foreach="columns" t-as="col" t-key="col_index"
+                                    t-att-class="col[2] in ('money','float','int','percent') and 'text-end' or ''">
+                                    <t t-set="kind" t-value="col[2]"/>
+                                    <t t-set="val" t-value="line.get(col[0])"/>
+                                    <t t-if="kind == 'money'">
+                                        <span t-esc="val"
+                                              t-options="{'widget': 'monetary', 'display_currency': report_data['currency']}"/>
+                                    </t>
+                                    <t t-elif="kind == 'percent'">
+                                        <!-- No %-formatting in QWeb: a doubled %% in the
+                                             XML collapses to one and the format breaks. -->
+                                        <span><t t-esc="round((val or 0) * 100, 1)"/>%</span>
+                                    </t>
+                                    <t t-elif="kind == 'datetime'">
+                                        <!-- Preformatted in Python; see _fmt_dt on the wizard. -->
+                                        <span t-esc="line.get(col[0] + '_str') or ''"/>
+                                    </t>
+                                    <t t-elif="kind == 'float'">
+                                        <span t-esc="round(val or 0, 3)"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span t-esc="val"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot t-if="report_data['rows']">
+                            <tr style="border-top:2px solid #714B67; font-weight:bold;">
+                                <td t-foreach="columns" t-as="col" t-key="col_index"
+                                    t-att-class="col[2] in ('money','float','int','percent') and 'text-end' or ''">
+                                    <t t-if="col_index == 0">
+                                        <t t-esc="tr['totals']"/>
+                                    </t>
+                                    <t t-elif="col[0] in totals_keys">
+                                        <t t-set="total"
+                                           t-value="sum((l.get(col[0]) or 0) for l in report_data['rows'])"/>
+                                        <t t-if="col[2] == 'money'">
+                                            <span t-esc="total"
+                                                  t-options="{'widget': 'monetary', 'display_currency': report_data['currency']}"/>
+                                        </t>
+                                        <t t-else="">
+                                            <span t-esc="total"/>
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

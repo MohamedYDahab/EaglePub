@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_eaglepub_pos_reports"
+              name="POS Reports Pack"
+              parent="point_of_sale.menu_point_rep"
+              action="eaglepub_pos_report_wizard_action"
+              sequence="90"/>
+
+</odoo>
