@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="module_category_eaglepub_pos" model="ir.module.category">
+        <field name="name">EaglePub POS</field>
+        <field name="description">Controls shared by the EaglePub Point of Sale apps.</field>
+        <field name="sequence">20</field>
+    </record>
+
+    <!-- Odoo 19 groups hang off a privilege rather than a module category. -->
+    <record id="privilege_eaglepub_pos" model="res.groups.privilege">
+        <field name="name">EaglePub POS</field>
+        <field name="description">Overrides for restricted actions at the till.</field>
+        <field name="category_id" ref="module_category_eaglepub_pos"/>
+        <field name="sequence">20</field>
+    </record>
+
+    <!--
+        Membership means "may authorise restricted till actions without the PIN".
+        The PIN is there for supervisors who are not Odoo users; this group is
+        for the ones who are.
+    -->
+    <record id="group_eaglepub_pos_manager" model="res.groups">
+        <field name="name">POS Manager Override</field>
+        <field name="privilege_id" ref="privilege_eaglepub_pos"/>
+        <field name="comment">Bypasses EaglePub POS restrictions without entering the manager PIN.</field>
+    </record>
+
+</odoo>

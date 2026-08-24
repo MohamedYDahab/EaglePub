@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EaglePub POS Base for Odoo 19</title>
+
+    <!--
+        NOTE ON STYLING - READ BEFORE EDITING
+
+        The Odoo Apps store sanitises this page. It drops `background`, `opacity` and
+        `position:absolute`, while keeping `color`, `border`, `padding` and
+        `border-radius`. Never let contrast depend on a background: light surfaces,
+        dark text, structure carried by borders and text colour.
+
+        This <style> block is enhancement only.
+    -->
+    <style>
+        .epb-card { transition: transform .18s ease, box-shadow .18s ease; }
+        .epb-card:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(16,24,40,.12) !important; }
+        @media (max-width: 760px) {
+            .epb-h1  { font-size: 1.85rem !important; }
+            .epb-pad { padding: 24px 20px !important; }
+            .epb-col { display: block !important; width: 100% !important; }
+            .epb-hero { padding: 46px 18px 40px !important; }
+        }
+    </style>
+</head>
+
+<body style="margin:0; padding:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; color:#1F2937; background:#F6F7F9; line-height:1.7; font-size:15px; -webkit-font-smoothing:antialiased;">
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<div class="epb-hero" style="background:#FAF5F9; border-bottom:4px solid #714B67; padding:64px 24px 54px; text-align:center;">
+    <div style="display:inline-block; border:2px solid #714B67; color:#714B67; padding:5px 16px; border-radius:999px; font-size:12px; font-weight:800; letter-spacing:.09em; text-transform:uppercase; margin-bottom:20px;">
+        Free Foundation for Odoo 19
+    </div>
+    <h1 class="epb-h1" style="font-size:2.7rem; font-weight:800; letter-spacing:-1px; line-height:1.18; margin:0 0 16px; color:#3B2436;">
+        EaglePub POS Base
+    </h1>
+    <p style="font-size:1.16rem; color:#4A2F43; max-width:640px; margin:0 auto;">
+        The plumbing the EaglePub point of sale apps share, so each one does not
+        ship its own copy of it.
+    </p>
+</div>
+
+<div style="max-width:960px; margin:0 auto; padding:0 20px;">
+
+    <!-- ═══════════════ WHAT IT IS ═══════════════ -->
+    <div class="epb-pad" style="border:1px solid #E5E7EB; border-left:5px solid #714B67; border-radius:10px; padding:28px 32px; margin:40px 0;">
+        <h2 style="font-size:1.5rem; font-weight:800; color:#3B2436; margin:0 0 8px;">Install this on its own and nothing changes</h2>
+        <p style="margin:0; color:#374151;">
+            That is the point. It exists to be depended on. Install it because an
+            EaglePub app asked for it, or install it first and add the apps you want
+            afterwards - they will all share this one manager PIN and one override group
+            rather than each inventing their own.
+        </p>
+    </div>
+
+    <!-- ═══════════════ WHAT IT PROVIDES ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:44px 0 22px;">What it provides</h2>
+
+    <table style="width:100%; border-collapse:separate; border-spacing:14px 0;">
+        <tr>
+            <td class="epb-col" style="width:50%; vertical-align:top;">
+                <div class="epb-card" style="border:1px solid #E5E7EB; border-top:4px solid #714B67; border-radius:10px; padding:22px 24px; height:100%;">
+                    <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 10px;">A manager PIN per point of sale</h3>
+                    <p style="margin:0; color:#4B5563;">
+                        Checked on the server, and deliberately never loaded into the browser -
+                        anything the till loads is readable by whoever stands at it, which would
+                        defeat the purpose of having a PIN.
+                    </p>
+                </div>
+            </td>
+            <td class="epb-col" style="width:50%; vertical-align:top;">
+                <div class="epb-card" style="border:1px solid #E5E7EB; border-top:4px solid #714B67; border-radius:10px; padding:22px 24px; height:100%;">
+                    <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 10px;">A PIN keypad for the till</h3>
+                    <p style="margin:0; color:#4B5563;">
+                        A touch-sized dialog that any EaglePub app can raise, so authorising an
+                        action looks and behaves the same wherever it happens.
+                    </p>
+                </div>
+            </td>
+        </tr>
+        <tr><td colspan="2" style="height:14px;"></td></tr>
+        <tr>
+            <td class="epb-col" style="width:50%; vertical-align:top;">
+                <div class="epb-card" style="border:1px solid #E5E7EB; border-top:4px solid #714B67; border-radius:10px; padding:22px 24px; height:100%;">
+                    <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 10px;">The POS Manager Override group</h3>
+                    <p style="margin:0; color:#4B5563;">
+                        Supervisors who are Odoo users are waved through without the keypad.
+                        Those who are not type the PIN. One group governs every EaglePub app
+                        you install.
+                    </p>
+                </div>
+            </td>
+            <td class="epb-col" style="width:50%; vertical-align:top;">
+                <div class="epb-card" style="border:1px solid #E5E7EB; border-top:4px solid #714B67; border-radius:10px; padding:22px 24px; height:100%;">
+                    <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 10px;">One hook for developers</h3>
+                    <p style="margin:0; color:#4B5563;">
+                        <code style="color:#3B2436; font-weight:700;">askManagerPin(reason)</code>
+                        on the POS store returns true once a manager has authorised. Await it
+                        before anything you want gated.
+                    </p>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <!-- ═══════════════ SETUP ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 6px;">Setting the PIN</h2>
+    <p style="color:#6B7280; margin:0 0 18px;">
+        Settings &#8594; Point of Sale &#8594; <b>EaglePub</b> &#8594; Manager PIN. It is set per
+        point of sale, so pick the right one in the selector at the top of that page.
+    </p>
+
+    <!--
+        SCREENSHOTS GO HERE.
+        Capture from a running Odoo 19 and drop the files in this folder, then add the
+        <img> tags. Never ship <img> pointing at a file that does not exist - the store
+        renders a broken image.
+
+        Suggested set:
+          screenshot_settings_pin.png  - Settings > Point of Sale > EaglePub
+          screenshot_pin_dialog.png    - the manager PIN keypad at the till
+          screenshot_override_group.png- the POS Manager Override group on a user
+    -->
+
+    <!-- ═══════════════ REQUIREMENTS ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 22px;">Requirements</h2>
+    <table style="width:100%; border-collapse:collapse; border:1px solid #E5E7EB; border-radius:10px; overflow:hidden;">
+        <tr>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; width:34%; font-weight:700; color:#3B2436;">Odoo version</td>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">19.0 - Community and Enterprise</td>
+        </tr>
+        <tr>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; font-weight:700; color:#3B2436;">Depends on</td>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">Point of Sale only</td>
+        </tr>
+        <tr>
+            <td style="padding:14px 20px; font-weight:700; color:#3B2436;">Licence</td>
+            <td style="padding:14px 20px; color:#374151;">LGPL-3 - free, and free to build on</td>
+        </tr>
+    </table>
+
+    <!-- ═══════════════ SUPPORT ═══════════════ -->
+    <div class="epb-pad" style="border:1px solid #E5E7EB; border-top:4px solid #714B67; border-radius:10px; padding:30px 32px; margin:44px 0 60px; text-align:center;">
+        <h2 style="font-size:1.5rem; font-weight:800; margin:0 0 8px; color:#3B2436;">Building on it?</h2>
+        <p style="margin:0 0 18px; color:#4B5563;">
+            Questions and bug reports are welcome, whether or not you have bought any of
+            the paid apps.
+        </p>
+        <a href="mailto:mohamed.yaseen.dahab@gmail.com"
+           style="display:inline-block; border:2px solid #714B67; color:#714B67; text-decoration:none; font-weight:800; padding:12px 30px; border-radius:999px;">
+            Contact the developer
+        </a>
+    </div>
+
+</div>
+</body>
+</html>

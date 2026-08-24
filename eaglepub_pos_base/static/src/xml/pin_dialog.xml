@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="eaglepub_pos_base.ManagerPinDialog">
+        <Dialog title="title" size="'sm'">
+            <div class="eaglepub-pin">
+                <p t-if="props.reason" class="eaglepub-pin-reason text-muted">
+                    <t t-esc="props.reason"/>
+                </p>
+
+                <div class="eaglepub-pin-display" t-att-data-empty="!state.pin">
+                    <t t-if="state.pin">
+                        <t t-foreach="state.pin.split('')" t-as="c" t-key="c_index">
+                            <span class="eaglepub-pin-dot"/>
+                        </t>
+                    </t>
+                    <t t-else="">
+                        <span class="eaglepub-pin-placeholder">Enter PIN</span>
+                    </t>
+                </div>
+
+                <div class="eaglepub-pin-pad">
+                    <t t-foreach="[1,2,3,4,5,6,7,8,9]" t-as="d" t-key="d">
+                        <button class="btn btn-secondary eaglepub-pin-key"
+                                t-on-click="() => this.press(String(d))">
+                            <t t-esc="d"/>
+                        </button>
+                    </t>
+                    <button class="btn btn-secondary eaglepub-pin-key" t-on-click="clear">C</button>
+                    <button class="btn btn-secondary eaglepub-pin-key" t-on-click="() => this.press('0')">0</button>
+                    <button class="btn btn-secondary eaglepub-pin-key" t-on-click="backspace">
+                        <i class="fa fa-long-arrow-left" role="img" aria-label="Backspace" title="Backspace"/>
+                    </button>
+                </div>
+            </div>
+
+            <t t-set-slot="footer">
+                <button class="btn btn-primary" t-att-disabled="!state.pin" t-on-click="confirm">
+                    Authorise
+                </button>
+                <button class="btn btn-secondary" t-on-click="cancel">Cancel</button>
+            </t>
+        </Dialog>
+    </t>
+
+</templates>
