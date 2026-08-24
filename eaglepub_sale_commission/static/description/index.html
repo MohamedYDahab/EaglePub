@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Commission for Odoo 19</title>
+
+    <!--
+        NOTE ON STYLING - READ BEFORE EDITING
+
+        The Odoo Apps store sanitises this page. Observed on a live listing, it drops
+        `background` (solid and gradient alike), `opacity`, and `position:absolute`,
+        while keeping `color`, `border`, `padding` and `border-radius`.
+
+        So: never let contrast depend on a background. Light surfaces, dark text,
+        structure carried by borders and text colour. Backgrounds stay in the markup
+        because they look good when they survive, but nothing depends on them.
+        Every text colour clears 3:1 against plain white.
+
+        This <style> block is enhancement only.
+    -->
+    <style>
+        .esc-card { transition: transform .18s ease, box-shadow .18s ease; }
+        .esc-card:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(16,24,40,.12) !important; }
+        .esc-cta { transition: transform .18s ease, box-shadow .18s ease; }
+        .esc-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(113,75,103,.34) !important; }
+        @media (max-width: 760px) {
+            .esc-h1     { font-size: 1.85rem !important; }
+            .esc-pad    { padding: 24px 20px !important; }
+            .esc-col    { display: block !important; width: 100% !important; }
+            .esc-hero   { padding: 46px 18px 40px !important; }
+            .esc-scroll { overflow-x: auto !important; }
+        }
+    </style>
+</head>
+
+<body style="margin:0; padding:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; color:#1F2937; background:#F6F7F9; line-height:1.7; font-size:15px; -webkit-font-smoothing:antialiased;">
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<div class="esc-hero" style="background:#FAF5F9; border-bottom:4px solid #714B67; padding:64px 24px 54px; text-align:center;">
+    <div style="display:inline-block; border:2px solid #714B67; color:#714B67; padding:5px 16px; border-radius:999px; font-size:12px; font-weight:800; letter-spacing:.09em; text-transform:uppercase; margin-bottom:20px;">
+        Sales Incentives for Odoo 19
+    </div>
+    <h1 class="esc-h1" style="font-size:2.7rem; font-weight:800; letter-spacing:-1px; line-height:1.18; margin:0 0 16px; color:#3B2436;">
+        Sales Commission
+    </h1>
+    <p style="font-size:1.16rem; color:#4A2F43; max-width:660px; margin:0 auto;">
+        Work out what your salespeople have earned, from the documents you already
+        have, without a spreadsheet nobody else can check.
+    </p>
+</div>
+
+<div style="max-width:960px; margin:0 auto; padding:0 20px;">
+
+    <!-- ═══════════════ A PLAN SAYS THREE THINGS ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:44px 0 6px;">A plan says three things</h2>
+    <p style="color:#6B7280; margin:0 0 22px;">Build it once, assign it to as many salespeople as you like.</p>
+
+    <div class="esc-scroll">
+    <table style="width:100%; border-collapse:collapse; border:1px solid #E5E7EB; border-radius:10px; overflow:hidden;">
+        <tr>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; width:26%; font-weight:700; color:#3B2436;">Earned on</td>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">
+                A <b>confirmed sales order</b>, a <b>posted invoice</b>, or only once the
+                customer has <b>actually paid</b>. Pick the one your business argues about
+                least.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; font-weight:700; color:#3B2436;">Calculated on</td>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">
+                <b>Revenue</b> or <b>margin</b>. On margin, a salesperson who discounts
+                their way to a loss earns nothing for it - which is usually the point of
+                putting a plan in place at all.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:16px 20px; font-weight:700; color:#3B2436;">At what rate</td>
+            <td style="padding:16px 20px; color:#374151;">
+                Per product, per product category, or one rate for everything. The
+                <b>first matching rule wins</b>, so you put the exceptions above the
+                general case and the general case becomes the fallback.
+            </td>
+        </tr>
+    </table>
+    </div>
+
+    <!-- ═══════════════ WORKED EXAMPLE ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 6px;">What that looks like</h2>
+    <p style="color:#6B7280; margin:0 0 22px;">
+        A plan with 10% on one product, 5% on a category, and 2% on everything else.
+    </p>
+
+    <div class="esc-scroll">
+    <table style="width:100%; border-collapse:collapse; border:1px solid #E5E7EB; border-radius:10px; overflow:hidden;">
+        <thead>
+            <tr>
+                <th style="padding:12px 16px; text-align:left; color:#3B2436; border-bottom:2px solid #714B67;">Document</th>
+                <th style="padding:12px 16px; text-align:right; color:#3B2436; border-bottom:2px solid #714B67;">Base</th>
+                <th style="padding:12px 16px; text-align:right; color:#3B2436; border-bottom:2px solid #714B67;">Rate</th>
+                <th style="padding:12px 16px; text-align:right; color:#3B2436; border-bottom:2px solid #714B67;">Commission</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="padding:12px 16px; border-bottom:1px solid #F3F4F6; color:#374151;">Invoice - the 10% product</td>
+                <td style="padding:12px 16px; border-bottom:1px solid #F3F4F6; text-align:right; color:#374151;">200.00</td>
+                <td style="padding:12px 16px; border-bottom:1px solid #F3F4F6; text-align:right; color:#374151;">10%</td>
+                <td style="padding:12px 16px; border-bottom:1px solid #F3F4F6; text-align:right; color:#374151;">20.00</td>
+            </tr>
+            <tr>
+                <td style="padding:12px 16px; border-bottom:1px solid #F3F4F6; color:#374151;">Invoice - something in the 5% category</td>
+                <td style="padding:12px 16px; border-bottom:1px solid #F3F4F6; text-align:right; color:#374151;">100.00</td>
+                <td style="padding:12px 16px; border-bottom:1px solid #F3F4F6; text-align:right; color:#374151;">5%</td>
+                <td style="padding:12px 16px; border-bottom:1px solid #F3F4F6; text-align:right; color:#374151;">5.00</td>
+            </tr>
+            <tr>
+                <td style="padding:12px 16px; border-bottom:1px solid #F3F4F6; color:#B91C1C;">Credit note - part of it came back</td>
+                <td style="padding:12px 16px; border-bottom:1px solid #F3F4F6; text-align:right; color:#B91C1C;">-100.00</td>
+                <td style="padding:12px 16px; border-bottom:1px solid #F3F4F6; text-align:right; color:#B91C1C;">10%</td>
+                <td style="padding:12px 16px; border-bottom:1px solid #F3F4F6; text-align:right; color:#B91C1C;">-10.00</td>
+            </tr>
+            <tr>
+                <td style="padding:14px 16px; font-weight:800; color:#3B2436;">Total</td>
+                <td style="padding:14px 16px; text-align:right; font-weight:800; color:#3B2436;">200.00</td>
+                <td style="padding:14px 16px;"></td>
+                <td style="padding:14px 16px; text-align:right; font-weight:800; color:#3B2436;">15.00</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    <p style="color:#6B7280; margin:12px 0 0; font-size:14px;">
+        <b>Credit notes subtract.</b> A refunded sale does not stay commissioned.
+    </p>
+
+    <!-- ═══════════════ AUDITABLE ═══════════════ -->
+    <div class="esc-pad" style="border:1px solid #E5E7EB; border-left:5px solid #15803D; border-radius:10px; padding:28px 32px; margin:44px 0;">
+        <h2 style="font-size:1.5rem; font-weight:800; color:#3B2436; margin:0 0 8px;">Auditable by construction</h2>
+        <p style="margin:0; color:#374151;">
+            Every commission keeps a line per source document line: the document, the
+            customer, the product, the quantity, the base it was calculated on, the rate
+            that applied and the resulting amount. When a salesperson queries a figure you
+            show them where it came from, instead of recomputing it and hoping you get the
+            same answer twice.
+        </p>
+    </div>
+
+    <!-- ═══════════════ WORKFLOW ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 22px;">Draft, confirmed, paid</h2>
+
+    <table style="width:100%; border-collapse:separate; border-spacing:14px 0;">
+        <tr>
+            <td class="esc-col" style="width:50%; vertical-align:top;">
+                <div class="esc-card" style="border:1px solid #E5E7EB; border-top:4px solid #714B67; border-radius:10px; padding:22px 24px; height:100%;">
+                    <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 10px;">Recompute as often as you like</h3>
+                    <p style="margin:0; color:#4B5563;">
+                        Running a period again <b>replaces its draft</b> rather than stacking a
+                        second copy on top. Late invoices and corrections are picked up simply
+                        by computing again.
+                    </p>
+                </div>
+            </td>
+            <td class="esc-col" style="width:50%; vertical-align:top;">
+                <div class="esc-card" style="border:1px solid #E5E7EB; border-top:4px solid #714B67; border-radius:10px; padding:22px 24px; height:100%;">
+                    <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 10px;">Confirmed figures stay put</h3>
+                    <p style="margin:0; color:#4B5563;">
+                        Once confirmed or paid, a commission is never quietly rewritten by a
+                        later recompute. What you agreed with someone stays what you agreed
+                        with them.
+                    </p>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <!--
+        SCREENSHOTS GO HERE.
+        Capture from a running Odoo 19 and drop the files in this folder, then add the
+        <img> tags. Never ship <img> pointing at a file that does not exist - the store
+        renders a broken image.
+
+        Suggested set:
+          screenshot_plan_form.png      - a plan with three rules, exceptions on top
+          screenshot_user_assign.png    - the Commission tab on a salesperson
+          screenshot_compute_wizard.png - the compute wizard
+          screenshot_commission_list.png- commissions grouped by salesperson
+          screenshot_commission_form.png- the detail lines, including a credit note line
+          screenshot_margin_plan.png    - a plan set to calculate on margin
+    -->
+
+    <!-- ═══════════════ SCOPE / HONESTY ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 6px;">What this app does not do</h2>
+    <p style="color:#6B7280; margin:0 0 22px;">Worth knowing before you buy.</p>
+
+    <div style="border:1px solid #E5E7EB; border-left:5px solid #B45309; border-radius:10px; padding:22px 26px; margin-bottom:14px;">
+        <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 8px;">It does not pay anybody</h3>
+        <p style="margin:0; color:#4B5563;">
+            Marking a commission as paid records that you paid it. It does not post a
+            journal entry or feed a payslip. Those vary far too much between countries to
+            guess at.
+        </p>
+    </div>
+
+    <div style="border:1px solid #E5E7EB; border-left:5px solid #B45309; border-radius:10px; padding:22px 26px; margin-bottom:14px;">
+        <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 8px;">One plan per salesperson</h3>
+        <p style="margin:0; color:#4B5563;">
+            A person has one plan at a time, with as many rules inside it as you need.
+            Splitting one person across several plans at once is not supported.
+        </p>
+    </div>
+
+    <div style="border:1px solid #E5E7EB; border-left:5px solid #B45309; border-radius:10px; padding:22px 26px;">
+        <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 8px;">Point of sale is not included</h3>
+        <p style="margin:0; color:#4B5563;">
+            Commission is calculated from sales orders and invoices. Till sales are not
+            counted yet.
+        </p>
+    </div>
+
+    <!-- ═══════════════ REQUIREMENTS ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 22px;">Requirements</h2>
+    <table style="width:100%; border-collapse:collapse; border:1px solid #E5E7EB; border-radius:10px; overflow:hidden;">
+        <tr>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; width:34%; font-weight:700; color:#3B2436;">Odoo version</td>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">19.0 - Community and Enterprise</td>
+        </tr>
+        <tr>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; font-weight:700; color:#3B2436;">Depends on</td>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">Sales and Invoicing - both standard</td>
+        </tr>
+        <tr>
+            <td style="padding:14px 20px; font-weight:700; color:#3B2436;">Margin calculation</td>
+            <td style="padding:14px 20px; color:#374151;">
+                Uses the product cost, so <b>no extra module is required</b> to commission
+                on margin.
+            </td>
+        </tr>
+    </table>
+
+    <!-- ═══════════════ SUPPORT ═══════════════ -->
+    <div class="esc-pad" style="border:1px solid #E5E7EB; border-top:4px solid #714B67; border-radius:10px; padding:30px 32px; margin:44px 0 60px; text-align:center;">
+        <h2 style="font-size:1.5rem; font-weight:800; margin:0 0 8px; color:#3B2436;">Commission scheme not covered here?</h2>
+        <p style="margin:0 0 18px; color:#4B5563;">
+            Bugs and configuration problems are fixed promptly. Tell me how you actually
+            pay your salespeople - the rule engine is still growing.
+        </p>
+        <a class="esc-cta" href="mailto:mohamed.yaseen.dahab@gmail.com"
+           style="display:inline-block; border:2px solid #714B67; color:#714B67; text-decoration:none; font-weight:800; padding:12px 30px; border-radius:999px;">
+            Contact the developer
+        </a>
+    </div>
+
+</div>
+</body>
+</html>

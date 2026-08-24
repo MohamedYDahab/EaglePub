@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="commission_compute_wizard_view_form" model="ir.ui.view">
+        <field name="name">eaglepub.commission.compute.wizard.form</field>
+        <field name="model">eaglepub.commission.compute.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Compute Commissions">
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <group>
+                        <field name="user_ids" widget="many2many_tags"
+                               options="{'no_create': True}"
+                               placeholder="Everyone with a plan"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                </group>
+                <div class="alert alert-info" role="status">
+                    Recomputing a period replaces its draft commission rather than
+                    adding a second one. Confirmed and paid records are left alone.
+                </div>
+                <footer>
+                    <button name="action_compute" string="Compute" type="object"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="commission_compute_wizard_action" model="ir.actions.act_window">
+        <field name="name">Compute Commissions</field>
+        <field name="res_model">eaglepub.commission.compute.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="commission_view_list" model="ir.ui.view">
+        <field name="name">eaglepub.commission.list</field>
+        <field name="model">eaglepub.commission</field>
+        <field name="arch" type="xml">
+            <list decoration-muted="state == 'cancel'" decoration-success="state == 'paid'">
+                <field name="user_id"/>
+                <field name="plan_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="line_count" string="Lines"/>
+                <field name="base_amount" sum="Base"/>
+                <field name="commission_amount" sum="Commission"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'confirmed'"
+                       decoration-success="state == 'paid'"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="commission_view_form" model="ir.ui.view">
+        <field name="name">eaglepub.commission.form</field>
+        <field name="model">eaglepub.commission</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirm" string="Confirm" type="object"
+                            class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_mark_paid" string="Mark as Paid" type="object"
+                            class="btn-primary" invisible="state != 'confirmed'"/>
+                    <button name="action_reset_draft" string="Reset to Draft" type="object"
+                            invisible="state not in ('confirmed', 'cancel')"/>
+                    <button name="action_cancel" string="Cancel" type="object"
+                            invisible="state in ('cancel', 'paid')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,confirmed,paid"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="display_name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="user_id" readonly="state != 'draft'"/>
+                            <field name="plan_id" readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="date_from" readonly="state != 'draft'"/>
+                            <field name="date_to" readonly="state != 'draft'"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <group class="oe_subtotal_footer oe_right">
+                        <field name="base_amount"/>
+                        <field name="commission_amount" class="oe_subtotal_footer_separator"/>
+                    </group>
+                    <notebook>
+                        <page string="Detail" name="detail">
+                            <field name="line_ids" readonly="state != 'draft'">
+                                <list>
+                                    <field name="date"/>
+                                    <field name="reference"/>
+                                    <field name="partner_id"/>
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="base_amount" sum="Base"/>
+                                    <field name="rate"/>
+                                    <field name="amount" sum="Commission"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="commission_view_search" model="ir.ui.view">
+        <field name="name">eaglepub.commission.search</field>
+        <field name="model">eaglepub.commission</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="user_id"/>
+                <field name="plan_id"/>
+                <filter name="draft" string="Draft" domain="[('state','=','draft')]"/>
+                <filter name="confirmed" string="Confirmed" domain="[('state','=','confirmed')]"/>
+                <filter name="paid" string="Paid" domain="[('state','=','paid')]"/>
+                <separator/>
+                <filter name="my" string="My Commissions" domain="[('user_id','=',uid)]"/>
+                <!-- Odoo 19 search views take a bare <group>; expand= and string=
+                     are no longer valid attributes here. -->
+                <group>
+                    <filter name="g_user" string="Salesperson" context="{'group_by': 'user_id'}"/>
+                    <filter name="g_plan" string="Plan" context="{'group_by': 'plan_id'}"/>
+                    <filter name="g_state" string="Status" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="commission_action" model="ir.actions.act_window">
+        <field name="name">Commissions</field>
+        <field name="res_model">eaglepub.commission</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No commissions computed yet</p>
+            <p>Use <b>Compute Commissions</b> to work them out for a period.</p>
+        </field>
+    </record>
+
+</odoo>
