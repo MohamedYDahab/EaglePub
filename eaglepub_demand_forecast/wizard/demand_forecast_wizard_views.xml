@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_demand_forecast_wizard_form" model="ir.ui.view">
+        <field name="name">eaglepub.demand.forecast.wizard.form</field>
+        <field name="model">eaglepub.demand.forecast.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Run a Demand Forecast">
+                <group>
+                    <group string="What to Cover">
+                        <field name="warehouse_id"
+                               options="{'no_create': True}"/>
+                        <field name="product_ids" widget="many2many_tags"
+                               options="{'no_create': True}"/>
+                        <field name="categ_ids" widget="many2many_tags"
+                               options="{'no_create': True}"
+                               invisible="product_ids"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                    <group string="History">
+                        <field name="date_to"/>
+                        <field name="months"/>
+                    </group>
+                </group>
+                <group>
+                    <group string="Method">
+                        <field name="method" widget="radio"/>
+                        <field name="alpha" invisible="method != 'smoothing'"/>
+                        <field name="use_seasonality"/>
+                    </group>
+                    <group>
+                        <div colspan="2" class="text-muted">
+                            <p><b>Average</b> is the blunt one: every month counts the same.
+                               Stable, and hard to argue with.</p>
+                            <p><b>Weighted average</b> leans on recent months without
+                               ignoring the older ones.</p>
+                            <p><b>Exponential smoothing</b> is the usual choice. The
+                               smoothing factor is how heavily the latest month counts:
+                               higher reacts faster and is noisier.</p>
+                            <p>Seasonality is only applied where the same month has
+                               been seen at least twice before, and never to a product
+                               with thin history. Otherwise it is left at 1.00 and the
+                               forecast says so.</p>
+                        </div>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_forecast" type="object"
+                            string="Forecast" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_demand_forecast_wizard" model="ir.actions.act_window">
+        <field name="name">New Demand Forecast</field>
+        <field name="res_model">eaglepub.demand.forecast.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

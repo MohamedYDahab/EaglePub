@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demand Forecasting for Odoo 19</title>
+
+    <!--
+        NOTE ON STYLING - READ BEFORE EDITING
+
+        The Odoo Apps store sanitises this page. Observed on a live listing, it drops
+        `background` (solid and gradient alike), `opacity`, and `position:absolute`,
+        while keeping `color`, `border`, `padding` and `border-radius`.
+
+        So: never let contrast depend on a background. Light surfaces, dark text,
+        structure carried by borders and text colour. Backgrounds stay in the markup
+        because they look good when they survive, but nothing depends on them.
+        Every text colour clears 3:1 against plain white.
+
+        This <style> block is enhancement only.
+    -->
+    <style>
+        .esc-card { transition: transform .18s ease, box-shadow .18s ease; }
+        .esc-card:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(16,24,40,.12) !important; }
+        .esc-cta { transition: transform .18s ease, box-shadow .18s ease; }
+        .esc-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(113,75,103,.34) !important; }
+        @media (max-width: 760px) {
+            .esc-h1     { font-size: 1.85rem !important; }
+            .esc-pad    { padding: 24px 20px !important; }
+            .esc-col    { display: block !important; width: 100% !important; }
+            .esc-hero   { padding: 46px 18px 40px !important; }
+            .esc-scroll { overflow-x: auto !important; }
+        }
+    </style>
+</head>
+
+<body style="margin:0; padding:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; color:#1F2937; background:#F6F7F9; line-height:1.7; font-size:15px; -webkit-font-smoothing:antialiased;">
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<div class="esc-hero" style="background:#FAF5F9; border-bottom:4px solid #714B67; padding:64px 24px 54px; text-align:center;">
+    <div style="display:inline-block; border:1px solid #714B67; color:#714B67; font-size:12px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; padding:6px 16px; border-radius:999px; margin-bottom:22px;">
+        Odoo 19 &nbsp;&#183;&nbsp; Community &amp; Enterprise
+    </div>
+    <h1 class="esc-h1" style="font-size:2.6rem; font-weight:900; margin:0 0 16px; color:#3B2436; letter-spacing:-.02em;">
+        Demand Forecasting
+    </h1>
+    <p style="max-width:660px; margin:0 auto; font-size:1.14rem; color:#4A2F43;">
+        Forecast what customers will actually order next month - from your own sales
+        history, with the months behind every number shown on the line.
+    </p>
+</div>
+
+<div style="max-width:960px; margin:0 auto; padding:0 24px;">
+
+    <!-- ═══════════════ THE PROBLEM ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 22px;">
+        Odoo's forecast is a projection of your paperwork
+    </h2>
+
+    <div class="esc-pad" style="border:1px solid #E5E7EB; border-left:4px solid #714B67; border-radius:10px; padding:26px 30px;">
+        <p style="margin:0 0 14px; color:#374151;">
+            The forecasted quantity on a product adds up the documents already in the
+            system: confirmed sales orders going out, purchase orders coming in. It is
+            accurate, and it is not a forecast of demand. It tells you nothing about
+            the orders that have not been placed yet.
+        </p>
+        <p style="margin:0; color:#374151;">
+            So the reordering rule minimum gets set once, from memory, and then nobody
+            revisits it. Some products run out every few months. Others quietly hold a
+            year of stock. Both look completely normal on the replenishment screen.
+        </p>
+    </div>
+
+    <!-- ═══════════════ WHAT IT DOES ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 22px;">What this does</h2>
+
+    <table style="width:100%; border-collapse:separate; border-spacing:14px 0;">
+        <tr>
+            <td class="esc-col" style="width:33.33%; vertical-align:top;">
+                <div class="esc-card" style="border:1px solid #E5E7EB; border-top:3px solid #714B67; border-radius:10px; padding:22px 20px; height:100%;">
+                    <h3 style="margin:0 0 8px; font-size:1.05rem; font-weight:800; color:#3B2436;">Forecasts demand</h3>
+                    <p style="margin:0; color:#374151; font-size:14.5px;">
+                        Monthly demand per product and warehouse, taken from confirmed
+                        sales orders and bucketed by the month the customer ordered.
+                    </p>
+                </div>
+            </td>
+            <td class="esc-col" style="width:33.33%; vertical-align:top;">
+                <div class="esc-card" style="border:1px solid #E5E7EB; border-top:3px solid #714B67; border-radius:10px; padding:22px 20px; height:100%;">
+                    <h3 style="margin:0 0 8px; font-size:1.05rem; font-weight:800; color:#3B2436;">Shows its working</h3>
+                    <p style="margin:0; color:#374151; font-size:14.5px;">
+                        Every line carries the months it came from, the demand in each of
+                        them, and the seasonal factor applied.
+                    </p>
+                </div>
+            </td>
+            <td class="esc-col" style="width:33.33%; vertical-align:top;">
+                <div class="esc-card" style="border:1px solid #E5E7EB; border-top:3px solid #714B67; border-radius:10px; padding:22px 20px; height:100%;">
+                    <h3 style="margin:0 0 8px; font-size:1.05rem; font-weight:800; color:#3B2436;">Audits your rules</h3>
+                    <p style="margin:0; color:#374151; font-size:14.5px;">
+                        Compares each forecast against the reordering rule that already
+                        exists, and names the ones worth a second look.
+                    </p>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <!-- ═══════════════ THE METHODS ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 22px;">Three methods, and you pick</h2>
+
+    <div class="esc-scroll">
+    <table style="width:100%; border-collapse:collapse; border:1px solid #E5E7EB; border-radius:10px; overflow:hidden;">
+        <tr>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; width:26%; font-weight:700; color:#3B2436;">Average</td>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">
+                Every month counts the same. Blunt, stable, and very hard to argue with
+                in a meeting.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; font-weight:700; color:#3B2436;">Weighted average</td>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">
+                Recent months carry more weight, older ones still count. Good for a
+                product whose demand is drifting.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; font-weight:700; color:#3B2436;">Exponential smoothing</td>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">
+                The standard approach. The smoothing factor is a field on the screen,
+                not a constant buried in the code.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:14px 20px; font-weight:700; color:#3B2436;">Seasonality</td>
+            <td style="padding:14px 20px; color:#374151;">
+                Optional on any of the three. Worked out from the same calendar month in
+                previous years, and only applied when that month has been seen at least
+                <b>twice</b> before.
+            </td>
+        </tr>
+    </table>
+    </div>
+
+    <!-- ═══════════════ HONESTY ABOUT THIN DATA ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 22px;">Thin history is labelled, not dressed up</h2>
+
+    <div class="esc-pad" style="border:1px solid #E5E7EB; border-left:4px solid #714B67; border-radius:10px; padding:26px 30px;">
+        <p style="margin:0 0 14px; color:#374151;">
+            A product that sold in two months out of twenty-four has two months of
+            evidence, not twenty-four. It still gets a number - a buyer would rather
+            have a figure and a warning than a blank cell - but the line is flagged
+            <b>Thin History</b> and the seasonal adjustment is withheld entirely.
+        </p>
+        <p style="margin:0; color:#374151;">
+            A forecast that will not admit how little it knows is worse than no
+            forecast, because somebody signs a purchase order against it.
+        </p>
+    </div>
+
+    <!-- ═══════════════ RULE AUDIT ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 22px;">What the rule audit tells you</h2>
+
+    <div class="esc-scroll">
+    <table style="width:100%; border-collapse:collapse; border:1px solid #E5E7EB; border-radius:10px; overflow:hidden;">
+        <tr>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; width:32%; font-weight:700; color:#3B2436;">Minimum too low</td>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">
+                <i>Minimum is 5.00 but 50.00 is expected next month - this may run out.</i>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; font-weight:700; color:#3B2436;">Minimum too high</td>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">
+                <i>Minimum is 100.00 against expected demand of 5.00 - this may be
+                holding stock you do not need.</i>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:14px 20px; font-weight:700; color:#3B2436;">No rule at all</td>
+            <td style="padding:14px 20px; color:#374151;">
+                <i>No reordering rule, but 103.16 is expected next month.</i>
+            </td>
+        </tr>
+    </table>
+    </div>
+
+    <p style="margin:18px 0 0; color:#374151;">
+        Small differences are not reported. A rule has to be off by more than a quarter
+        of the forecast before it is raised, because a report that queries every
+        rounding difference is a report people learn to close.
+    </p>
+
+    <!--
+        SCREENSHOTS - not yet captured for this module.
+        Do NOT add <img> tags before the files exist in this folder; the store
+        renders a broken image. Shots to take on a database with real history:
+          forecast_wizard.png    - the run dialog with the three methods
+          forecast_result.png    - the result list, Rules to Review filter active
+          forecast_line.png      - a single line showing the months behind it
+    -->
+
+    <!-- ═══════════════ WHAT IT DOES NOT DO ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 22px;">What this app does not do</h2>
+
+    <div class="esc-pad" style="border:1px solid #E5E7EB; border-left:4px solid #6B7280; border-radius:10px; padding:26px 30px;">
+        <ul style="margin:0; padding-left:22px; color:#374151;">
+            <li style="margin-bottom:10px;">
+                <b>It does not change your reordering rules.</b> It reports where the
+                forecast and the rule disagree. Editing the rule stays a decision a
+                person makes.
+            </li>
+            <li style="margin-bottom:10px;">
+                <b>It does not create purchase orders</b> or trigger replenishment.
+            </li>
+            <li style="margin-bottom:10px;">
+                <b>It does not use machine learning</b>, and does not pretend to. It is
+                monthly arithmetic you could reproduce in a spreadsheet - which is the
+                point, because you can explain it to whoever signs the order.
+            </li>
+            <li style="margin-bottom:10px;">
+                <b>It does not forecast from deliveries.</b> Demand is counted in the
+                month the customer ordered, not the month you shipped. Forecasting
+                against your own despatch delays teaches the model your bottlenecks
+                instead of your customers' behaviour.
+            </li>
+            <li style="margin:0;">
+                <b>It cannot invent history.</b> A product launched last month has no
+                forecast worth the name, and the line will say so.
+            </li>
+        </ul>
+    </div>
+
+    <!-- ═══════════════ REQUIREMENTS ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 22px;">Requirements</h2>
+    <table style="width:100%; border-collapse:collapse; border:1px solid #E5E7EB; border-radius:10px; overflow:hidden;">
+        <tr>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; width:34%; font-weight:700; color:#3B2436;">Odoo version</td>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">19.0 - Community and Enterprise</td>
+        </tr>
+        <tr>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; font-weight:700; color:#3B2436;">Depends on</td>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">Inventory and Sales - both standard</td>
+        </tr>
+        <tr>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; font-weight:700; color:#3B2436;">External services</td>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">
+                None. Nothing leaves your database, and there is nothing to subscribe to.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:14px 20px; font-weight:700; color:#3B2436;">Who can run it</td>
+            <td style="padding:14px 20px; color:#374151;">
+                Inventory managers run forecasts; inventory users can read them.
+            </td>
+        </tr>
+    </table>
+
+    <!-- ═══════════════ SUPPORT ═══════════════ -->
+    <div class="esc-pad" style="border:1px solid #E5E7EB; border-top:4px solid #714B67; border-radius:10px; padding:30px 32px; margin:44px 0 60px; text-align:center;">
+        <h2 style="font-size:1.5rem; font-weight:800; margin:0 0 8px; color:#3B2436;">Demand pattern this does not handle?</h2>
+        <p style="margin:0 0 18px; color:#4B5563;">
+            Bugs and configuration problems are fixed promptly. If your demand moves in a
+            shape none of these three methods catch, tell me about it - that is how the
+            next method gets chosen.
+        </p>
+        <table style="margin:0 auto; border-collapse:separate; border-spacing:10px 0;">
+            <tr>
+                <td class="esc-col" style="vertical-align:top;">
+                    <a class="esc-cta" href="https://wa.me/201007802335" target="_blank" rel="noopener"
+                       style="display:inline-block; border:2px solid #16A34A; color:#15803D; text-decoration:none; font-weight:800; font-size:14.5px; padding:13px 28px; border-radius:999px;">
+                        <span style="margin-right:8px;">&#128172;</span>WhatsApp &nbsp;+20 100 780 2335
+                    </a>
+                </td>
+                <td class="esc-col" style="vertical-align:top;">
+                    <a class="esc-cta" href="mailto:mohamed.yaseen.dahab@gmail.com"
+                       style="display:inline-block; border:2px solid #714B67; color:#714B67; text-decoration:none; font-weight:800; font-size:14.5px; padding:13px 28px; border-radius:999px;">
+                        <span style="margin-right:8px;">&#9993;&#65039;</span>Email Support
+                    </a>
+                </td>
+            </tr>
+        </table>
+
+        <p style="margin:20px 0 0; font-size:13px; color:#6B7280;">
+            mohamed.yaseen.dahab@gmail.com &nbsp;&#183;&nbsp; +20 100 780 2335
+        </p>
+    </div>
+
+</div>
+</body>
+</html>

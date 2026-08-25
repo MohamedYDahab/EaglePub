@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ────────────── Forecast lines ────────────── -->
+
+    <record id="view_demand_forecast_line_list" model="ir.ui.view">
+        <field name="name">eaglepub.demand.forecast.line.list</field>
+        <field name="model">eaglepub.demand.forecast.line</field>
+        <field name="arch" type="xml">
+            <list string="Forecast" create="false" delete="false">
+                <field name="product_id"/>
+                <field name="uom_name" string="Unit" optional="show"/>
+                <field name="forecast_qty" sum="Forecast"/>
+                <field name="qty_available" string="On Hand" optional="show"/>
+                <field name="orderpoint_min" string="Rule Min" optional="show"/>
+                <field name="rule_note" string="Review" optional="show"/>
+                <field name="history_months" string="Months" optional="hide"/>
+                <field name="base_qty" optional="hide"/>
+                <field name="seasonal_factor" optional="hide"/>
+                <field name="history_display" string="History" optional="hide"/>
+                <field name="rule_disagrees" column_invisible="1"/>
+                <field name="history_is_thin" column_invisible="1"/>
+                <field name="orderpoint_id" column_invisible="1"/>
+                <button name="action_open_orderpoint" type="object"
+                        icon="fa-external-link" title="Open reordering rule"
+                        invisible="not orderpoint_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_demand_forecast_line_form" model="ir.ui.view">
+        <field name="name">eaglepub.demand.forecast.line.form</field>
+        <field name="model">eaglepub.demand.forecast.line</field>
+        <field name="arch" type="xml">
+            <form string="Forecast Line" create="false" edit="false">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="product_id" readonly="1"/></h1>
+                    </div>
+                    <div class="alert alert-warning" role="alert"
+                         invisible="not history_is_thin">
+                        Only <field name="history_months" class="oe_inline" readonly="1"/>
+                        month(s) of this product actually sold. Treat the figure below as
+                        an indication rather than a forecast.
+                    </div>
+                    <div class="alert alert-info" role="alert"
+                         invisible="not rule_disagrees">
+                        <field name="rule_note" readonly="1" nolabel="1"/>
+                    </div>
+                    <group>
+                        <group string="Forecast">
+                            <field name="forecast_qty"/>
+                            <field name="uom_name"/>
+                            <field name="base_qty"/>
+                            <field name="seasonal_factor"/>
+                        </group>
+                        <group string="Against Stock">
+                            <field name="qty_available"/>
+                            <field name="orderpoint_id"/>
+                            <field name="orderpoint_min"/>
+                            <button name="action_open_orderpoint" type="object"
+                                    string="Open reordering rule" class="btn-link"
+                                    invisible="not orderpoint_id"/>
+                        </group>
+                    </group>
+                    <group string="The Months Behind This">
+                        <field name="history_display" nolabel="1" readonly="1"/>
+                        <field name="history_months"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_demand_forecast_line_search" model="ir.ui.view">
+        <field name="name">eaglepub.demand.forecast.line.search</field>
+        <field name="model">eaglepub.demand.forecast.line</field>
+        <field name="arch" type="xml">
+            <search string="Forecast">
+                <field name="product_id"/>
+                <filter name="filter_disagrees" string="Rules to Review"
+                        domain="[('rule_disagrees', '=', True)]"/>
+                <filter name="filter_no_rule" string="No Reordering Rule"
+                        domain="[('orderpoint_id', '=', False)]"/>
+                <filter name="filter_thin" string="Thin History"
+                        domain="[('history_is_thin', '=', True)]"/>
+                <separator/>
+                <filter name="filter_has_demand" string="Expecting Demand"
+                        domain="[('forecast_qty', '&gt;', 0)]"/>
+                <group>
+                    <filter name="group_forecast" string="Forecast Run"
+                            context="{'group_by': 'forecast_id'}"/>
+                    <filter name="group_product" string="Product"
+                            context="{'group_by': 'product_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ────────────── Forecast runs ────────────── -->
+
+    <record id="view_demand_forecast_list" model="ir.ui.view">
+        <field name="name">eaglepub.demand.forecast.list</field>
+        <field name="model">eaglepub.demand.forecast</field>
+        <field name="arch" type="xml">
+            <list string="Demand Forecasts" create="false">
+                <field name="create_date" string="Run On"/>
+                <field name="warehouse_id"/>
+                <field name="date_to"/>
+                <field name="months"/>
+                <field name="method"/>
+                <field name="line_count" string="Products"/>
+                <field name="disagreement_count" string="Rules to Review"/>
+                <field name="company_id" groups="base.group_multi_company" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_demand_forecast_form" model="ir.ui.view">
+        <field name="name">eaglepub.demand.forecast.form</field>
+        <field name="model">eaglepub.demand.forecast</field>
+        <field name="arch" type="xml">
+            <form string="Demand Forecast" create="false" edit="false">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_lines" type="object"
+                                class="oe_stat_button" icon="fa-cubes">
+                            <field name="line_count" widget="statinfo" string="Products"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="display_name" readonly="1"/></h1>
+                    </div>
+                    <div class="alert alert-info" role="alert"
+                         invisible="disagreement_count == 0">
+                        <field name="disagreement_count" class="oe_inline" readonly="1"/>
+                        reordering rule(s) disagree with this forecast. Nothing has been
+                        changed &#8212; filter the list below on <b>Rules to Review</b> to see them.
+                    </div>
+                    <group>
+                        <group string="Period">
+                            <field name="warehouse_id" readonly="1"/>
+                            <field name="date_to" readonly="1"/>
+                            <field name="months" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company"
+                                   readonly="1"/>
+                        </group>
+                        <group string="Method">
+                            <field name="method" readonly="1"/>
+                            <field name="alpha" readonly="1"
+                                   invisible="method != 'smoothing'"/>
+                            <field name="use_seasonality" readonly="1"/>
+                            <field name="thin_count" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Forecast" name="lines">
+                            <field name="line_ids" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_demand_forecast_search" model="ir.ui.view">
+        <field name="name">eaglepub.demand.forecast.search</field>
+        <field name="model">eaglepub.demand.forecast</field>
+        <field name="arch" type="xml">
+            <search string="Demand Forecasts">
+                <field name="warehouse_id"/>
+                <filter name="filter_to_review" string="Has Rules to Review"
+                        domain="[('disagreement_count', '&gt;', 0)]"/>
+                <group>
+                    <filter name="group_warehouse" string="Warehouse"
+                            context="{'group_by': 'warehouse_id'}"/>
+                    <filter name="group_method" string="Method"
+                            context="{'group_by': 'method'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_demand_forecast" model="ir.actions.act_window">
+        <field name="name">Demand Forecasts</field>
+        <field name="res_model">eaglepub.demand.forecast</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No forecast has been run yet</p>
+            <p>Run one from <b>Inventory &#8594; Operations &#8594; New Demand Forecast</b>.
+               Each run is kept, so you can look back at what you expected last month
+               against what actually happened.</p>
+        </field>
+    </record>
+
+</odoo>

@@ -188,6 +188,25 @@ docker exec -i odoo-dev-odoo19-1 odoo shell -d v19-community \
 
 ---
 
+## 8b. Seeding sales history for testing
+
+Two traps, both found while seeding the demand forecast module:
+
+**`action_confirm` overwrites `date_order`.** `_prepare_confirmation_values` stamps it with
+*now*, so back-dated orders all land in the current month. Write the date **after**
+confirming:
+
+```python
+order.action_confirm()
+order.write({'date_order': when})
+```
+
+**`negative_stock_restriction` blocks bulk seeding** in hard mode. It has a documented
+bypass hook — `order.with_context(skip_neg_stock_check=True).action_confirm()` — which is
+the same flag its own wizard re-enters with.
+
+---
+
 ## 9. Still open
 
 - **OpenAI PDF path is broken** in `eaglepub_bill_ocr` — PDFs are sent as `image_url`,
@@ -196,6 +215,10 @@ docker exec -i odoo-dev-odoo19-1 odoo shell -d v19-community \
 - **Neither live API path has ever run** — everything was verified through the `stub`
   reader. Test against a real key before selling that module.
 - **Screenshots missing:** `eaglepub_pos_base`, `eaglepub_bill_ocr`,
-  `eaglepub_sale_commission`, `eaglepub_sale_commission_pos`.
+  `eaglepub_sale_commission`, `eaglepub_sale_commission_pos`,
+  `eaglepub_demand_forecast`.
+- **`eaglepub_demand_forecast` has not been clicked through the UI.** Views were built
+  server-side via `get_views` as a real (non-superuser) user and the arithmetic was
+  verified against seeded history, but nobody has run the wizard in a browser.
 - **Naming collision:** `eaglepub_sale_target` (`sale.target`) vs `sales_team_target`
   (`sales.target`) — two similar products, one letter apart.

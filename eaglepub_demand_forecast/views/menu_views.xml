@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_demand_forecast_new"
+              name="New Demand Forecast"
+              parent="stock.menu_stock_warehouse_mgmt"
+              action="action_demand_forecast_wizard"
+              groups="stock.group_stock_manager"
+              sequence="90"/>
+
+    <menuitem id="menu_demand_forecast"
+              name="Demand Forecast"
+              parent="stock.menu_warehouse_report"
+              action="action_demand_forecast"
+              groups="stock.group_stock_user"
+              sequence="90"/>
+
+</odoo>
