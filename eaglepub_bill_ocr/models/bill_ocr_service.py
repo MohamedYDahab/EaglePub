@@ -134,23 +134,31 @@ class EaglepubBillOcrService(models.AbstractModel):
         the module, press the button and see exactly what happens before they
         put a paid API key into it.
         """
+        today = datetime.today()
+        # Deliberately shaped like a real invoice - untidy quantities, a mixed
+        # basket, a delivery charge and a tax line - so what a buyer sees when
+        # they press the button resembles their own paperwork rather than a
+        # placeholder. The figures are self-consistent so the arithmetic check
+        # passes, which is itself part of what the sample demonstrates.
         return json.dumps({
-            'vendor_name': 'Sample Supplier Ltd',
-            'vendor_vat': None,
-            'invoice_number': 'SAMPLE-001',
-            'invoice_date': datetime.today().strftime('%Y-%m-%d'),
+            'vendor_name': 'Nile Office Supplies',
+            'vendor_vat': 'EG204857716',
+            'invoice_number': 'INV-2418',
+            'invoice_date': today.strftime('%Y-%m-%d'),
             'due_date': None,
             'currency': None,
             'purchase_order': None,
             'lines': [
-                {'description': 'Sample line - office supplies',
-                 'quantity': 2.0, 'unit_price': 25.0, 'tax_percent': None},
-                {'description': 'Sample line - delivery',
-                 'quantity': 1.0, 'unit_price': 10.0, 'tax_percent': None},
+                {'description': 'Copier paper A4 80gsm, box of 5 reams',
+                 'quantity': 12.0, 'unit_price': 24.50, 'tax_percent': 15.0},
+                {'description': 'Toner cartridge, black, high yield',
+                 'quantity': 3.0, 'unit_price': 89.00, 'tax_percent': 15.0},
+                {'description': 'Delivery',
+                 'quantity': 1.0, 'unit_price': 15.00, 'tax_percent': 15.0},
             ],
-            'amount_untaxed': 60.0,
-            'amount_tax': 0.0,
-            'amount_total': 60.0,
+            'amount_untaxed': 576.00,
+            'amount_tax': 86.40,
+            'amount_total': 662.40,
         })
 
     @api.model
