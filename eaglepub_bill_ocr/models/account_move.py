@@ -1,6 +1,8 @@
 import json
 import logging
 
+from markupsafe import Markup
+
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
@@ -15,6 +17,7 @@ class AccountMove(models.Model):
             ('none', 'Not read'),
             ('done', 'Read'),
             ('check', 'Read - needs checking'),
+            ('sample', 'Sample data - document NOT read'),
             ('error', 'Could not read'),
         ],
         string='Digitisation',
@@ -56,6 +59,23 @@ class AccountMove(models.Model):
             move._eaglepub_apply(attachment)
         return True
 
+    def action_post(self):
+        """Refuse to post a bill that was filled with sample data.
+
+        A warning can be scrolled past; the books are worth more than that. The
+        way out is ordinary - configure a real reader and digitise again, or
+        discard the draft - so this is a guard rail rather than a dead end.
+        """
+        for move in self:
+            if move.eaglepub_ocr_state == 'sample':
+                raise UserError(_(
+                    'This bill holds sample data, not figures read from your '
+                    'document, so it cannot be posted.\n\n'
+                    'Set a real document reader under Settings > Invoicing > '
+                    'Vendor Bill OCR and digitise again, or discard this draft.'
+                ))
+        return super().action_post()
+
     def _eaglepub_source_attachment(self):
         """The document to read: the main attachment, else the newest readable one."""
         self.ensure_one()
@@ -94,6 +114,30 @@ class AccountMove(models.Model):
 
         ok, message = service.check_totals(values)
         self.write(self._eaglepub_prepare_values(values))
+
+        # The sample reader invents a plausible invoice and never opens the
+        # attachment. Without saying so here, somebody attaches a real document,
+        # presses the button, and gets convincing figures that have nothing to
+        # do with their paperwork - which is exactly how a fabricated bill ends
+        # up posted.
+        if service._provider() == 'stub':
+            note = _(
+                'This bill was filled with SAMPLE DATA. Your document was not read. '
+                'Choose a real document reader in Settings > Invoicing > Vendor Bill '
+                'OCR, then digitise again - or discard this draft.')
+            self.sudo().write({
+                'eaglepub_ocr_raw': raw,
+                'eaglepub_ocr_state': 'sample',
+                'eaglepub_ocr_message': note,
+            })
+            # Markup, not a plain string: message_post escapes str, which would
+            # print the tags instead of emphasising the warning. The % operator
+            # on Markup escapes its arguments, so the file name stays safe.
+            self.message_post(body=Markup(
+                '<b>%s</b> %s'
+            ) % (_('Sample data - your document was not read.'), note))
+            return
+
         self.sudo().write({
             'eaglepub_ocr_raw': raw,
             'eaglepub_ocr_state': 'done' if ok else 'check',

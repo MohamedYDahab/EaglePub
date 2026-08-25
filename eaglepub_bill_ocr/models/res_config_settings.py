@@ -12,13 +12,15 @@ class ResConfigSettings(models.TransientModel):
             ('none', 'Off'),
             ('claude', 'Claude (Anthropic)'),
             ('openai', 'OpenAI'),
-            ('stub', 'Sample data (no key needed)'),
+            ('stub', 'Sample data - does NOT read your documents'),
         ],
         string='Document Reader',
         default='none',
         config_parameter=PREFIX + 'provider',
-        help='Which vision model reads your documents. Sample data fills a bill '
-             'with fixed values so you can see the flow before paying for a key.',
+        help='Which vision model reads your documents. '
+             'Sample data ignores the attached file entirely and invents a bill, '
+             'so you can see how digitisation behaves before paying for a key. '
+             'Bills filled that way are marked and cannot be posted.',
     )
     eaglepub_ocr_api_key = fields.Char(
         string='API Key',

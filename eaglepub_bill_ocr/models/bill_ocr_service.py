@@ -104,7 +104,7 @@ class EaglepubBillOcrService(models.AbstractModel):
         if not self._is_configured():
             raise UserError(_(
                 'No document reader is configured yet. Set one up under '
-                'Settings > Accounting > Vendor Bill OCR, including the API key '
+                'Settings > Invoicing > Vendor Bill OCR, including the API key '
                 'for the provider you want to use.'
             ))
         if attachment.mimetype not in SUPPORTED_MIMETYPES:

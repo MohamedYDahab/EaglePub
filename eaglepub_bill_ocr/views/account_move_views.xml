@@ -9,6 +9,13 @@
             <xpath expr="//div[hasclass('oe_title')]" position="before">
                 <widget name="web_ribbon" title="Check the lines" bg_color="text-bg-warning"
                         invisible="eaglepub_ocr_state != 'check'"/>
+                <widget name="web_ribbon" title="Sample data" bg_color="text-bg-danger"
+                        invisible="eaglepub_ocr_state != 'sample'"/>
+                <div class="alert alert-danger" role="alert"
+                     invisible="eaglepub_ocr_state != 'sample'">
+                    <b>Your document was not read.</b>
+                    <field name="eaglepub_ocr_message" readonly="1" nolabel="1"/>
+                </div>
                 <div class="alert alert-warning" role="alert"
                      invisible="eaglepub_ocr_state != 'check' or not eaglepub_ocr_message">
                     <field name="eaglepub_ocr_message" readonly="1" nolabel="1"/>
