@@ -66,6 +66,60 @@
         </p>
     </div>
 
+    <!-- ═══════════════ WHICH BUYER ARE YOU ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 6px;">Is this for you?</h2>
+    <p style="color:#6B7280; margin:0 0 22px;">
+        The answer is different depending on which Odoo you run, so here is both.
+    </p>
+
+    <table style="width:100%; border-collapse:separate; border-spacing:14px 0;">
+        <tr>
+            <td class="ebo-col" style="width:50%; vertical-align:top;">
+                <div class="ebo-card" style="border:1px solid #E5E7EB; border-top:4px solid #15803D; border-radius:10px; padding:24px 26px; height:100%;">
+                    <div style="display:inline-block; border:2px solid #15803D; color:#15803D; padding:3px 12px; border-radius:999px; font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; margin-bottom:12px;">
+                        On Community
+                    </div>
+                    <h3 style="font-size:1.15rem; font-weight:800; color:#3B2436; margin:0 0 10px;">There is nothing else</h3>
+                    <p style="margin:0 0 10px; color:#374151;">
+                        Odoo Community has <b>no bill digitisation at all</b>. Every supplier
+                        invoice is typed in by hand, line by line, by somebody who could be
+                        doing something else.
+                    </p>
+                    <p style="margin:0; color:#374151;">
+                        Digitisation is an Enterprise feature, and this is how you get it
+                        without changing your licence. If you are typing bills today, that is
+                        the entire argument.
+                    </p>
+                </div>
+            </td>
+            <td class="ebo-col" style="width:50%; vertical-align:top;">
+                <div class="ebo-card" style="border:1px solid #E5E7EB; border-top:4px solid #714B67; border-radius:10px; padding:24px 26px; height:100%;">
+                    <div style="display:inline-block; border:2px solid #714B67; color:#714B67; padding:3px 12px; border-radius:999px; font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; margin-bottom:12px;">
+                        On Enterprise
+                    </div>
+                    <h3 style="font-size:1.15rem; font-weight:800; color:#3B2436; margin:0 0 10px;">Only for three specific reasons</h3>
+                    <p style="margin:0 0 10px; color:#374151;">
+                        You already have digitisation, and this does not replace it for the
+                        sake of it. It is worth buying if one of these is true:
+                    </p>
+                    <ul style="margin:0 0 10px; padding-left:20px; color:#374151;">
+                        <li style="margin-bottom:6px;"><b>Your documents must not leave your control.</b>
+                            Odoo's extraction posts them to its own service. Here they go to a
+                            provider you choose, under your own contract.</li>
+                        <li style="margin-bottom:6px;"><b>You process enough pages for credits to matter.</b>
+                            There is no per-page charge from this app - you pay your model
+                            provider directly.</li>
+                        <li><b>You want the two checks Odoo's does not make</b> - see below.</li>
+                    </ul>
+                    <p style="margin:0; color:#4B5563; font-size:14px;">
+                        If none of those apply, the built-in extraction is fine and you should
+                        keep using it.
+                    </p>
+                </div>
+            </td>
+        </tr>
+    </table>
+
     <!-- ═══════════════ THE THREE REFUSALS ═══════════════ -->
     <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:44px 0 6px;">Three things it refuses to do</h2>
     <p style="color:#6B7280; margin:0 0 22px;">
@@ -77,11 +131,14 @@
             <td class="ebo-col" style="width:33%; vertical-align:top;">
                 <div class="ebo-card" style="border:1px solid #E5E7EB; border-top:4px solid #15803D; border-radius:10px; padding:22px 24px; height:100%;">
                     <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 10px;">It checks its own arithmetic</h3>
-                    <p style="margin:0; color:#4B5563;">
+                    <p style="margin:0 0 8px; color:#4B5563;">
                         Extracted lines are re-added and compared to the totals printed on the
                         page. A reader that misplaces one digit still produces a perfectly
                         believable bill - <b>only the sum gives it away</b>, so a bill that does
                         not add up is flagged rather than filled in quietly.
+                    </p>
+                    <p style="margin:0; color:#15803D; font-size:13px; font-weight:700;">
+                        One of the two checks Enterprise's own extraction does not make.
                     </p>
                 </div>
             </td>
@@ -175,12 +232,15 @@
     <!-- ═══════════════ PO BRIDGE ═══════════════ -->
     <div class="ebo-pad" style="border:1px solid #E5E7EB; border-left:5px solid #714B67; border-radius:10px; padding:28px 32px; margin:44px 0;">
         <h2 style="font-size:1.5rem; font-weight:800; color:#3B2436; margin:0 0 8px;">Working against purchase orders?</h2>
-        <p style="margin:0; color:#374151;">
+        <p style="margin:0 0 10px; color:#374151;">
             Install <b>Vendor Bill OCR - Purchase Orders</b>, a free companion that appears
             by itself once you also have Purchase. When an order reference is printed on the
             invoice the bill is linked to it, and <b>any difference between what was ordered
             and what has been billed is flagged</b> - which is the whole reason to raise a
             purchase order in the first place.
+        </p>
+        <p style="margin:0; color:#15803D; font-size:13px; font-weight:700;">
+            The second of the two checks Enterprise's own extraction does not make.
         </p>
     </div>
 
