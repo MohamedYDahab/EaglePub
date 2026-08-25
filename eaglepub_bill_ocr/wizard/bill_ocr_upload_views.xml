@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="bill_ocr_upload_view_form" model="ir.ui.view">
+        <field name="name">eaglepub.bill.ocr.upload.form</field>
+        <field name="model">eaglepub.bill.ocr.upload</field>
+        <field name="arch" type="xml">
+            <form string="Digitise Vendor Bills">
+                <group>
+                    <field name="attachment_ids" widget="many2many_binary"
+                           string="Drop the invoices here"/>
+                </group>
+                <group>
+                    <field name="journal_id"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </group>
+                <div class="alert alert-info" role="status">
+                    One draft bill per document. Nothing is posted - every result is
+                    left for you to check.
+                </div>
+                <footer>
+                    <button name="action_digitise" string="Digitise" type="object"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="bill_ocr_upload_action" model="ir.actions.act_window">
+        <field name="name">Digitise Vendor Bills</field>
+        <field name="res_model">eaglepub.bill.ocr.upload</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

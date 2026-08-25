@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Bill OCR - Purchase Orders for Odoo 19</title>
+
+    <!--
+        NOTE ON STYLING - READ BEFORE EDITING
+
+        The Odoo Apps store sanitises this page. It drops `background`, `opacity` and
+        `position:absolute`, while keeping `color`, `border`, `padding` and
+        `border-radius`. Never let contrast depend on a background: light surfaces,
+        dark text, structure carried by borders and text colour.
+
+        This <style> block is enhancement only.
+    -->
+    <style>
+        .ebp-card { transition: transform .18s ease, box-shadow .18s ease; }
+        .ebp-card:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(16,24,40,.12) !important; }
+        @media (max-width: 760px) {
+            .ebp-h1   { font-size: 1.7rem !important; }
+            .ebp-pad  { padding: 24px 20px !important; }
+            .ebp-col  { display: block !important; width: 100% !important; }
+            .ebp-hero { padding: 46px 18px 40px !important; }
+        }
+    </style>
+</head>
+
+<body style="margin:0; padding:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; color:#1F2937; background:#F6F7F9; line-height:1.7; font-size:15px; -webkit-font-smoothing:antialiased;">
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<div class="ebp-hero" style="background:#FAF5F9; border-bottom:4px solid #714B67; padding:64px 24px 54px; text-align:center;">
+    <div style="display:inline-block; border:2px solid #714B67; color:#714B67; padding:5px 16px; border-radius:999px; font-size:12px; font-weight:800; letter-spacing:.09em; text-transform:uppercase; margin-bottom:20px;">
+        Free Bridge for Odoo 19
+    </div>
+    <h1 class="ebp-h1" style="font-size:2.4rem; font-weight:800; letter-spacing:-1px; line-height:1.18; margin:0 0 16px; color:#3B2436;">
+        Vendor Bill OCR &#8211; Purchase Orders
+    </h1>
+    <p style="font-size:1.16rem; color:#4A2F43; max-width:680px; margin:0 auto;">
+        A supplier billing more than they quoted is exactly what a purchase order
+        exists to catch. This is the app that notices.
+    </p>
+</div>
+
+<div style="max-width:960px; margin:0 auto; padding:0 20px;">
+
+    <!-- ═══════════════ BRIDGE ═══════════════ -->
+    <div class="ebp-pad" style="border:1px solid #E5E7EB; border-left:5px solid #714B67; border-radius:10px; padding:28px 32px; margin:40px 0;">
+        <h2 style="font-size:1.5rem; font-weight:800; color:#3B2436; margin:0 0 8px;">A bridge, not an app</h2>
+        <p style="margin:0; color:#374151;">
+            Nothing to open and nothing to configure. Install <b>Vendor Bill OCR</b> and
+            <b>Purchase</b> and this appears by itself. It exists so the OCR app does not
+            have to drag Purchase in for everybody who only wants to digitise bills.
+        </p>
+    </div>
+
+    <!-- ═══════════════ WHAT IT ADDS ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:44px 0 22px;">What it adds</h2>
+
+    <table style="width:100%; border-collapse:separate; border-spacing:14px 0;">
+        <tr>
+            <td class="ebp-col" style="width:50%; vertical-align:top;">
+                <div class="ebp-card" style="border:1px solid #E5E7EB; border-top:4px solid #B91C1C; border-radius:10px; padding:22px 24px; height:100%;">
+                    <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 10px;">It flags the difference</h3>
+                    <p style="margin:0; color:#4B5563;">
+                        The billed total is compared against the ordered total and any gap is
+                        written on the bill in words:
+                        <i>"Billed 90.00 against P00001 at 60.00 - a difference of 30.00."</i>
+                        Noticed on the bill, not at payment time.
+                    </p>
+                </div>
+            </td>
+            <td class="ebp-col" style="width:50%; vertical-align:top;">
+                <div class="ebp-card" style="border:1px solid #E5E7EB; border-top:4px solid #714B67; border-radius:10px; padding:22px 24px; height:100%;">
+                    <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 10px;">Untidy references still match</h3>
+                    <p style="margin:0; color:#4B5563;">
+                        Suppliers quote your order number however they like -
+                        <i>"Ref PO00012"</i>, <i>"our order po-00012"</i>. The digits are matched
+                        rather than the whole string, so a tidy reference is not required.
+                    </p>
+                </div>
+            </td>
+        </tr>
+        <tr><td colspan="2" style="height:14px;"></td></tr>
+        <tr>
+            <td class="ebp-col" style="width:50%; vertical-align:top;">
+                <div class="ebp-card" style="border:1px solid #E5E7EB; border-top:4px solid #714B67; border-radius:10px; padding:22px 24px; height:100%;">
+                    <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 10px;">A weak reference is no reference</h3>
+                    <p style="margin:0; color:#4B5563;">
+                        Two or three stray digits will not link an order. Guessing wrong is far
+                        worse than leaving the bill unlinked, because a bill silently tied to
+                        somebody else's order is a mistake nobody goes looking for.
+                    </p>
+                </div>
+            </td>
+            <td class="ebp-col" style="width:50%; vertical-align:top;">
+                <div class="ebp-card" style="border:1px solid #E5E7EB; border-top:4px solid #714B67; border-radius:10px; padding:22px 24px; height:100%;">
+                    <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 10px;">It reports, it does not correct</h3>
+                    <p style="margin:0; color:#4B5563;">
+                        Nothing is adjusted to make the two agree. Which figure is wrong - the
+                        order or the invoice - is a judgement only a person can make, and often
+                        a conversation with the supplier.
+                    </p>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <!--
+        SCREENSHOTS GO HERE.
+        Capture from a running Odoo 19 and drop the files in this folder, then add the
+        <img> tags. Never ship <img> pointing at a file that does not exist - the store
+        renders a broken image.
+
+        Suggested set:
+          screenshot_matched.png    - a bill showing its matched purchase order
+          screenshot_difference.png - the flag on a bill that exceeds its order
+    -->
+
+    <!-- ═══════════════ REQUIREMENTS ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 22px;">Requirements</h2>
+    <table style="width:100%; border-collapse:collapse; border:1px solid #E5E7EB; border-radius:10px; overflow:hidden;">
+        <tr>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; width:34%; font-weight:700; color:#3B2436;">Odoo version</td>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">19.0 - Community and Enterprise</td>
+        </tr>
+        <tr>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; font-weight:700; color:#3B2436;">Depends on</td>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">
+                <b>Vendor Bill OCR</b> and Purchase. Installs itself once both are present.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:14px 20px; font-weight:700; color:#3B2436;">Licence</td>
+            <td style="padding:14px 20px; color:#374151;">LGPL-3 - free</td>
+        </tr>
+    </table>
+
+    <!-- ═══════════════ SUPPORT ═══════════════ -->
+    <div class="ebp-pad" style="border:1px solid #E5E7EB; border-top:4px solid #714B67; border-radius:10px; padding:30px 32px; margin:44px 0 60px; text-align:center;">
+        <h2 style="font-size:1.5rem; font-weight:800; margin:0 0 8px; color:#3B2436;">A reference not matching?</h2>
+        <p style="margin:0 0 26px; color:#4B5563; font-size:14.5px;">
+            Send me how your suppliers print their references and I will make them match.
+            Bugs are fixed on the free apps as readily as the paid ones.
+        </p>
+
+        <table style="margin:0 auto; border-collapse:separate; border-spacing:10px 0;">
+            <tr>
+                <td class="ebp-col" style="vertical-align:top;">
+                    <a href="https://wa.me/201007802335" target="_blank" rel="noopener"
+                       style="display:inline-block; border:2px solid #16A34A; color:#15803D; text-decoration:none; font-weight:800; font-size:14.5px; padding:13px 28px; border-radius:999px;">
+                        <span style="margin-right:8px;">&#128172;</span>WhatsApp &nbsp;+20 100 780 2335
+                    </a>
+                </td>
+                <td class="ebp-col" style="vertical-align:top;">
+                    <a href="mailto:mohamed.yaseen.dahab@gmail.com"
+                       style="display:inline-block; border:2px solid #714B67; color:#714B67; text-decoration:none; font-weight:800; font-size:14.5px; padding:13px 28px; border-radius:999px;">
+                        <span style="margin-right:8px;">&#9993;&#65039;</span>Email Support
+                    </a>
+                </td>
+            </tr>
+        </table>
+
+        <p style="margin:20px 0 0; font-size:13px; color:#6B7280;">
+            mohamed.yaseen.dahab@gmail.com &nbsp;&#183;&nbsp; +20 100 780 2335
+        </p>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Bill OCR &amp; Digitisation for Odoo 19</title>
+
+    <!--
+        NOTE ON STYLING - READ BEFORE EDITING
+
+        The Odoo Apps store sanitises this page. Observed on a live listing, it drops
+        `background` (solid and gradient alike), `opacity`, and `position:absolute`,
+        while keeping `color`, `border`, `padding` and `border-radius`.
+
+        So: never let contrast depend on a background. Light surfaces, dark text,
+        structure carried by borders and text colour. Every text colour clears 3:1
+        against plain white.
+
+        This <style> block is enhancement only.
+    -->
+    <style>
+        .ebo-card { transition: transform .18s ease, box-shadow .18s ease; }
+        .ebo-card:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(16,24,40,.12) !important; }
+        .ebo-cta { transition: transform .18s ease, box-shadow .18s ease; }
+        .ebo-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(113,75,103,.34) !important; }
+        @media (max-width: 760px) {
+            .ebo-h1     { font-size: 1.8rem !important; }
+            .ebo-pad    { padding: 24px 20px !important; }
+            .ebo-col    { display: block !important; width: 100% !important; }
+            .ebo-hero   { padding: 46px 18px 40px !important; }
+            .ebo-scroll { overflow-x: auto !important; }
+        }
+    </style>
+</head>
+
+<body style="margin:0; padding:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; color:#1F2937; background:#F6F7F9; line-height:1.7; font-size:15px; -webkit-font-smoothing:antialiased;">
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<div class="ebo-hero" style="background:#FAF5F9; border-bottom:4px solid #714B67; padding:64px 24px 54px; text-align:center;">
+    <div style="display:inline-block; border:2px solid #714B67; color:#714B67; padding:5px 16px; border-radius:999px; font-size:12px; font-weight:800; letter-spacing:.09em; text-transform:uppercase; margin-bottom:20px;">
+        Bill Digitisation for Odoo 19
+    </div>
+    <h1 class="ebo-h1" style="font-size:2.6rem; font-weight:800; letter-spacing:-1px; line-height:1.18; margin:0 0 16px; color:#3B2436;">
+        Vendor Bill OCR &amp; Digitisation
+    </h1>
+    <p style="font-size:1.16rem; color:#4A2F43; max-width:680px; margin:0 auto;">
+        Drop in a PDF or a photograph of a supplier invoice and get a draft bill
+        back - vendor, dates, lines, taxes and totals.
+    </p>
+</div>
+
+<div style="max-width:960px; margin:0 auto; padding:0 20px;">
+
+    <!-- ═══════════════ BYO KEY ═══════════════ -->
+    <div class="ebo-pad" style="border:1px solid #E5E7EB; border-left:5px solid #714B67; border-radius:10px; padding:28px 32px; margin:40px 0;">
+        <h2 style="font-size:1.5rem; font-weight:800; color:#3B2436; margin:0 0 8px;">Bring your own key</h2>
+        <p style="margin:0 0 10px; color:#374151;">
+            Reading is done by a vision model you configure and pay for directly -
+            <b>Claude</b> or <b>OpenAI</b>. There is no per-page fee to this app, no credit
+            bundle to top up, and no middleman holding your documents.
+        </p>
+        <p style="margin:0; color:#374151;">
+            It also ships with a <b>sample reader</b> that needs no key at all, so you can
+            install it, press the button and watch the whole flow before deciding whether
+            to pay anyone for anything.
+        </p>
+    </div>
+
+    <!-- ═══════════════ THE THREE REFUSALS ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:44px 0 6px;">Three things it refuses to do</h2>
+    <p style="color:#6B7280; margin:0 0 22px;">
+        In accounting, a plausible wrong number is worse than an obvious blank.
+    </p>
+
+    <table style="width:100%; border-collapse:separate; border-spacing:14px 0;">
+        <tr>
+            <td class="ebo-col" style="width:33%; vertical-align:top;">
+                <div class="ebo-card" style="border:1px solid #E5E7EB; border-top:4px solid #15803D; border-radius:10px; padding:22px 24px; height:100%;">
+                    <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 10px;">It checks its own arithmetic</h3>
+                    <p style="margin:0; color:#4B5563;">
+                        Extracted lines are re-added and compared to the totals printed on the
+                        page. A reader that misplaces one digit still produces a perfectly
+                        believable bill - <b>only the sum gives it away</b>, so a bill that does
+                        not add up is flagged rather than filled in quietly.
+                    </p>
+                </div>
+            </td>
+            <td class="ebo-col" style="width:33%; vertical-align:top;">
+                <div class="ebo-card" style="border:1px solid #E5E7EB; border-top:4px solid #15803D; border-radius:10px; padding:22px 24px; height:100%;">
+                    <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 10px;">It never posts anything</h3>
+                    <p style="margin:0; color:#4B5563;">
+                        Every result lands as a <b>draft</b> for a person to check. The raw
+                        extraction is kept on the record, so when a figure is queried you can
+                        show what was read off the page instead of re-reading it and hoping for
+                        the same answer.
+                    </p>
+                </div>
+            </td>
+            <td class="ebo-col" style="width:33%; vertical-align:top;">
+                <div class="ebo-card" style="border:1px solid #E5E7EB; border-top:4px solid #15803D; border-radius:10px; padding:22px 24px; height:100%;">
+                    <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 10px;">It will not invent a vendor</h3>
+                    <p style="margin:0; color:#4B5563;">
+                        Vendors are matched on VAT number first, then on name. One that cannot
+                        be matched is <b>left empty</b> for you to pick - creating a contact from
+                        a misread name quietly litters the address book, and choosing the right
+                        one takes seconds.
+                    </p>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <!-- ═══════════════ THE DETAIL ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 22px;">The details that decide whether it is usable</h2>
+
+    <div class="ebo-scroll">
+    <table style="width:100%; border-collapse:collapse; border:1px solid #E5E7EB; border-radius:10px; overflow:hidden;">
+        <tr>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; width:32%; font-weight:700; color:#3B2436;">Numbers as they are written</td>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">
+                <code style="color:#3B2436;">1,234.56</code> and <code style="color:#3B2436;">1.234,56</code>
+                both read as the same amount, and <code style="color:#3B2436;">(12.00)</code>
+                is understood as <b>minus twelve</b> - the bracket notation that turns a credit
+                into a charge if you miss it.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; font-weight:700; color:#3B2436;">Dates that are not ambiguous</td>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">
+                Several written formats are accepted, and anything that cannot be read with
+                confidence is left blank rather than guessed at.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; font-weight:700; color:#3B2436;">Taxes only when they match</td>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">
+                A rate read off the document is matched to a purchase tax in your company. If
+                there is no match, <b>no tax is applied</b> - an absent tax is visible to
+                whoever checks the bill, a wrong one is not.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; font-weight:700; color:#3B2436;">One at a time, or a pile</td>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">
+                Digitise a bill you are already looking at, or drop a batch of documents into
+                the upload screen and get one draft per file. A document that cannot be read
+                <b>still produces its bill</b>, flagged, with the file attached - dropping it
+                would leave you working out which invoice never arrived.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:16px 20px; font-weight:700; color:#3B2436;">Refused before it costs you</td>
+            <td style="padding:16px 20px; color:#374151;">
+                Files that are not a PDF or a photograph are rejected up front, rather than
+                sent, paid for, and rejected at the far end.
+            </td>
+        </tr>
+    </table>
+    </div>
+
+    <!--
+        SCREENSHOTS GO HERE.
+        Capture from a running Odoo 19 and drop the files in this folder, then add the
+        <img> tags. Never ship <img> pointing at a file that does not exist - the store
+        renders a broken image.
+
+        Suggested set:
+          screenshot_settings.png    - Settings > Accounting > Vendor Bill OCR
+          screenshot_button.png      - the Digitise Document button on a draft bill
+          screenshot_result.png      - a filled draft bill with its lines
+          screenshot_flagged.png     - the "check the lines" ribbon and its note
+          screenshot_upload.png      - the bulk upload screen
+    -->
+
+    <!-- ═══════════════ PO BRIDGE ═══════════════ -->
+    <div class="ebo-pad" style="border:1px solid #E5E7EB; border-left:5px solid #714B67; border-radius:10px; padding:28px 32px; margin:44px 0;">
+        <h2 style="font-size:1.5rem; font-weight:800; color:#3B2436; margin:0 0 8px;">Working against purchase orders?</h2>
+        <p style="margin:0; color:#374151;">
+            Install <b>Vendor Bill OCR - Purchase Orders</b>, a free companion that appears
+            by itself once you also have Purchase. When an order reference is printed on the
+            invoice the bill is linked to it, and <b>any difference between what was ordered
+            and what has been billed is flagged</b> - which is the whole reason to raise a
+            purchase order in the first place.
+        </p>
+    </div>
+
+    <!-- ═══════════════ SCOPE ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 6px;">What this app does not do</h2>
+    <p style="color:#6B7280; margin:0 0 22px;">Worth knowing before you buy.</p>
+
+    <div style="border:1px solid #E5E7EB; border-left:5px solid #B45309; border-radius:10px; padding:22px 26px; margin-bottom:14px;">
+        <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 8px;">Your documents go to your provider</h3>
+        <p style="margin:0; color:#4B5563;">
+            Reading happens at Anthropic or OpenAI, whichever you configure. Supplier
+            invoices are commercial documents, so check that sending them to that provider
+            is something your data protection policy allows. Nothing is sent until you
+            enter a key, and the sample reader sends nothing at all.
+        </p>
+    </div>
+
+    <div style="border:1px solid #E5E7EB; border-left:5px solid #B45309; border-radius:10px; padding:22px 26px; margin-bottom:14px;">
+        <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 8px;">It reads, it does not decide</h3>
+        <p style="margin:0; color:#4B5563;">
+            No approval workflow, no automatic posting, no payment. It fills a draft and
+            stops. Everything after that is Odoo's own accounting, unchanged.
+        </p>
+    </div>
+
+    <div style="border:1px solid #E5E7EB; border-left:5px solid #B45309; border-radius:10px; padding:22px 26px;">
+        <h3 style="font-size:1.08rem; font-weight:700; color:#374151; margin:0 0 8px;">Products are not matched</h3>
+        <p style="margin:0; color:#4B5563;">
+            Lines are created with the description printed on the invoice rather than
+            matched to products in your catalogue, because a wrong product silently moves
+            stock. Matching by supplier code is a candidate for a later version.
+        </p>
+    </div>
+
+    <!-- ═══════════════ REQUIREMENTS ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 22px;">Requirements</h2>
+    <table style="width:100%; border-collapse:collapse; border:1px solid #E5E7EB; border-radius:10px; overflow:hidden;">
+        <tr>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; width:34%; font-weight:700; color:#3B2436;">Odoo version</td>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">19.0 - Community and Enterprise</td>
+        </tr>
+        <tr>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; font-weight:700; color:#3B2436;">Depends on</td>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">Invoicing - standard, nothing else</td>
+        </tr>
+        <tr>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; font-weight:700; color:#3B2436;">You will need</td>
+            <td style="padding:14px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">
+                An API key from Anthropic or OpenAI, billed to you by them. Or nothing at
+                all, to try the sample reader.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:14px 20px; font-weight:700; color:#3B2436;">Outbound access</td>
+            <td style="padding:14px 20px; color:#374151;">
+                Your Odoo server must be able to reach the provider's API.
+            </td>
+        </tr>
+    </table>
+
+    <!-- ═══════════════ SUPPORT ═══════════════ -->
+    <div class="ebo-pad" style="border:1px solid #E5E7EB; border-top:4px solid #714B67; border-radius:10px; padding:30px 32px; margin:44px 0 60px; text-align:center;">
+        <h2 style="font-size:1.5rem; font-weight:800; margin:0 0 8px; color:#3B2436;">Need a hand?</h2>
+        <p style="margin:0 0 26px; color:#4B5563; font-size:14.5px;">
+            Questions, bug reports and feature requests are welcome - usually answered the
+            same day. Ask before you buy if you are unsure it fits your documents.
+        </p>
+
+        <table style="margin:0 auto; border-collapse:separate; border-spacing:10px 0;">
+            <tr>
+                <td class="ebo-col" style="vertical-align:top;">
+                    <a class="ebo-cta" href="https://wa.me/201007802335" target="_blank" rel="noopener"
+                       style="display:inline-block; border:2px solid #16A34A; color:#15803D; text-decoration:none; font-weight:800; font-size:14.5px; padding:13px 28px; border-radius:999px;">
+                        <span style="margin-right:8px;">&#128172;</span>WhatsApp &nbsp;+20 100 780 2335
+                    </a>
+                </td>
+                <td class="ebo-col" style="vertical-align:top;">
+                    <a class="ebo-cta" href="mailto:mohamed.yaseen.dahab@gmail.com"
+                       style="display:inline-block; border:2px solid #714B67; color:#714B67; text-decoration:none; font-weight:800; font-size:14.5px; padding:13px 28px; border-radius:999px;">
+                        <span style="margin-right:8px;">&#9993;&#65039;</span>Email Support
+                    </a>
+                </td>
+            </tr>
+        </table>
+
+        <p style="margin:20px 0 0; font-size:13px; color:#6B7280;">
+            mohamed.yaseen.dahab@gmail.com &nbsp;&#183;&nbsp; +20 100 780 2335
+        </p>
+    </div>
+
+</div>
+</body>
+</html>

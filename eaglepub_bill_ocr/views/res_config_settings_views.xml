@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form_bill_ocr" model="ir.ui.view">
+        <field name="name">res.config.settings.form.inherit.eaglepub.bill.ocr</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='account_vendor_bills']" position="after">
+                <block title="Vendor Bill OCR" id="eaglepub_bill_ocr_block">
+                    <setting string="Document Reader"
+                             help="Reads supplier invoices into draft bills using a vision model you configure and pay for directly. Documents are sent to that provider, so pick one your data protection policy allows.">
+                        <field name="eaglepub_ocr_provider"/>
+                        <div class="mt-2" invisible="eaglepub_ocr_provider in ('none', False)">
+                            <div invisible="eaglepub_ocr_provider == 'stub'">
+                                <label for="eaglepub_ocr_api_key" class="o_light_label"/>
+                                <field name="eaglepub_ocr_api_key" password="True"/>
+                            </div>
+                            <div invisible="eaglepub_ocr_provider == 'stub'">
+                                <label for="eaglepub_ocr_model" class="o_light_label"/>
+                                <field name="eaglepub_ocr_model" placeholder="leave empty for the default"/>
+                            </div>
+                            <div invisible="eaglepub_ocr_provider == 'stub'">
+                                <label for="eaglepub_ocr_timeout" class="o_light_label"/>
+                                <field name="eaglepub_ocr_timeout"/>
+                            </div>
+                            <div class="text-muted mt-2" invisible="eaglepub_ocr_provider != 'stub'">
+                                Sample data fills a bill with fixed values. Nothing leaves your server.
+                            </div>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

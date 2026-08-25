@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_move_form_bill_ocr_purchase" model="ir.ui.view">
+        <field name="name">account.move.form.inherit.eaglepub.bill.ocr.purchase</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="eaglepub_bill_ocr.view_move_form_bill_ocr"/>
+        <field name="arch" type="xml">
+            <field name="eaglepub_ocr_state" position="after">
+                <field name="eaglepub_ocr_purchase_id" readonly="1"
+                       invisible="not eaglepub_ocr_purchase_id"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
