@@ -115,17 +115,31 @@
         </p>
     </div>
 
-    <!--
-        SCREENSHOTS GO HERE.
-        Capture from a running Odoo 19 and drop the files in this folder, then add the
-        <img> tags. Never ship <img> pointing at a file that does not exist - the store
-        renders a broken image.
+    <!-- ═══════════════ SCREENSHOTS ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 22px;">See it working</h2>
 
-        Suggested set:
-          screenshot_include_pos.png   - Include POS Sales on the plan form
-          screenshot_mixed_lines.png   - one commission with invoice and till lines together
-          screenshot_pos_refund.png    - the negative line from a till refund
-    -->
+    <div style="border:1px solid #E5E7EB; border-radius:10px; padding:18px; margin-bottom:18px;">
+        <img src="mixed_invoice_and_pos_lines.png" alt="A commission record listing invoice references, a credit note and several NYC Shop till orders together, including negative refund lines"
+             style="width:100%; height:auto; display:block; border:1px solid #E5E7EB; border-radius:6px;"/>
+        <p style="margin:12px 4px 0; color:#4B5563; font-size:14px;">
+            <b style="color:#3B2436;">One record, both kinds of selling.</b> The
+            <b>NYC Shop</b> lines are till orders sitting alongside the invoices, matched
+            against the same product and category rates. The refund at
+            <b>-50.00 taking 5.00 back</b> needed no special handling - a POS refund already
+            carries negative quantities of its own.
+        </p>
+    </div>
+
+    <div style="border:1px solid #E5E7EB; border-radius:10px; padding:18px;">
+        <img src="include_pos_setting.png" alt="A commission plan showing the Include POS Sales checkbox alongside the earned-on and calculated-on settings"
+             style="width:100%; height:auto; display:block; border:1px solid #E5E7EB; border-radius:6px;"/>
+        <p style="margin:12px 4px 0; color:#4B5563; font-size:14px;">
+            <b style="color:#3B2436;">The whole of the configuration.</b>
+            <b>Include POS Sales</b> appears on the plan once this is installed. Clear it and
+            that plan goes back to invoiced business only, while your other plans carry on
+            counting the till.
+        </p>
+    </div>
 
     <!-- ═══════════════ REQUIREMENTS ═══════════════ -->
     <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 22px;">Requirements</h2>

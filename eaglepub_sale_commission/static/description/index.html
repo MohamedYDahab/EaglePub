@@ -188,20 +188,56 @@
         </p>
     </div>
 
-    <!--
-        SCREENSHOTS GO HERE.
-        Capture from a running Odoo 19 and drop the files in this folder, then add the
-        <img> tags. Never ship <img> pointing at a file that does not exist - the store
-        renders a broken image.
+    <!-- ═══════════════ SCREENSHOTS ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 22px;">See it working</h2>
 
-        Suggested set:
-          screenshot_plan_form.png      - a plan with three rules, exceptions on top
-          screenshot_user_assign.png    - the Commission tab on a salesperson
-          screenshot_compute_wizard.png - the compute wizard
-          screenshot_commission_list.png- commissions grouped by salesperson
-          screenshot_commission_form.png- the detail lines, including a credit note line
-          screenshot_margin_plan.png    - a plan set to calculate on margin
-    -->
+    <div style="border:1px solid #E5E7EB; border-radius:10px; padding:18px; margin-bottom:18px;">
+        <img src="comission_plan.png" alt="A commission plan with three rules in precedence order: one product at 10 percent, a product category at 5 percent, and everything else at 2 percent"
+             style="width:100%; height:auto; display:block; border:1px solid #E5E7EB; border-radius:6px;"/>
+        <p style="margin:12px 4px 0; color:#4B5563; font-size:14px;">
+            <b style="color:#3B2436;">A plan is three rules and two settings.</b> Earned on a
+            posted invoice, calculated on revenue, and the rates ordered so the exceptions
+            sit above the general case - one product at 10%, a category at 5%, everything
+            else at 2%. The first match wins, which is why the order is draggable.
+        </p>
+    </div>
+
+    <div style="border:1px solid #E5E7EB; border-radius:10px; padding:18px; margin-bottom:18px;">
+        <img src="compute_sales_comission.png" alt="A draft commission with ten detail lines mixing invoices, a credit note and point of sale orders, totalling 352.40 base and 20.63 commission"
+             style="width:100%; height:auto; display:block; border:1px solid #E5E7EB; border-radius:6px;"/>
+        <p style="margin:12px 4px 0; color:#4B5563; font-size:14px;">
+            <b style="color:#3B2436;">Every line, and where it came from.</b> Invoices,
+            <b>a credit note at -100.00 taking 10.00 back</b>, and till orders all on one
+            record - each with the quantity, the base it was calculated on, the rate that
+            applied and the resulting amount. Nothing here has to be recomputed to be
+            explained.
+        </p>
+    </div>
+
+    <table style="width:100%; border-collapse:separate; border-spacing:14px 0;">
+        <tr>
+            <td class="esc-col" style="width:50%; vertical-align:top;">
+                <div style="border:1px solid #E5E7EB; border-radius:10px; padding:16px; height:100%;">
+                    <img src="sales_comission_form.png" alt="A commission record marked Paid, showing base amount, commission amount and its detail lines"
+                         style="width:100%; height:auto; display:block; border:1px solid #E5E7EB; border-radius:6px;"/>
+                    <p style="margin:10px 2px 0; color:#4B5563; font-size:14px;">
+                        <b style="color:#3B2436;">Draft, confirmed, paid.</b> Once it is agreed it
+                        stops moving - a later recompute leaves it alone.
+                    </p>
+                </div>
+            </td>
+            <td class="esc-col" style="width:50%; vertical-align:top;">
+                <div style="border:1px solid #E5E7EB; border-radius:10px; padding:16px; height:100%;">
+                    <img src="sales_comission_menu.png" alt="The Commissions menu with Commissions, Compute Commissions and Commission Plans, above a list of commission records"
+                         style="width:100%; height:auto; display:block; border:1px solid #E5E7EB; border-radius:6px;"/>
+                    <p style="margin:10px 2px 0; color:#4B5563; font-size:14px;">
+                        <b style="color:#3B2436;">Three menu items, no more.</b> The records, the
+                        compute, and the plans behind them.
+                    </p>
+                </div>
+            </td>
+        </tr>
+    </table>
 
     <!-- ═══════════════ SCOPE / HONESTY ═══════════════ -->
     <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 6px;">What this app does not do</h2>

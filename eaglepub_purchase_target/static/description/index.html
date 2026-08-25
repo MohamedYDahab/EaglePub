@@ -97,27 +97,66 @@
             </td>
         </tr>
         <tr>
-            <td style="padding:16px 20px; font-weight:700; color:#3B2436;">Periods that keep themselves</td>
-            <td style="padding:16px 20px; color:#374151;">
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; font-weight:700; color:#3B2436;">Periods that keep themselves</td>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">
                 Monthly, quarterly, yearly or custom, with dates computed for you - and
                 auto-renew into the next period so nobody has to remember on the first of
                 the month.
             </td>
         </tr>
+        <tr>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; font-weight:700; color:#3B2436;">What is still to come</td>
+            <td style="padding:16px 20px; border-bottom:1px solid #F3F4F6; color:#374151;">
+                Each line carries <b>current stock</b>, <b>ordered but not received</b> and
+                <b>to replenish</b> alongside the target, so the same screen answers
+                "how are we doing" and "what do I still need to raise".
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:16px 20px; font-weight:700; color:#3B2436;">Reported three ways</td>
+            <td style="padding:16px 20px; color:#374151;">
+                View on screen, print to PDF or export to Excel, filtered by vendor and
+                product over a quarter, a year or a range you choose.
+            </td>
+        </tr>
     </table>
     </div>
 
-    <!--
-        SCREENSHOTS GO HERE.
-        Capture from a running Odoo 19 and drop the files in this folder, then add the
-        <img> tags. Never ship <img> pointing at a file that does not exist - the store
-        renders a broken image.
+    <!-- ═══════════════ SCREENSHOTS ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 22px;">See it working</h2>
 
-        Suggested set:
-          screenshot_target_list.png  - targets with their progress
-          screenshot_target_form.png  - one target, vendor and product filled in
-          screenshot_report.png       - the printed achievement report
-    -->
+    <div style="border:1px solid #E5E7EB; border-radius:10px; padding:18px; margin-bottom:18px;">
+        <img src="purchase_target_form.png" alt="A purchase target showing the vendor, the period type options, and target lines with received quantity, received amount and remaining"
+             style="width:100%; height:auto; display:block; border:1px solid #E5E7EB; border-radius:6px;"/>
+        <p style="margin:12px 4px 0; color:#4B5563; font-size:14px;">
+            <b style="color:#3B2436;">One target, and the whole picture.</b> Vendor and period
+            at the top, then a line per product carrying target quantity, cost, current
+            stock, what is on order but not yet in, what is still to replenish, and what
+            has actually been received - in quantity, in money and as a percentage.
+        </p>
+    </div>
+
+    <div style="border:1px solid #E5E7EB; border-radius:10px; padding:18px; margin-bottom:18px;">
+        <img src="next_period_button.png" alt="The Next Period button, with the breadcrumb showing the August target followed by the newly created September one"
+             style="width:100%; height:auto; display:block; border:1px solid #E5E7EB; border-radius:6px;"/>
+        <p style="margin:12px 4px 0; color:#4B5563; font-size:14px;">
+            <b style="color:#3B2436;">Next month in one click.</b> The breadcrumb tells the
+            story: August is done, September exists, and nobody re-keyed a vendor, a
+            product list or a set of dates to get there.
+        </p>
+    </div>
+
+    <div style="border:1px solid #E5E7EB; border-radius:10px; padding:18px;">
+        <img src="purchase_target_report.png" alt="The Purchase Target Report dialog with quarterly period selection, vendor and product filters, and View, Print PDF and Export XLSX buttons"
+             style="width:100%; height:auto; display:block; border:1px solid #E5E7EB; border-radius:6px;"/>
+        <p style="margin:12px 4px 0; color:#4B5563; font-size:14px;">
+            <b style="color:#3B2436;">Reporting, with the boundary spelled out.</b> Pick a
+            quarter, a year or a custom range, narrow it to particular vendors or products,
+            then view it, print it or take it to Excel. The dialog states plainly that only
+            targets falling <b>entirely</b> inside the range are counted, so a half-covered
+            period never quietly skews a total.
+        </p>
+    </div>
 
     <!-- ═══════════════ REQUIREMENTS ═══════════════ -->
     <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 22px;">Requirements</h2>
