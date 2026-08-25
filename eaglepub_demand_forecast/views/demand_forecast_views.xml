@@ -8,7 +8,7 @@
         <field name="model">eaglepub.demand.forecast.line</field>
         <field name="arch" type="xml">
             <list string="Forecast" create="false" delete="false">
-                <field name="product_id"/>
+                <field name="product_id" width="230px"/>
                 <field name="uom_name" string="Unit" optional="show"/>
                 <field name="forecast_qty" sum="Forecast"/>
                 <field name="qty_available" string="On Hand" optional="show"/>
@@ -53,20 +53,21 @@
                             <field name="uom_name"/>
                             <field name="base_qty"/>
                             <field name="seasonal_factor"/>
+                            <field name="history_months"/>
                         </group>
                         <group string="Against Stock">
                             <field name="qty_available"/>
-                            <field name="orderpoint_id"/>
-                            <field name="orderpoint_min"/>
+                            <field name="orderpoint_id"
+                                   placeholder="None set for this product"/>
+                            <field name="orderpoint_min"
+                                   invisible="not orderpoint_id"/>
                             <button name="action_open_orderpoint" type="object"
                                     string="Open reordering rule" class="btn-link"
                                     invisible="not orderpoint_id"/>
                         </group>
                     </group>
-                    <group string="The Months Behind This">
-                        <field name="history_display" nolabel="1" readonly="1"/>
-                        <field name="history_months"/>
-                    </group>
+                    <separator string="The Months Behind This"/>
+                    <field name="history_display" nolabel="1" readonly="1"/>
                 </sheet>
             </form>
         </field>
@@ -105,12 +106,12 @@
         <field name="arch" type="xml">
             <list string="Demand Forecasts" create="false">
                 <field name="create_date" string="Run On"/>
-                <field name="warehouse_id"/>
-                <field name="date_to"/>
-                <field name="months"/>
-                <field name="method"/>
+                <field name="warehouse_label" string="Warehouse"/>
+                <field name="date_to" string="Up To"/>
+                <field name="months" string="Months"/>
+                <field name="method" string="Method" width="200px"/>
                 <field name="line_count" string="Products"/>
-                <field name="disagreement_count" string="Rules to Review"/>
+                <field name="disagreement_count" string="To Review"/>
                 <field name="company_id" groups="base.group_multi_company" optional="show"/>
             </list>
         </field>
@@ -139,7 +140,7 @@
                     </div>
                     <group>
                         <group string="Period">
-                            <field name="warehouse_id" readonly="1"/>
+                            <field name="warehouse_label" string="Warehouse" readonly="1"/>
                             <field name="date_to" readonly="1"/>
                             <field name="months" readonly="1"/>
                             <field name="company_id" groups="base.group_multi_company"
@@ -155,7 +156,8 @@
                     </group>
                     <notebook>
                         <page string="Forecast" name="lines">
-                            <field name="line_ids" readonly="1"/>
+                            <field name="line_ids" string="Forecast Line"
+                                   nolabel="1" readonly="1"/>
                         </page>
                     </notebook>
                 </sheet>

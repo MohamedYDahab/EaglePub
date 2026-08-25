@@ -28,7 +28,12 @@ class EaglepubDemandForecastWizard(models.TransientModel):
         required=True,
         default=lambda self: fields.Date.context_today(self),
     )
-    months = fields.Integer(string='Months of History', default=12, required=True)
+    months = fields.Integer(
+        string='Months of History', default=24, required=True,
+        help='Defaults to 24 because seasonality needs the same calendar month '
+             'at least twice. At 12 months every month appears once and no '
+             'seasonal adjustment is possible.',
+    )
     method = fields.Selection(
         selection=[
             ('average', 'Average'),

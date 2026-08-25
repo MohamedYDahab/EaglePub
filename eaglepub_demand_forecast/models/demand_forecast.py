@@ -28,8 +28,10 @@ class EaglepubDemandForecast(models.Model):
     )
     months = fields.Integer(
         string='Months of History',
-        default=12,
+        default=24,
         required=True,
+        help='Seasonality needs the same calendar month at least twice, so a '
+             'period shorter than 13 months can never produce one.',
     )
     method = fields.Selection(
         selection=[
@@ -74,6 +76,11 @@ class EaglepubDemandForecast(models.Model):
         string='Thin History',
     )
     display_name = fields.Char(compute='_compute_display_name', store=True)
+    warehouse_label = fields.Char(
+        string='Warehouse Covered', compute='_compute_warehouse_label',
+        help='Reads "All warehouses" when no single warehouse was chosen, so an '
+             'empty cell is never mistaken for missing data.',
+    )
 
     _alpha_range = models.Constraint(
         'CHECK(alpha > 0 AND alpha <= 1)',
@@ -90,6 +97,11 @@ class EaglepubDemandForecast(models.Model):
             rec.line_count = len(rec.line_ids)
             rec.disagreement_count = len(rec.line_ids.filtered('rule_disagrees'))
             rec.thin_count = len(rec.line_ids.filtered('history_is_thin'))
+
+    @api.depends('warehouse_id')
+    def _compute_warehouse_label(self):
+        for rec in self:
+            rec.warehouse_label = rec.warehouse_id.name or _('All warehouses')
 
     @api.depends('warehouse_id', 'date_to', 'method')
     def _compute_display_name(self):

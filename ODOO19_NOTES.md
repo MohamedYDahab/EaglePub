@@ -207,6 +207,28 @@ the same flag its own wizard re-enters with.
 
 ---
 
+## 8c. Capturing screenshots headlessly
+
+Playwright drives Microsoft Edge on this machine (`channel='msedge'` — the bundled
+Chromium is not downloaded). Four things that cost time:
+
+- **`wait_until='networkidle'` never fires on Odoo.** The bus holds a long-poll
+  connection open, so every `goto` hangs for the full timeout. Use
+  `domcontentloaded` plus an explicit `wait_for_selector`.
+- **Park the mouse before every shot** (`page.mouse.move(4, 700)`). A cell left under
+  the pointer renders a black tooltip into the middle of the picture.
+- `device_scale_factor=2` at a 1440x900 viewport gives crisp store images.
+- Authentication needs a real session. Minting one from `odoo shell` via
+  `root.session_store` is **blocked by the permission classifier** as an auth bypass —
+  ask the user before reaching for it.
+
+**What the shots caught that no test did:** a dialog titled *Open: Products*, the
+month-by-month history wrapping into a 200px column, product names truncated to
+`EPF Seasonal...`, and blank Warehouse cells that read as missing data rather than
+"all warehouses". Views that pass `get_views` can still look broken.
+
+---
+
 ## 9. Still open
 
 - **OpenAI PDF path is broken** in `eaglepub_bill_ocr` — PDFs are sent as `image_url`,
@@ -215,10 +237,6 @@ the same flag its own wizard re-enters with.
 - **Neither live API path has ever run** — everything was verified through the `stub`
   reader. Test against a real key before selling that module.
 - **Screenshots missing:** `eaglepub_pos_base`, `eaglepub_bill_ocr`,
-  `eaglepub_sale_commission`, `eaglepub_sale_commission_pos`,
-  `eaglepub_demand_forecast`.
-- **`eaglepub_demand_forecast` has not been clicked through the UI.** Views were built
-  server-side via `get_views` as a real (non-superuser) user and the arithmetic was
-  verified against seeded history, but nobody has run the wizard in a browser.
+  `eaglepub_sale_commission`, `eaglepub_sale_commission_pos`.
 - **Naming collision:** `eaglepub_sale_target` (`sale.target`) vs `sales_team_target`
   (`sales.target`) — two similar products, one letter apart.

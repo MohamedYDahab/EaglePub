@@ -192,14 +192,31 @@
         rounding difference is a report people learn to close.
     </p>
 
-    <!--
-        SCREENSHOTS - not yet captured for this module.
-        Do NOT add <img> tags before the files exist in this folder; the store
-        renders a broken image. Shots to take on a database with real history:
-          forecast_wizard.png    - the run dialog with the three methods
-          forecast_result.png    - the result list, Rules to Review filter active
-          forecast_line.png      - a single line showing the months behind it
-    -->
+    <!-- ═══════════════ SCREENSHOTS ═══════════════ -->
+    <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 22px;">What it looks like</h2>
+
+    <div class="esc-pad" style="border:1px solid #E5E7EB; border-radius:10px; padding:26px 28px;">
+        <figure style="margin:0 0 30px;">
+            <img src="forecast_wizard.png" alt="The demand forecast dialog"
+                 style="width:100%; max-width:100%; height:auto; display:block; border:1px solid #E5E7EB; border-radius:10px;"/>
+            <figcaption style="margin-top:10px; font-size:13.5px; color:#6B7280; text-align:center;">One dialog. Pick the coverage, the history, and the method - the smoothing factor is a field, not a hidden constant.</figcaption>
+        </figure>
+        <figure style="margin:0 0 30px;">
+            <img src="forecast_result.png" alt="A completed forecast with rule warnings"
+                 style="width:100%; max-width:100%; height:auto; display:block; border:1px solid #E5E7EB; border-radius:10px;"/>
+            <figcaption style="margin-top:10px; font-size:13.5px; color:#6B7280; text-align:center;">The result. Forecast against stock on hand and the existing rule minimum, with the disagreements spelled out in words.</figcaption>
+        </figure>
+        <figure style="margin:0 0 30px;">
+            <img src="forecast_line.png" alt="A single forecast line showing its history"
+                 style="width:100%; max-width:100%; height:auto; display:block; border:1px solid #E5E7EB; border-radius:10px;"/>
+            <figcaption style="margin-top:10px; font-size:13.5px; color:#6B7280; text-align:center;">One line, opened. Two Septembers at 120 among twenty-two months of 40 are what produced the 2.57 seasonal factor - and you can see them.</figcaption>
+        </figure>
+        <figure style="margin:0 0 30px;">
+            <img src="forecast_runs.png" alt="The register of past forecast runs"
+                 style="width:100%; max-width:100%; height:auto; display:block; border:1px solid #E5E7EB; border-radius:10px;"/>
+            <figcaption style="margin-top:10px; font-size:13.5px; color:#6B7280; text-align:center;">Every run is kept, so last month’s forecast can be held up against what actually happened.</figcaption>
+        </figure>
+    </div>
 
     <!-- ═══════════════ WHAT IT DOES NOT DO ═══════════════ -->
     <h2 style="font-size:1.5rem; font-weight:800; color:#4A2F43; margin:48px 0 22px;">What this app does not do</h2>
