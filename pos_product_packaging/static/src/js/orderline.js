@@ -9,9 +9,8 @@ patch(Orderline.prototype, {
         const line = this.line;
         if (vals?.isReceipt && line?.packaging_id) {
             const pkgName =
-                line.packaging_id.uom_id?.name ||
-                line.packaging_id.uom_id?.display_name ||
-                line.packaging_id.name;
+                line.packaging_id.name ||
+                line.packaging_id.display_name;
             if (pkgName) {
                 vals.name = `${vals.name} (${pkgName})`;
             }

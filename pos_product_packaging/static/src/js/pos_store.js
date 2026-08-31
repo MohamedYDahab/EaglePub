@@ -69,37 +69,22 @@ patch(PosStore.prototype, {
      * We filter to only those marked available_in_pos and exclude the base UoM.
      */
     _getPackagingsForProduct(productTemplate) {
-        const productUomModel = this.models["product.uom"];
-        if (!productUomModel) {
+        // In Odoo 19, packagings are uom.uom records linked to the
+        // product.template via the uom_ids many2many field (not a
+        // separate product.uom link table).
+        const uomIds = productTemplate.uom_ids || [];
+
+        if (!uomIds || uomIds.length === 0) {
             return [];
         }
 
-        // Get all variant IDs for this template
-        const variantIds = (productTemplate.product_variant_ids || []).map(
-            (v) => (typeof v === "object" ? v.id : v)
-        );
-
-        if (variantIds.length === 0) {
-            return [];
-        }
-
-        // Get base UoM id of the product template
         const baseUomId = productTemplate.uom_id?.id || productTemplate.uom_id;
 
-        // Filter product.uom records:
-        // - product_id matches one of the variants
-        // - available_in_pos is checked
-        // - uom_id is not the base product UoM
-        const packagings = productUomModel.filter((pUom) => {
-            const productId = pUom.product_id?.id || pUom.product_id;
-            if (!variantIds.includes(productId)) {
+        const packagings = uomIds.filter((uomRec) => {
+            if (uomRec.available_in_pos !== true) {
                 return false;
             }
-            if (pUom.available_in_pos !== true) {
-                return false;
-            }
-            // Exclude the base UoM (same as product's default UoM)
-            const uomId = pUom.uom_id?.id || pUom.uom_id;
+            const uomId = uomRec.id;
             if (uomId === baseUomId) {
                 return false;
             }
@@ -160,11 +145,10 @@ patch(PosStore.prototype, {
             // Build popup data: get UoM info for each packaging
             const baseUom = productTemplate.uom_id;
             const packagingData = packagings.map((pUom) => {
-                const uomRecord = pUom.uom_id;
                 return {
                     id: pUom.id,
-                    name: uomRecord?.name || uomRecord?.display_name || "Package",
-                    qty: this._getUomQty(uomRecord, baseUom),
+                    name: pUom.name || pUom.display_name || "Package",
+                    qty: this._getUomQty(pUom, baseUom),
                     record: pUom,
                 };
             });
@@ -194,7 +178,12 @@ patch(PosStore.prototype, {
             if (payload) {
                 if (payload.packaging) {
                     const line = await super.addLineToCurrentOrder(
-                        { ...vals, qty: payload.totalQty },
+                        {
+                            ...vals,
+                            qty: payload.totalQty,
+                            packaging_id: payload.packaging.record,
+                            package_qty: payload.packageQty,
+                        },
                         { ...opts, fromPackagingPopup: true },
                         configure
                     );

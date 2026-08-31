@@ -4,7 +4,7 @@ from odoo import models, fields, api
 
 
 class ProductUom(models.Model):
-    _inherit = 'product.uom'
+    _inherit = 'uom.uom'
 
     available_in_pos = fields.Boolean(
         string='Available in POS',
