@@ -15,9 +15,24 @@ These do **not** raise. They fail quietly, which is why they cost so much time.
 | `res.groups.category_id` removed | Install fails: `Invalid field 'category_id' in 'res.groups'` | Use `privilege_id` pointing at a `res.groups.privilege` record |
 | Search view `<group expand="0" string="...">` | View validation error, module won't install | Bare `<group>` — `expand` and `string` are no longer valid there |
 | `<tree>` → `<list>` | Parse error | Also `view_mode: 'tree'` → `'list'` in actions, and `/tree/` → `/list/` in xpaths |
-| `product.packaging` gone | Model not found | Replaced by `product.uom` (`product_id` + `uom_id` + `barcode`) |
+| `product.packaging` gone | Model not found | A packaging is now a **`uom.uom`** listed in `product.template.uom_ids`. **Not** `product.uom` — see below |
 | `uom.uom` reworked | `category_id` missing | Now `relative_uom_id` + `relative_factor`; `factor` is a computed **absolute** quantity |
 | `name_get()` removed (since 17) | — | `_compute_display_name` |
+
+### `product.uom` is not the packaging model
+
+This one shipped a broken module and a user had to report it. `product.uom` exists and
+looks right — it has `product_id`, `uom_id`, `barcode` — but it is a link table whose only
+job is to attach a **barcode** to one product + unit pair, and `barcode` is `required`. It
+holds nothing unless somebody has been assigning barcodes; a real database here had **zero
+rows**.
+
+The packagings are `uom.uom` records listed in `product.template.uom_ids`, the field Odoo
+labels "Packagings". That field is **not** in core's `product.template._load_pos_data_fields`,
+so the POS has to be told to load it.
+
+> Reading `product.uom` filtered on `product_id` is not an error and does not raise. It
+> returns an empty list, forever.
 
 ### `display_type` means opposite things on two models
 
@@ -207,6 +222,32 @@ the same flag its own wizard re-enters with.
 
 ---
 
+## 8b2. Changing a many2one's comodel needs a **pre**-migration
+
+When a stored `Many2one` changes model, Odoo re-points the column's foreign key. Postgres
+refuses to create it while existing rows still hold ids from the old table:
+
+```
+ForeignKeyViolation: Key (packaging_id)=(10007) is not present in table "uom_uom"
+```
+
+The update aborts. A `post-migration.py` runs **after** the schema step, so it never gets
+the chance. Remap in `pre-migration.py`, and drop the old constraint first — the rows are
+invalid under it the moment they are rewritten:
+
+```python
+cr.execute("ALTER TABLE t DROP CONSTRAINT IF EXISTS t_col_fkey")
+```
+
+Anything writing to a column the update *creates* still belongs in post-migration. Both
+scripts should bail on `if not version` (fresh install) and key off a leftover legacy
+column so a re-run is a no-op.
+
+**A database with no affected rows upgrades cleanly and proves nothing.** This only shows
+up where the data exists.
+
+---
+
 ## 8c. Capturing screenshots headlessly
 
 Playwright drives Microsoft Edge on this machine (`channel='msedge'` — the bundled
@@ -226,6 +267,28 @@ Chromium is not downloaded). Four things that cost time:
 month-by-month history wrapping into a 200px column, product names truncated to
 `EPF Seasonal...`, and blank Warehouse cells that read as missing data rather than
 "all warehouses". Views that pass `get_views` can still look broken.
+
+---
+
+## 8d. Driving the POS headlessly
+
+Same Playwright/Edge recipe as the screenshots, plus two gates before the product screen:
+
+1. `pos.session` starts in `opening_control` — `session.set_opening_control(0, '')`
+2. The browser then shows a register screen — click **Open Register**
+
+Only then does `.product-list` / `article.product` appear. Assert against `.orderline`
+text: it is what the cashier actually reads.
+
+To A/B a patch, edit the asset file and clear the bundles — editing an existing asset
+needs no restart, but the cached bundle will serve the old code:
+
+```sql
+DELETE FROM ir_attachment WHERE url LIKE '/web/assets/%';
+```
+
+This is how the packaging count bug was measured rather than argued about: same test, two
+versions of one file, `3 x Bag` against a quantity of five bags.
 
 ---
 
