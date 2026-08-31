@@ -117,7 +117,7 @@ LGPL-3
 
 **Author:** Mohamed Yaseen Dahab
 
-**Contributor:** Brice Tchams - reported the Odoo 19 incompatibility, identified
+**Contributor:** Brice Michael Tchamou - reported the Odoo 19 incompatibility, identified
 that packagings are `uom.uom` records rather than `product.uom` link rows, and
 contributed the multi-packaging cart design that keeps two packaging sizes of
 the same product on separate order lines.

@@ -24,12 +24,12 @@
 
         Credits
         -------
-        Brice Tchams reported the Odoo 19 incompatibility, identified that
+        Brice Michael Tchamou reported the Odoo 19 incompatibility, identified that
         packagings live on uom.uom rather than product.uom, and contributed the
         multi-packaging cart design that keeps two packaging sizes of the same
         product on separate order lines.
     """,
-    'author': 'Mohamed Yaseen Dahab, Brice Tchams',
+    'author': 'Mohamed Yaseen Dahab, Brice Michael Tchamou',
     'maintainer': 'Mohamed Yaseen Dahab',
     'depends': ['point_of_sale', 'product'],
     'data': [
