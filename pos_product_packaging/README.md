@@ -106,13 +106,25 @@ If you want to add a single unit instead of using packaging:
 
 ## Compatibility
 
-- Odoo 17.0 Community and Enterprise
+- Odoo 19.0 Community and Enterprise
 - Requires: `point_of_sale`, `product` modules
 
 ## License
 
 LGPL-3
 
+## Credits
+
+**Author:** Mohamed Yaseen Dahab
+
+**Contributor:** Brice Tchams - reported the Odoo 19 incompatibility, identified
+that packagings are `uom.uom` records rather than `product.uom` link rows, and
+contributed the multi-packaging cart design that keeps two packaging sizes of
+the same product on separate order lines.
+
 ## Support
 
-For issues or feature requests, please contact [your-email@example.com]
+For issues or feature requests:
+
+- WhatsApp: <https://wa.me/201007802335> (+20 100 780 2335)
+- Email: mohamed.yaseen.dahab@gmail.com

@@ -21,8 +21,16 @@
 
         Tick which units the POS may offer under
         Point of Sale > Configuration > POS Packagings.
+
+        Credits
+        -------
+        Brice Tchams reported the Odoo 19 incompatibility, identified that
+        packagings live on uom.uom rather than product.uom, and contributed the
+        multi-packaging cart design that keeps two packaging sizes of the same
+        product on separate order lines.
     """,
-    'author': 'Mohamed Yaseen Dahab',
+    'author': 'Mohamed Yaseen Dahab, Brice Tchams',
+    'maintainer': 'Mohamed Yaseen Dahab',
     'depends': ['point_of_sale', 'product'],
     'data': [
         'security/ir.model.access.csv',
