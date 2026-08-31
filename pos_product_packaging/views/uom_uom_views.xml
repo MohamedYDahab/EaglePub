@@ -65,6 +65,32 @@
     </record>
 
     <!--
+        Put the flag where units are defined too, so it can be ticked at the
+        moment a packaging is created rather than only from the POS screen.
+    -->
+    <record id="uom_uom_form_view_pos" model="ir.ui.view">
+        <field name="name">uom.uom.form.pos.packaging</field>
+        <field name="model">uom.uom</field>
+        <field name="inherit_id" ref="uom.product_uom_form_view"/>
+        <field name="arch" type="xml">
+            <div name="relative_factor" position="after">
+                <field name="available_in_pos"/>
+            </div>
+        </field>
+    </record>
+
+    <record id="uom_uom_tree_view_pos" model="ir.ui.view">
+        <field name="name">uom.uom.list.pos.packaging</field>
+        <field name="model">uom.uom</field>
+        <field name="inherit_id" ref="uom.product_uom_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="relative_uom_id" position="after">
+                <field name="available_in_pos" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <!--
         Gated on Product Manager because that is the group Odoo grants write on
         uom.uom (product/security/ir.model.access.csv). Showing this menu to
         every POS user would hand them a screen that raises an access error the

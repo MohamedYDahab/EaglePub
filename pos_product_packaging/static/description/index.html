@@ -279,17 +279,18 @@
                 <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
                         style="display: inline-block; width: 28px; height: 28px; background: #6f42c1; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">2</span>
                 </td>
-                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Go to the <b>Sales</b> tab and find the
-                    <b>Units of Measure &amp; Packagings</b> section (Upsell &amp; Cross-Sell area).
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">On the product, add the packaging units under <b>Packagings</b>
+                    (the <b>uom_ids</b> field, shown when Units of Measure are enabled).
                 </td>
             </tr>
             <tr>
                 <td style="padding: 14px; border-bottom: 1px solid #E9ECEF; vertical-align: top;"><span
                         style="display: inline-block; width: 28px; height: 28px; background: #6f42c1; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; text-align: center; line-height: 28px;">3</span>
                 </td>
-                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Add packaging UoMs (e.g. "Box of 12") with the quantity defined in the UoM factor. Then go to
-                    <span style="font-weight: 600; color: #6f42c1; background: #f0ebf8; padding: 3px 10px; border-radius: 6px; font-size: 13.5px;">Inventory → Configuration → Units &amp; Packagings</span>,
-                    open each packaging UoM and check <b>Available in POS</b>.
+                <td style="padding: 14px; border-bottom: 1px solid #E9ECEF;">Define each packaging as a unit (e.g. "Box of 12", factor 12 &times; Units). Then go to
+                    <span style="font-weight: 600; color: #6f42c1; background: #f0ebf8; padding: 3px 10px; border-radius: 6px; font-size: 13.5px;">Point of Sale → Configuration → POS Packagings</span>,
+                    clear the filter to see every unit, and tick <b>Available in POS</b>.
+                    The tick is also on the unit's own form.
                 </td>
             </tr>
             <tr>
@@ -522,9 +523,12 @@
 
         <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Units &amp; Packagings
             Views</h3>
-        <p style="margin-bottom: 12px;">The <b>Available in POS</b> checkbox is added to the form and list views of
-            Units &amp; Packagings (UoM), making it easy to manage which packaging types appear in POS. In Odoo 19,
-            packaging and Units of Measure are merged into a single model.</p>
+        <p style="margin-bottom: 12px;">In Odoo 19 packagings and Units of Measure are one model, so the
+            <b>Available in POS</b> checkbox is added to the Units &amp; Packagings form and list views, and to a
+            dedicated <b>POS Packagings</b> screen under Point of Sale &rarr; Configuration.</p>
+        <p style="margin-bottom: 12px;">The flag belongs to the <b>unit</b>, not to one product: tick
+            &quot;Box of 12&quot; once and it is offered for every product sold in boxes of twelve. A product shows a
+            packaging when that unit is listed under <b>Packagings</b> on the product <i>and</i> ticked here.</p>
     </div>
 
 
@@ -538,9 +542,10 @@
 
         <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Why doesn't the packaging
             popup appear for my product?</h3>
-        <p style="margin-bottom: 12px;">The popup only appears if the product has at least one packaging with <b>Available
-            in POS</b> checked. Go to the product form → Inventory tab → Packaging section and ensure the checkbox is
-            enabled. Also restart the POS session after making changes.</p>
+        <p style="margin-bottom: 12px;">The popup needs both halves: the unit must be listed under <b>Packagings</b> on the
+            product, and it must be ticked in <b>Point of Sale → Configuration → POS Packagings</b>. A unit that is
+            ticked but not on the product will not appear, and neither will one on the product that is not ticked.
+            Restart the POS session after making changes.</p>
 
         <h3 style="font-size: 1.1rem; font-weight: 600; color: #2C3E50; margin: 22px 0 10px;">Can I add a product
             without packaging even if packaging is configured?</h3>
