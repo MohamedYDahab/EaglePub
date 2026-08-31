@@ -28,6 +28,7 @@
             'pos_product_packaging/static/src/js/packaging_popup.js',
             'pos_product_packaging/static/src/js/pos_store.js',
             'pos_product_packaging/static/src/js/orderline.js',
+            'pos_product_packaging/static/src/js/order_line.js',
             'pos_product_packaging/static/src/xml/packaging_popup.xml',
             'pos_product_packaging/static/src/xml/orderline.xml',
             'pos_product_packaging/static/src/xml/product_card.xml',
