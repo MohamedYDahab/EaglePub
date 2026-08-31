@@ -7,9 +7,9 @@ class PosOrderLine(models.Model):
     _inherit = 'pos.order.line'
 
     packaging_id = fields.Many2one(
-        'product.uom',
+        'uom.uom',
         string='Packaging',
-        help='Packaging used for this line'
+        help='The packaging unit this line was sold in'
     )
     package_qty = fields.Float(
         string='Package Qty',

@@ -1,33 +1,40 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'POS Product Packaging',
-    'version': '19.0.1.0.0',
+    'version': '19.0.1.1.0',
     'category': 'Point of Sale',
     'summary': 'Allow adding products by packaging quantity in POS',
     'description': """
         This module allows POS users to add products using packaging.
 
-        In Odoo 19, Units of Measure and Packagings are merged into one model (product.uom).
-        This module uses product.uom records to show a packaging popup in POS.
+        In Odoo 19 packagings are units of measure. A packaging is a uom.uom
+        record listed under "Packagings" on the product (product.template.uom_ids),
+        and this module lets the POS sell in those units.
 
         Features:
-        - Select product packaging (e.g., Box, Carton, Pallet)
-        - Enter package quantity instead of unit quantity
+        - Select a packaging (e.g. Box, Carton, Pallet) when adding a product
+        - Enter a package count instead of a unit quantity
         - Automatically calculates total units and price
-        - Displays package quantity on order line
+        - Shows the package count and packaging name on the order line
+        - Keeps two packagings of the same product on separate lines, and adds
+          up the package count when the same packaging is chosen again
+
+        Tick which units the POS may offer under
+        Point of Sale > Configuration > POS Packagings.
     """,
     'author': 'Mohamed Yaseen Dahab',
     'depends': ['point_of_sale', 'product'],
     'data': [
         'security/ir.model.access.csv',
         'views/pos_order_views.xml',
-        'views/product_uom_views.xml',
+        'views/uom_uom_views.xml',
     ],
     'assets': {
         'point_of_sale._assets_pos': [
             'pos_product_packaging/static/src/js/packaging_popup.js',
             'pos_product_packaging/static/src/js/pos_store.js',
             'pos_product_packaging/static/src/js/orderline.js',
+            'pos_product_packaging/static/src/js/pos_order_line.js',
             'pos_product_packaging/static/src/xml/packaging_popup.xml',
             'pos_product_packaging/static/src/xml/orderline.xml',
             'pos_product_packaging/static/src/xml/product_card.xml',

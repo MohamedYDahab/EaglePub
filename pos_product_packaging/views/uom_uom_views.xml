@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Packagings are uom.uom records. This screen exists to tick which of them
+        the POS may offer, and nothing else: the unit's name and conversion are
+        shown read-only, because redefining a unit here would silently change it
+        everywhere it is used.
+
+        The xml ids are kept from the previous version so existing menus,
+        actions and any user customisation survive the upgrade.
+    -->
+
+    <record id="uom_uom_search_view_pos" model="ir.ui.view">
+        <field name="name">uom.uom.search.pos</field>
+        <field name="model">uom.uom</field>
+        <field name="arch" type="xml">
+            <search string="Units">
+                <field name="name"/>
+                <filter name="available_in_pos" string="Available in POS"
+                        domain="[('available_in_pos', '=', True)]"/>
+                <filter name="not_available_in_pos" string="Not in POS"
+                        domain="[('available_in_pos', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="product_uom_list_view_pos" model="ir.ui.view">
+        <field name="name">uom.uom.list.pos</field>
+        <field name="model">uom.uom</field>
+        <field name="arch" type="xml">
+            <list editable="bottom" create="false" delete="false">
+                <field name="name" readonly="1"/>
+                <field name="relative_factor" readonly="1"/>
+                <field name="relative_uom_id" readonly="1"/>
+                <field name="available_in_pos" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_product_uom_pos" model="ir.actions.act_window">
+        <field name="name">POS Packagings</field>
+        <field name="res_model">uom.uom</field>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="product_uom_list_view_pos"/>
+        <field name="search_view_id" ref="uom_uom_search_view_pos"/>
+        <!--
+            Deliberately no domain on the action. It used to be
+            [('available_in_pos','=',True)], which hid every unit you might want
+            to enable - so nothing could ever be enabled from this screen. The
+            filter below is applied by default and can be cleared.
+        -->
+        <field name="context">{'search_default_available_in_pos': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No packagings enabled for POS yet</p>
+            <p>
+                Clear the <b>Available in POS</b> filter to see every unit, then tick
+                the ones the POS should offer - a 10&#160;kg bag, a case of 12, a pallet.
+            </p>
+            <p>
+                A product offers a packaging when that unit is listed under
+                <b>Packagings</b> on the product, and is ticked here.
+            </p>
+        </field>
+    </record>
+
+    <!--
+        Gated on Product Manager because that is the group Odoo grants write on
+        uom.uom (product/security/ir.model.access.csv). Showing this menu to
+        every POS user would hand them a screen that raises an access error the
+        moment they tick anything.
+    -->
+    <menuitem
+        id="menu_product_uom_pos"
+        name="POS Packagings"
+        parent="point_of_sale.pos_config_menu_catalog"
+        action="action_product_uom_pos"
+        groups="product.group_product_manager"
+        sequence="30"/>
+
+</odoo>

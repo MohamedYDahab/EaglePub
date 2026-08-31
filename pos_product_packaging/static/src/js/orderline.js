@@ -8,10 +8,8 @@ patch(Orderline.prototype, {
         const vals = super.lineScreenValues;
         const line = this.line;
         if (vals?.isReceipt && line?.packaging_id) {
-            const pkgName =
-                line.packaging_id.uom_id?.name ||
-                line.packaging_id.uom_id?.display_name ||
-                line.packaging_id.name;
+            // packaging_id is a uom.uom, which carries its own name.
+            const pkgName = line.packaging_id.name || line.packaging_id.display_name;
             if (pkgName) {
                 vals.name = `${vals.name} (${pkgName})`;
             }

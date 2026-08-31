@@ -21,22 +21,37 @@ This module allows Point of Sale users to add products using packaging (packages
 
 ### Setting Up Product Packaging
 
-1. Go to `Inventory > Products > Products`
-2. Select a product
-3. Go to the "Inventory" tab
-4. In the "Packaging" section, add packaging types:
-   - **Name**: e.g., "Box", "Carton", "Case"
-   - **Quantity**: Number of units per package (e.g., 20)
-   - **Available in POS**: Check this to make it available in POS
+In Odoo 19 a packaging **is a unit of measure**. There is no separate packaging
+model any more, so setting one up is two steps: define the unit, then say which
+products are sold in it.
+
+**1. Define the unit** - `Inventory > Configuration > Units of Measure`
+   - **Name**: e.g. "Box of 12", "25 kg Bag", "Pallet"
+   - **Relative Factor / Relative UoM**: how many of the smaller unit it holds,
+     e.g. `12` &times; `Units`
+
+**2. Allow it in the POS** - `Point of Sale > Configuration > POS Packagings`
+   - Clear the **Available in POS** filter to see every unit
+   - Tick the units the POS should offer
+
+   This flag lives on the unit itself, so ticking "Box of 12" once enables it
+   for every product sold in boxes of twelve.
+
+**3. Put it on the product** - open the product and add the unit under
+   **Packagings**. A product offers a packaging only when the unit is listed
+   there *and* ticked in step 2.
 
 ### Example Setup
 
-For a product "Widget":
-| Packaging Name | Quantity | Available in POS |
-|----------------|----------|------------------|
-| Box            | 12       | ✓                |
-| Carton         | 48       | ✓                |
-| Pallet         | 480      | ✓                |
+For a product "Widget" whose selling unit is Units:
+
+| Unit          | Relative Factor | Available in POS |
+|---------------|-----------------|------------------|
+| Box of 12     | 12 &times; Units | Yes             |
+| Carton of 48  | 48 &times; Units | Yes             |
+| Pallet        | 480 &times; Units | Yes            |
+
+Add all three under **Packagings** on the Widget, and the POS offers all three.
 
 ## Usage
 
